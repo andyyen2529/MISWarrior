@@ -1,0 +1,2563 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>中華職棒大聯盟全球資訊網 The Official Site of CPBL</title>
+      <!-- header -->
+      <link href="http://cpbl-elta.cdn.hinet.net/web/css/style.css?v=20161021" rel="stylesheet" type="text/css" /><!--CSS-->
+<link rel="shortcut icon" href="http://cpbl-elta.cdn.hinet.net/web/images/logo.ico">
+<link rel="stylesheet" type="text/css" href="http://cpbl-elta.cdn.hinet.net/lib/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="http://cpbl-elta.cdn.hinet.net/lib/fancybox/jquery.fancybox.js?v=2.1.5"></script>
+<script type="text/javascript" src="http://cpbl-elta.cdn.hinet.net/lib/sticky/jquery.sticky.js"></script> <!--20150918-->
+
+
+<!--此為DFP載入廣告程式碼-->
+<script type='text/javascript'>
+  //2017-08-30 替換廣告碼
+  // var googletag = googletag || {};
+  // googletag.cmd = googletag.cmd || [];
+  // (function() {
+  //   var gads = document.createElement('script');
+  //   gads.async = true;
+  //   gads.type = 'text/javascript';
+  //   var useSSL = 'https:' == document.location.protocol;
+  //   gads.src = (useSSL ? 'https:' : 'http:') +
+  //     '//www.googletagservices.com/tag/js/gpt.js';
+  //   var node = document.getElementsByTagName('script')[0];
+  //   node.parentNode.insertBefore(gads, node);
+  // })();
+</script>
+<script>
+   var PREBID_TIMEOUT = 1200;
+ 
+   var googletag = googletag || {};
+   googletag.cmd = googletag.cmd || [];
+ 
+   function initAdserver() {
+       if (pbjs.initAdserverSet) return;
+       //load GPT library here
+       (function() {
+           var gads = document.createElement('script');
+           gads.async = true;
+           gads.type = 'text/javascript';
+           var useSSL = 'https:' == document.location.protocol;
+           gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+           var node = document.getElementsByTagName('script')[0];
+           node.parentNode.insertBefore(gads, node);
+       })();
+       pbjs.initAdserverSet = true;
+   };
+ 
+   setTimeout(initAdserver, PREBID_TIMEOUT);
+   var pbjs = pbjs || {};
+   pbjs.que = pbjs.que || [];
+ 
+   // Load the Prebid Javascript Library Async. We recommend loading it immediately after
+   // the initAdserver() and setTimeout functions.
+   (function() {
+       var d = document,
+           pbs = d.createElement("script"),
+           pro = d.location.protocol;
+       pbs.type = "text/javascript";
+       pbs.src = '//cpbl-elta.cdn.hinet.net/lib/c1x/prebid.js';
+       var target = document.getElementsByTagName("head")[0];
+       target.insertBefore(pbs, target.firstChild);
+   })();
+ 
+   pbjs.que.push(function() {
+       var adUnits = [{
+           code: 'div-gpt-ad-1459139503845-3',
+           sizes: [[160, 600], [120, 600]],
+           bids: [{
+               bidder: 'c1x'
+           }]
+       }];
+ 
+       //add the adUnits
+       pbjs.addAdUnits(adUnits);
+       pbjs.bidderSettings = {
+           'c1x': {
+               pixelId: 1236383,
+               siteId: 16745,
+               endpoint: 'https://ht.c1exchange.com/ht',
+               adserverTargeting: [{
+                   key: "hb_bidder",
+                   val: function(bidResponse) {
+                       return bidResponse.bidderCode;
+                   }
+               }, {
+                   key: "hb_adid",
+                   val: function(bidResponse) {
+                       return bidResponse.adId;
+                   }
+               }, {
+                   key: "hb_pb",
+                   val: function(bidResponse) {
+                       return Math.floor(bidResponse.pbLg) + '.00';
+                   }
+               }]
+           }
+       };
+ 
+       pbjs.requestBids({
+           bidsBackHandler: function() {
+               initAdserver();
+           }
+       });
+   });
+</script>
+<script type='text/javascript'>
+	googletag.cmd.push(function () {
+		//googletag.defineSlot('/71024502/cpbl_index_300120_1', [300, 120], 'div-gpt-ad-1410928154883-0').addService(googletag.pubads());
+		//googletag.defineSlot('/71024502/cpbl_index_300120_2', [300, 120], 'div-gpt-ad-1410928154883-1').addService(googletag.pubads());
+		//googletag.defineSlot('/71024502/cpbl_index_300120_3', [300, 120], 'div-gpt-ad-1410928154883-2').addService(googletag.pubads());
+		//googletag.defineSlot('/71024502/cpbl_index_300250_1', [300, 250], 'div-gpt-ad-1410928154883-3').addService(googletag.pubads());
+		//googletag.defineSlot('/71024502/cpbl_index_300600_1', [300, 600], 'div-gpt-ad-1410928154883-4').addService(googletag.pubads());
+		//googletag.defineSlot('/71024502/cpbl_index_600100_1', [600, 100], 'div-gpt-ad-1410928154883-5').addService(googletag.pubads());
+		
+		googletag.defineSlot('/71024502/cpbl_index_600100_1', [600, 100], 'div-gpt-ad-1411007483897-0').addService(googletag.pubads());
+		googletag.defineSlot('/71024502/cpbl_game_box_72890_1', [728, 90], 'div-gpt-ad-1410934631955-0').addService(googletag.pubads());
+		googletag.defineSlot('/71024502/cpbl_index_72890_1', [728, 90], 'div-gpt-ad-1410928154883-6').addService(googletag.pubads());
+
+		//r1 r2 l
+		googletag.defineSlot('/71024502/cpbl_index_300250_1', [300, 250], 'div-gpt-ad-1447212876523-0').addService(googletag.pubads());
+    	googletag.defineSlot('/71024502/cpbl_index_300250_2', [300, 250], 'div-gpt-ad-1447212876523-1').addService(googletag.pubads());
+   		googletag.defineSlot('/71024502/cpbl_index_160600_1', [160, 600], 'div-gpt-ad-1447212876523-2').addService(googletag.pubads());
+		//m1 m2
+		googletag.defineSlot('/71024502/cpbl_index_190200_1', [190, 200], 'div-gpt-ad-1447399700307-0').addService(googletag.pubads());
+   		googletag.defineSlot('/71024502/cpbl_index_190200_2', [190, 200], 'div-gpt-ad-1447399700307-1').addService(googletag.pubads());
+		
+		googletag.defineSlot('/71024502/cpbl_index_97090_1', [[728, 90], [970, 90]], 'div-gpt-ad-1459139503845-0').addService(googletag.pubads());
+		googletag.defineSlot('/71024502/cpbl_index_610100_1', [610, 100], 'div-gpt-ad-1459139503845-1').addService(googletag.pubads());
+		googletag.defineSlot('/71024502/cpbl_allsite_160600_1', [[160, 600], [120, 600]], 'div-gpt-ad-1459139503845-2').addService(googletag.pubads());
+		googletag.defineSlot('/71024502/cpbl_allsite_160600_2', [[160, 600], [120, 600]], 'div-gpt-ad-1459139503845-3').addService(googletag.pubads());
+		googletag.defineSlot('/71024502/cpbl_news_content_336280_1', [[300, 250], [336, 280]], 'div-gpt-ad-1459139503845-4').addService(googletag.pubads());
+		googletag.defineSlot('/71024502/cpbl_news_content_336280_2', [[300, 250], [336, 280]], 'div-gpt-ad-1459139503845-5').addService(googletag.pubads());
+		googletag.defineSlot('/71024502/cpbl_schedule_97090_1', [[728, 90], [970, 90]], 'div-gpt-ad-1459139503845-6').addService(googletag.pubads());
+		googletag.defineSlot('/71024502/cpbl_schedule_970250_1', [[728, 90], [970, 90], [970, 250]], 'div-gpt-ad-1459139503845-7').addService(googletag.pubads());
+		pbjs.que.push(function () {
+           pbjs.setTargetingForGPTAsync();
+        });
+		googletag.pubads().enableSingleRequest();
+		googletag.pubads().collapseEmptyDivs();
+		googletag.enableServices();
+
+
+		
+		// googletag.pubads().enableSingleRequest();
+		// googletag.enableServices();
+	});
+</script>
+
+
+
+
+
+
+            <style>
+         .cont_bk{ background-image:url(http://cpbl-elta.cdn.hinet.net/upload/system_app/web_media/bg/rows_file/1469092221.2923.jpg); }
+      </style>
+            <link rel="stylesheet" media="screen" type="text/css" href="http://cpbl-elta.cdn.hinet.net/assets/css/style.css">
+      <script type="text/javascript" src="http://cpbl-elta.cdn.hinet.net/assets/js/ad-clock_fixed.js"></script>
+      <script type="text/javascript" src="http://cpbl-elta.cdn.hinet.net/lib/jquery_slider/jssor.js"></script>
+      <script type="text/javascript" src="http://cpbl-elta.cdn.hinet.net/lib/jquery_slider/jssor.slider.js"></script>
+      <script>
+         jQuery(document).ready(function($) {
+         
+         // news slider
+         var _SlideshowTransitions = [
+         //Fade
+         {
+             $Duration: 1200,
+             $Opacity: 2
+         }
+         ];
+         
+         var JssorSlideroptions = {
+         $AutoPlay: true, //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
+         $AutoPlaySteps: 1, //[Optional] Steps to go for each navigation request (this options applys only when slideshow disabled), the default value is 1
+         $AutoPlayInterval: 3000, //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
+         $PauseOnHover: 0, //[Optional] Whether to pause when mouse over if a slider is auto playing, 0 no pause, 1 pause for desktop, 2 pause for touch device, 3 pause for desktop and touch device, 4 freeze for desktop, 8 freeze for touch device, 12 freeze for desktop and touch device, default value is 1
+         
+         $ArrowKeyNavigation: true, //[Optional] Allows keyboard (arrow key) navigation or not, default value is false
+         $SlideDuration: 500, //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
+         $MinDragOffsetToSlide: 20, //[Optional] Minimum drag offset to trigger slide , default value is 20
+         $SlideWidth: 610,                                 //[Optional] Width of every slide in pixels, default value is width of 'slides' container
+         $SlideHeight: 343,                                //[Optional] Height of every slide in pixels, default value is height of 'slides' container
+         $SlideSpacing: 0, //[Optional] Space between each slide in pixels, default value is 0
+         $DisplayPieces: 1, //[Optional] Number of pieces to display (the slideshow would be disabled if the value is set to greater than 1), the default value is 1
+         $ParkingPosition: 0, //[Optional] The offset position to park slide (this options applys only when slideshow disabled), default value is 0.
+         $UISearchMode: 1, //[Optional] The way (0 parellel, 1 recursive, default value is 1) to search UI components (slides container, loading screen, navigator container, arrow navigator container, thumbnail navigator container etc).
+         $PlayOrientation: 1, //[Optional] Orientation to play slide (for auto play, navigation), 1 horizental, 2 vertical, 5 horizental reverse, 6 vertical reverse, default value is 1
+         $DragOrientation: 0, //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
+         
+         $SlideshowOptions: { //[Optional] Options to specify and enable slideshow or not
+             $Class: $JssorSlideshowRunner$, //[Required] Class to create instance of slideshow
+             $Transitions: _SlideshowTransitions, //[Required] An array of slideshow transitions to play slideshow
+             $TransitionsOrder: 1, //[Optional] The way to choose transition to play slide, 1 Sequence, 0 Random
+         
+             $ShowLink: true //[Optional] Whether to bring slide link on top of the slider when slideshow is running, default value is false
+         },
+         
+         $BulletNavigatorOptions: { //[Optional] Options to specify and enable navigator or not
+             $Class: $JssorBulletNavigator$, //[Required] Class to create navigator instance
+             $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
+             $AutoCenter: 1, //[Optional] Auto center navigator in parent container, 0 None, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+             $Steps: 1, //[Optional] Steps to go for each navigation request, default value is 1
+             $Lanes: 1, //[Optional] Specify lanes to arrange items, default value is 1
+             $SpacingX: 10, //[Optional] Horizontal space between each item in pixel, default value is 0
+             $SpacingY: 10, //[Optional] Vertical space between each item in pixel, default value is 0
+             $Orientation: 1 //[Optional] The orientation of the navigator, 1 horizontal, 2 vertical, default value is 1
+         },
+         
+         $ArrowNavigatorOptions: {
+             $Class: $JssorArrowNavigator$, //[Requried] Class to create arrow navigator instance
+             $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
+             $Steps: 1 //[Optional] Steps to go for each navigation request, default value is 1
+         }
+         };
+         
+         
+         var jssor_slider1 = new $JssorSlider$("slider_news_container", JssorSlideroptions);
+         
+         //responsive code begi
+         //you can remove responsive code if you don't want the slider scales while window resizes
+         function ScaleSlider() {
+         var parentWidth = jssor_slider1.$Elmt.parentNode.clientWidth;
+         if (parentWidth)
+             jssor_slider1.$ScaleWidth(Math.min(parentWidth, 610));
+         else
+             window.setTimeout(ScaleSlider, 30);
+         }
+         ScaleSlider();
+         
+         $(window).bind("load", ScaleSlider);
+         $(window).bind("resize", ScaleSlider);
+         $(window).bind("orientationchange", ScaleSlider);
+         
+         });
+         
+         
+         
+         function fix_slider_height( $jssor_slider, $SliderID, $type, $pos){
+         
+         try{
+         if ( $type==3 ){ $index = 1 ; }
+         else if ( $type==1 ){ $index = $jssor_slider.$CurrentIndex() - $pos ; }
+         else if ( $type==2 ){ $index = $jssor_slider.$CurrentIndex() + $pos ; }
+         else{ $index = 1; }
+         
+         var $$SliderID = $('#' + $SliderID);
+         
+         var _slider = $('div[debug-id=slide-' + $index + ']', $$SliderID );
+         var _vs_box_sides = $('.vs_box_side', _slider);
+         
+         var _h = 34 ;
+         if (_vs_box_sides.length==0){ _h = _h + 30; }
+         else {
+         $.each(_vs_box_sides, function(_k, _d){
+         _h = _h + $(_d).outerHeight();
+         });
+         }
+         
+         
+         var $gameno = $("#side_date_bar", _slider).data('gameno');
+         if($gameno == ''){$gameno = '00';}
+         
+         if (/^[0-9]{2}$/.test($gameno)){
+         $("#schedule_gametype_01").show();
+         if ($gameno=='01') $("#schedule_gametype_01").hide(); //一軍冠軍賽
+         if ($gameno=='03') $("#schedule_gametype_01").text('冠軍賽');
+         if ($gameno=='07') $("#schedule_gametype_01").text('熱身賽');
+         if ($gameno=='04') $("#schedule_gametype_01").text('例行賽');
+         if ($gameno=='06') $("#schedule_gametype_01").text('冠軍賽');
+         if ($gameno=='02') $("#schedule_gametype_01").text('明星賽');
+         if ($gameno=='05') $("#schedule_gametype_01").text('季後挑戰賽');
+         if ($gameno=='20') $("#schedule_gametype_01").text('亞冠熱身賽');
+         if ($gameno=='21') $("#schedule_gametype_01").text('亞冠賽');
+         if ($gameno=='00') $("#schedule_gametype_01").hide();
+         }
+         
+         // schedule_gametype_01
+         // schedule_gametype_04
+         
+         $("#schedule_slider").height( _h*1.1 );
+         $("#slider_schedule_01").height( _h*1.1 );
+         $("#schedule_slider_04").height( _h*1.1 );
+         delete _slider;
+         delete _vs_box_sides;
+         delete _h;
+         
+         }
+         catch(e){ console.log( e ); }
+         }
+         
+         // 一軍賽程表silder
+         jQuery(document).ready(function($) {
+         
+         
+         var _SlideshowTransitions2 = [
+         //Fade
+         {
+             $Duration: 1200,
+             $Opacity: 2
+         }
+         ];
+         
+         var options1 = {
+         $AutoPlay: false, //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
+         $AutoPlaySteps: 1, //[Optional] Steps to go for each navigation request (this options applys only when slideshow disabled), the default value is 1
+         $AutoPlayInterval: 3000, //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
+         $PauseOnHover: 1, //[Optional] Whether to pause when mouse over if a slider is auto playing, 0 no pause, 1 pause for desktop, 2 pause for touch device, 3 pause for desktop and touch device, 4 freeze for desktop, 8 freeze for touch device, 12 freeze for desktop and touch device, default value is 1
+         
+         $ArrowKeyNavigation: true, //[Optional] Allows keyboard (arrow key) navigation or not, default value is false
+         $SlideDuration: 500, //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
+         $MinDragOffsetToSlide: 20, //[Optional] Minimum drag offset to trigger slide , default value is 20
+         //$SlideWidth: 600,                                 //[Optional] Width of every slide in pixels, default value is width of 'slides' container
+         //$SlideHeight: 300,                                //[Optional] Height of every slide in pixels, default value is height of 'slides' container
+         $SlideSpacing: 0, //[Optional] Space between each slide in pixels, default value is 0
+         $DisplayPieces: 1, //[Optional] Number of pieces to display (the slideshow would be disabled if the value is set to greater than 1), the default value is 1
+         $ParkingPosition: 0, //[Optional] The offset position to park slide (this options applys only when slideshow disabled), default value is 0.
+         $UISearchMode: 1, //[Optional] The way (0 parellel, 1 recursive, default value is 1) to search UI components (slides container, loading screen, navigator container, arrow navigator container, thumbnail navigator container etc).
+         $PlayOrientation: 1, //[Optional] Orientation to play slide (for auto play, navigation), 1 horizental, 2 vertical, 5 horizental reverse, 6 vertical reverse, default value is 1
+         $DragOrientation: 0, //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
+         $Loop: 0,
+         $StartIndex: 1,<!--起始點 第一筆為0-->
+         
+         $SlideshowOptions: { //[Optional] Options to specify and enable slideshow or not
+             $Class: $JssorSlideshowRunner$, //[Required] Class to create instance of slideshow
+             $Transitions: _SlideshowTransitions2, //[Required] An array of slideshow transitions to play slideshow
+             $TransitionsOrder: 1, //[Optional] The way to choose transition to play slide, 1 Sequence, 0 Random
+         
+             $ShowLink: true //[Optional] Whether to bring slide link on top of the slider when slideshow is running, default value is false
+         },
+         
+         $BulletNavigatorOptions: { //[Optional] Options to specify and enable navigator or not
+             $Class: $JssorBulletNavigator$, //[Required] Class to create navigator instance
+             $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
+             $AutoCenter: 1, //[Optional] Auto center navigator in parent container, 0 None, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+             $Steps: 1, //[Optional] Steps to go for each navigation request, default value is 1
+             $Lanes: 1, //[Optional] Specify lanes to arrange items, default value is 1
+             $SpacingX: 10, //[Optional] Horizontal space between each item in pixel, default value is 0
+             $SpacingY: 10, //[Optional] Vertical space between each item in pixel, default value is 0
+             $Orientation: 1 //[Optional] The orientation of the navigator, 1 horizontal, 2 vertical, default value is 1
+         },
+         
+         $ArrowNavigatorOptions: {
+             $Class: $JssorArrowNavigator$, //[Requried] Class to create arrow navigator instance
+             $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
+             $Steps: 1 //[Optional] Steps to go for each navigation request, default value is 1
+         },
+         
+         
+         };
+         
+         var jssor_slider2 = new $JssorSlider$("slider_schedule_01", options1);
+         //responsive code begi
+         //you can remove responsive code if you don't want the slider scales while window resizes
+         function ScaleSlider() {
+         
+         var parentWidth = jssor_slider2.$Elmt.parentNode.clientWidth;
+         if (parentWidth)
+             jssor_slider2.$ScaleWidth(Math.min(parentWidth, 600));
+         
+         else
+             window.setTimeout(ScaleSlider, 30);
+         }
+         ScaleSlider();
+         
+         $(window).bind("load", ScaleSlider);
+         $(window).bind("resize", ScaleSlider);
+         $(window).bind("orientationchange", ScaleSlider);
+         
+         $('#arrowleft_01').click("load", ScaleSlider).on('click', function(){
+         fix_slider_height( jssor_slider2, 'slider_schedule_01', 1, 1 );
+         return false;
+         });
+         $('#arrowright_01').on('click', function(){
+         fix_slider_height( jssor_slider2, 'slider_schedule_01', 2, 1 );
+         return false;
+         });
+         
+         $(document).on('mouseup', function(e){
+         });
+         $(document).on('touchend', function(e){
+         });
+         $(document).on('touchcancel', function(e){
+         });
+         $(document).on('blur', function(e){
+         });
+         
+         $('#tab_schedule_slider_01').on('click', function(){
+         $('#schedule_slider_01').show();
+         $('#schedule_slider_04').hide();
+         
+         
+         $('#tab_schedule_slider_01').addClass('mini_tab_focus').removeClass('mini_tab');
+         $('#tab_schedule_slider_04').addClass('mini_tab').removeClass('mini_tab_focus');
+         fix_slider_height( jssor_slider2, 'slider_schedule_01', 1, 0 );
+         return false;
+         });
+         
+         fix_slider_height( jssor_slider2, 'slider_schedule_01', 3, 0 );
+         
+         
+         });
+         
+         //二軍賽程表 silder
+         jQuery(document).ready(function($) {
+         
+         var _SlideshowTransitions2 = [
+         //Fade
+         {
+             $Duration: 1200,
+             $Opacity: 2
+         }
+         ];
+         
+         var options1 = {
+         $AutoPlay: false, //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
+         $AutoPlaySteps: 1, //[Optional] Steps to go for each navigation request (this options applys only when slideshow disabled), the default value is 1
+         $AutoPlayInterval: 3000, //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
+         $PauseOnHover: 1, //[Optional] Whether to pause when mouse over if a slider is auto playing, 0 no pause, 1 pause for desktop, 2 pause for touch device, 3 pause for desktop and touch device, 4 freeze for desktop, 8 freeze for touch device, 12 freeze for desktop and touch device, default value is 1
+         
+         $ArrowKeyNavigation: true, //[Optional] Allows keyboard (arrow key) navigation or not, default value is false
+         $SlideDuration: 500, //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
+         $MinDragOffsetToSlide: 20, //[Optional] Minimum drag offset to trigger slide , default value is 20
+         //$SlideWidth: 600,                                 //[Optional] Width of every slide in pixels, default value is width of 'slides' container
+         //$SlideHeight: 300,                                //[Optional] Height of every slide in pixels, default value is height of 'slides' container
+         $SlideSpacing: 0, //[Optional] Space between each slide in pixels, default value is 0
+         $DisplayPieces: 1, //[Optional] Number of pieces to display (the slideshow would be disabled if the value is set to greater than 1), the default value is 1
+         $ParkingPosition: 0, //[Optional] The offset position to park slide (this options applys only when slideshow disabled), default value is 0.
+         $UISearchMode: 1, //[Optional] The way (0 parellel, 1 recursive, default value is 1) to search UI components (slides container, loading screen, navigator container, arrow navigator container, thumbnail navigator container etc).
+         $PlayOrientation: 1, //[Optional] Orientation to play slide (for auto play, navigation), 1 horizental, 2 vertical, 5 horizental reverse, 6 vertical reverse, default value is 1
+         $DragOrientation: 0, //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
+         $Loop: 0,
+         $StartIndex: 1,<!--起始點 第一筆為0-->
+         
+         $SlideshowOptions: { //[Optional] Options to specify and enable slideshow or not
+             $Class: $JssorSlideshowRunner$, //[Required] Class to create instance of slideshow
+             $Transitions: _SlideshowTransitions2, //[Required] An array of slideshow transitions to play slideshow
+             $TransitionsOrder: 1, //[Optional] The way to choose transition to play slide, 1 Sequence, 0 Random
+         
+             $ShowLink: true //[Optional] Whether to bring slide link on top of the slider when slideshow is running, default value is false
+         },
+         
+         $BulletNavigatorOptions: { //[Optional] Options to specify and enable navigator or not
+             $Class: $JssorBulletNavigator$, //[Required] Class to create navigator instance
+             $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
+             $AutoCenter: 1, //[Optional] Auto center navigator in parent container, 0 None, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+             $Steps: 1, //[Optional] Steps to go for each navigation request, default value is 1
+             $Lanes: 1, //[Optional] Specify lanes to arrange items, default value is 1
+             $SpacingX: 10, //[Optional] Horizontal space between each item in pixel, default value is 0
+             $SpacingY: 10, //[Optional] Vertical space between each item in pixel, default value is 0
+             $Orientation: 1 //[Optional] The orientation of the navigator, 1 horizontal, 2 vertical, default value is 1
+         },
+         
+         $ArrowNavigatorOptions: {
+             $Class: $JssorArrowNavigator$, //[Requried] Class to create arrow navigator instance
+             $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
+             $Steps: 1 //[Optional] Steps to go for each navigation request, default value is 1
+         },
+         
+         };
+         
+         var jssor_slider3 = new $JssorSlider$("slider_schedule_04", options1);
+         
+         //responsive code begi
+         //you can remove responsive code if you don't want the slider scales while window resizes
+         function ScaleSlider() {
+         var parentWidth = jssor_slider3.$Elmt.parentNode.clientWidth;
+         if (parentWidth)
+             jssor_slider3.$ScaleWidth(Math.min(parentWidth, 600));
+         else
+             window.setTimeout(ScaleSlider, 30);
+         }
+         ScaleSlider();
+         
+         $(window).bind("load", ScaleSlider);
+         $(window).bind("resize", ScaleSlider);
+         $(window).bind("orientationchange", ScaleSlider);
+         
+         $('#arrowleft_04').on('click', function(){
+         fix_slider_height( jssor_slider3, 'slider_schedule_04', 1, 1 );
+         return false;
+         });
+         $('#arrowright_04').on('click', function(){
+         fix_slider_height( jssor_slider3, 'slider_schedule_04', 2, 1 );
+         return false;
+         
+         });
+         
+         $('#tab_schedule_slider_04').on('click', function(){
+         $('#schedule_slider_04').show();
+         $('#schedule_slider_01').hide();
+         
+         $('#tab_schedule_slider_01').addClass('mini_tab').removeClass('mini_tab_focus');
+         $('#tab_schedule_slider_04').addClass('mini_tab_focus').removeClass('mini_tab');
+         
+         fix_slider_height( jssor_slider3, 'slider_schedule_04', 1, 0 );
+         return false;
+         });
+         
+         //fix_slider_height( jssor_slider3, 'slider_schedule_04', 3, 0 );
+         
+         });
+         
+         /**
+         *  無賽程 隱藏資料
+         */
+         jQuery(document).ready(function($) {
+         
+         try{
+         
+         // $('#index_schedule_title').remove();
+         //$('#schedule_slider').after('<a href="http://goo.gl/93lNic" target="_blank"><img src="/image/event/basecamp/basecamp.jpg" height="141" width="191"/></a>');
+         // $('#schedule_slider').remove();
+         // $('#weather_icon').remove();
+         }
+         catch(e){ console.log( e ); }
+         });
+         
+      </script>
+   </head>
+   <body>
+      <!-- 置頂 start-->
+      <!-- 主選單 start -->
+      <!-- 主選單 start -->
+<div class="header" id="sticker">
+	<div class="w_main">
+		<!-- logo -->
+		<div class="left logo_header"><a href="/cpbl.html"><img src="http://cpbl-elta.cdn.hinet.net/web/images/logo.png" width="74" height="34" align="absmiddle" /></a></div>
+		<!-- 主選單 start -->
+		<div class="left">
+			<ul class="menu" id="menu">
+				<li id = 'menu-newes'><a href="/news/lists.html">新聞</a></li>
+				<li id = 'menu-schedule'><a href="/schedule/index.html">賽程</a></li>
+				<li id = 'menu-boxs'><a href="/games/index.html">成績看板</a></li>
+				<li id = 'menu-stadning'><a href="/standing/season.html">球隊戰績</a></li>
+				<li id = 'menu-data'><a href="#">數據統計</a>
+				<li id = 'menu-team'><a href="#">球隊</a></li>
+				<li id = 'menu-player'><a href="#">球員</a></li>
+				<!-- <li id = 'menu-tickets'><a href="http://www.cpbl.com.tw/2019_Exhibition_Game/" target="_blank">票務</a></li> -->
+				<li id = 'menu-tickets'><a href="/ticket/">票務</a></li>
+				<!-- <li id = 'menu-tickets'><a href="javascript:void(0)" style="cursor:text;">票務</a></li> -->
+				<li id = 'menu-shopping'><a href="http://www.pcstore.com.tw/shopping_cpbl/" target="_blank">商城</a></li>
+				<li id = 'menu-cpbltv'><a href="http://www.cpbltv.com/" target="_blank">CPBLTV</a></li>
+                <li id = 'menu-museum'><a href="http://museum.cpbl.com.tw/" target="_blank">線上文物館</a><!--<span>Beta</span>--></li>
+
+			</ul>
+		</div>
+		<!-- 主選單 end -->
+		<!-- 右選項 -->
+		<div class="right">
+			
+			<div class="top_link_line"></div>
+   			<a id = 'menu-app' href="#" class="top_link">APP</a>
+			<div class="top_link_line"></div>
+			<a target="_blank" href="https://www.facebook.com/heartbaseball?fref=ts" class="top_link"><img id="btn_shaer_facebook" src="http://cpbl-elta.cdn.hinet.net/web/images/icon_fb.png" width="9" height="60" align="absmiddle" /></a>
+			<div class="top_link_line"></div>
+			<a target="_blank" href="https://plus.google.com/+CPBL/posts" class="top_link"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_g+.png" width="22" height="60" align="absmiddle" /></a>
+			<div class="top_link_line"></div>
+		</div>
+		<div class="clean"></div>
+	</div>
+	<!-- w_main -->
+</div>
+<!-- header -->
+<!-- 次選單 start -->
+<!-- 數據統計↓ -->
+<ul class="submenu" id="menu-submenu" style = "z-index:100;">
+	<li><a href="/stats/special.html">記錄特別報導</a></li>
+	<li><a href="/stats/toplist.html">各項排行成績</a></li>
+</ul>
+<!-- 球隊↓ -->
+<ul class="submenu2" id="menu-submenu2" style = "z-index:100;" >
+	<li><a href="/web/team_history.php"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_cpbl_sub.png" width="103" height="64" /><br />沿革</a></li>
+	<li><a href="/web/team_brief.php?&team=E02"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_brothers_sub.png" width="103" height="64" /><br />中信兄弟</a></li>
+	<li><a href="/web/team_brief.php?&team=L01"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_lion_sub.png" width="103" height="64" /><br />統一7-ELEVEn獅</a></li>
+	<li><a href="/web/team_brief.php?&team=A02"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_lamigo_sub.png" width="103" height="64" /><br />LAMIGO桃猿</a></li>
+	<li><a href="/web/team_brief.php?&team=B04"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_Guardians_sub.png" width="103" height="64" /><br />富邦悍將</a></li>
+</ul>
+<!-- 球員↓ -->
+<ul class="submenu3" id="menu-submenu3" style = "z-index:100;">
+	<li><a href="/players.html">球員點將錄</a></li>
+	<li><a href="/players/change.html">球員異動</a></li>
+</ul>
+
+<!-- APP↓ -->
+<ul class="submenu4" id="menu-submenu4" style="z-index:100;">
+  <li><a href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/cpbl_app_ios.png" width="117" /><br />iOS</a></li>
+  <li><a href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/cpbl_app_android.png" width="117" /><br />Andorid</a></li>
+</ul>
+
+<!-- shop↓ -->
+<ul class="submenu2" id="menu-submenu5" style="z-index:100;">
+  <li style="margin-left: 45px;"><a href="https://www.pcstore.com.tw/shopping_cpbl/" target="_blank">
+  	<div>
+  	<img src="http://cpbl-elta.cdn.hinet.net/web/images/20190322/3.png" width="180" height="" style="margin-top:25px" />
+  	</div><br />PChome商店街<br />中華職棒購物中心</a>
+  </li>
+  <li><a href="https://www.pcone.com.tw/store/1242815?t=brand#ref=d_brand" target="_blank">
+  	<div>
+  	<img src="http://cpbl-elta.cdn.hinet.net/web/images/20190322/1.png" width="200" height="100" />
+  	</div><br />松果購物<br />中華職棒聯名獨家商店</a>
+  </li>
+  <li><a href="https://shopee.tw/cpblshop" target="_blank">
+  	<div>
+  	<img src="http://cpbl-elta.cdn.hinet.net/web/images/20190322/2.png" width="200" height="100" />
+  	</div><br />蝦皮購物<br />中華職棒官方旗艦店</a>
+  </li>
+</ul>
+<style type="text/css">
+	#menu-submenu5 div{
+		background-color: #ffffff;
+	    display: inline-block;
+		min-height: 100px;
+		width:200px;
+	}
+	#menu-submenu5 li{
+		width:30%;
+	}
+</style>
+
+<!-- 次選單 end -->
+
+
+<script type="text/javascript">
+
+	var msubmenu = msubmenu2 = msubmenu3 = false ;
+	var menu_opened = false;
+	var menus = ['#menu-newes', '#menu-schedule', '#menu-boxs', '#menu-stadning',  '#menu-tickets', '#menu-shopping', '#menu-cpbltv'];
+	
+	
+	
+	$.each(menus, function(key, data){
+		
+		$(data).hover(function(){
+			$("#menu-submenu").css('display', 'none');
+			$("#menu-submenu2").css('display', 'none');
+			$("#menu-submenu3").css('display', 'none');
+			$("#menu-submenu4").css('display', 'none');
+			$("#menu-submenu5").css('display', 'none');
+		});
+	});
+
+
+	$('#menu-data').hover(function(){		
+		$("#menu-submenu").css('display', 'block');
+		$("#menu-submenu2").css('display', 'none');
+		$("#menu-submenu3").css('display', 'none');
+		$("#menu-submenu4").css('display', 'none');
+			$("#menu-submenu5").css('display', 'none');
+		},
+		 function(){
+			 $('#menu-submenu').hover(function(){
+				 $("#menu-submenu").css('display', 'block'); 
+			 }, function(){
+				 $("#menu-submenu").css('display', 'none');			 
+			 });
+		}
+	);
+	
+	$('#menu-team').hover(function(){		
+		$("#menu-submenu2").css('display', 'block');
+		$("#menu-submenu").css('display', 'none');
+		$("#menu-submenu3").css('display', 'none');
+		$("#menu-submenu4").css('display', 'none');
+		$("#menu-submenu5").css('display', 'none');
+		},
+		 function(){
+			 $('#menu-submenu2').hover(function(){
+				 $("#menu-submenu2").css('display', 'block'); 
+			 }, function(){
+				 $("#menu-submenu2").css('display', 'none');			 
+			 });
+		}
+	);
+	
+	
+	$('#menu-player').hover(function(){		
+		$("#menu-submenu3").css('display', 'block');
+		$("#menu-submenu").css('display', 'none');
+		$("#menu-submenu2").css('display', 'none');
+		$("#menu-submenu4").css('display', 'none');
+		$("#menu-submenu5").css('display', 'none');
+		},
+		 function(){
+			 $('#menu-submenu3').hover(function(){
+				 $("#menu-submenu3").css('display', 'block'); 
+			 }, function(){
+				 $("#menu-submenu3").css('display', 'none');			 
+			 });
+		}
+	);
+	
+	$('#menu-app').hover(function(){		
+		$("#menu-submenu4").css('display', 'block');
+		$("#menu-submenu").css('display', 'none');
+		$("#menu-submenu2").css('display', 'none');
+		$("#menu-submenu3").css('display', 'none');
+		$("#menu-submenu5").css('display', 'none');
+		},
+		 function(){
+			 $('#menu-submenu4').hover(function(){
+				 $("#menu-submenu4").css('display', 'block'); 
+			 }, function(){
+				 $("#menu-submenu4").css('display', 'none');			 
+			 });
+		}
+	);
+	
+	$('#menu-shopping').hover(function(){		
+		$("#menu-submenu5").css('display', 'block');
+		$("#menu-submenu").css('display', 'none');
+		$("#menu-submenu2").css('display', 'none');
+		$("#menu-submenu3").css('display', 'none');
+		$("#menu-submenu4").css('display', 'none');
+		},
+		 function(){
+			 $('#menu-submenu5').hover(function(){
+				 $("#menu-submenu5").css('display', 'block'); 
+			 }, function(){
+				 $("#menu-submenu5").css('display', 'none');			 
+			 });
+		}
+	);
+	
+	
+	$("#sticker").sticky({ topSpacing: 0, center:true, className:"hey" });
+	
+	$(document).ready(function(){
+		//$('#menu-tickets a').removeAttr('href');
+	});
+</script>
+
+<!--刪除首頁 左右兩側春聯-->
+
+
+
+      <!-- 主選單 end -->
+      <!-- 置頂 end-->
+      <!-- <div class="popup-ad">
+         <div id="watchTAG" class="watch">
+             <div class="btn-close"><a href="#"><i></i><span>CLOSE</span></a></div>
+             <div class="watch__container">
+                 <div class="watch__holder">
+                     <div class="rotatingWrapper"><img src="http://cpbl-elta.cdn.hinet.net/assets/images/img-hour.png" class="hour" style="transform: rotate(524deg);"></div>
+                     <div class="rotatingWrapper"><img src="http://cpbl-elta.cdn.hinet.net/assets/images/img-min.png" class="min" style="transform: rotate(171.9deg);"></div>
+                     <div class="rotatingWrapper"><img src="http://cpbl-elta.cdn.hinet.net/assets/images/img-sec.png" class="sec" style="transform: rotate(238.122deg);"></div>
+                 </div>
+                 <div class="watch__date"><span>19</span></div>
+             </div>
+         </div>
+         <div class="info">
+             <div class="subject__en">TAG HEUER AQUARACER</div>
+             <div class="subject__zh">防水300米紅色鋁圈腕錶</div>
+         </div>
+         </div> -->
+      <div class="cont_bk">
+         <!-- 整頁底圖在此元素內 -->
+         <div class="cont">
+            <!--600x100-->
+<!---->
+<!-- <a href="http://www.cpblallstar.com/" target="_blank"><img src="http://cpbl-elta.cdn.hinet.net/web/images/cpbl_banner_20170426.jpg" /></a> -->
+
+<!--728x90-->
+<!---->
+<!--cpbl_index_top-->
+<div align="center" style="margin: 0 auto;">
+
+<!--首頁中間-->  
+
+</div>
+            <div class="gap_t10 gap_b10 align_c"> </div>
+            <!-- 左欄 start -->
+            <div class="sec_left">
+               <!--明星賽倒數中-->
+               <!-- <div class="sec_left_cont">
+                  <img src="web/images/clock2018.jpg" height="20" width="160" id="highlight_img" />
+                  <iframe src="2017_cpbl_tag" frameborder="no" width="176" height="80"></iframe>
+                  <a href="http://www.tagheuer.com/zh-hant/?utm_medium=display&utm_campaign=cpbl_Countdown&utm_source=cpbl&utm_content=Countdown" target="_blank"><img src="http://cpbl-elta.cdn.hinet.net/web/images/clock2.png" height="20" width="160" id="highlight_img" /></a>
+                  </div> -->
+               <div class="sec_left_cont">
+                  <div class="popup-ad__block open" style="height:220px;">
+                     <a href="#">
+                        <div id="watchTAG_s" class="watch">
+                           <div class="watch__container">
+                              <div class="watch__holder">
+                                 <div class="rotatingWrapper"><img src="/assets/images/img-hour.png" class="hour" style="transform: rotate(527.5deg);"></div>
+                                 <div class="rotatingWrapper"><img src="/assets/images/img-min.png" class="min" style="transform: rotate(215.7deg);"></div>
+                                 <div class="rotatingWrapper"><img src="/assets/images/img-sec.png" class="sec" style="transform: rotate(346.14deg);"></div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="watch__text" style="line-height: 20px">
+                           TAG HEUER<br>Carrera Heuer 01
+                        </div>
+                     </a>
+                  </div>
+               </div>
+               <!-- 我們的歌區塊 start -->
+                              <!-- 我們的歌區塊 end -->
+               <div class="sec_left_cont">
+                  <h2 class="index_block_h"><span></span></h2>
+                  <!-- <div class="small_cover_box" id="">
+                     <a href="http://www.cpbl.com.tw/2017CPBLTPC/" target="_blank">
+                     <img src="http://cpbl-elta.cdn.hinet.net/web/images/20170907/2017PTC_banner.jpg" style="max-width: 160px;">
+                     </a>
+                  </div> -->
+                                     <!-- 2018訓練營 -->
+                   <!-- <div class="small_cover_box" >
+                      <a  href="http://www.cpbl.com.tw/2018CPBLBC/" target="_blank">
+                      <img width="160" src="http://cpbl-elta.cdn.hinet.net/web/images/20181012/banner.png" /></a>
+                   </div> -->
+                  <!-- MAGAZINES區塊 start -->
+                  <h2 class="index_block_h"><span>MAGAZINES</span></h2>
+                  <div class="small_cover_box" id="highlights_box_">
+                     <a href="https://professionalbaseball125439364.wordpress.com/" target="_blank">
+                     <img src="https://i.nccu.edu.tw/ImageHandler.ashx?id=ES2FkCG677HoeTKvPBzXyw%3d%3d" style="max-width: 160px;">
+                     </a>
+                  </div>
+                  <!-- MAGAZINES區塊 end -->
+                  <!-- HIGHLIGHTS區塊 start -->
+                  <h2 class="index_block_h"><span>HIGHLIGHTS</span></h2>
+                                    <div class="small_cover_box" id="highlights_box_35062">
+                     <a href="http://www.cpbltv.com/vod.php?vod_id=35062" target="_blank">
+                        <img src="http://cpbltv-elta.cdn.hinet.net/img/vod/20190804630990e1c57b.png" height="90" width="160" id="highlight_img" />
+                        <div class="title"><span>賽後，羅里奇6局失3分5次三振的優質先發拿下勝投，為自己獻上生日大禮</span></div>
+                        <div class="play_icon"><img src="http://cpbl-elta.cdn.hinet.net/web/images/btn_play.png" width="26" height="26" /></div>
+                     </a>
+                  </div>
+                                    <div class="small_cover_box" id="highlights_box_35061">
+                     <a href="http://www.cpbltv.com/vod.php?vod_id=35061" target="_blank">
+                        <img src="http://cpbltv-elta.cdn.hinet.net/img/vod/20190804003715b78e02.png" height="90" width="160" id="highlight_img" />
+                        <div class="title"><span>賽後，陳鏞基狀況火燙，單場三安猛打賞，同時也達標個人500分打點</span></div>
+                        <div class="play_icon"><img src="http://cpbl-elta.cdn.hinet.net/web/images/btn_play.png" width="26" height="26" /></div>
+                     </a>
+                  </div>
+                                    <div class="small_cover_box" id="highlights_box_35060">
+                     <a href="http://www.cpbltv.com/vod.php?vod_id=35060" target="_blank">
+                        <img src="http://cpbltv-elta.cdn.hinet.net/img/vod/201908047e165b832e07.png" height="90" width="160" id="highlight_img" />
+                        <div class="title"><span>賽後，羅里奇在生日當天用好投拿下勝利，優異的表現也獲選為單場MVP</span></div>
+                        <div class="play_icon"><img src="http://cpbl-elta.cdn.hinet.net/web/images/btn_play.png" width="26" height="26" /></div>
+                     </a>
+                  </div>
+                                    <!-- small_cover_box -->
+                  <a href="http://www.cpbltv.com/highlight.php" class="more_row">more</a>
+                  <!-- HIGHLIGHTS區塊 end -->
+                  <!-- AD 160x600 -->
+                  <!--<a href="/ad.php?id=1440058858.4378&zone=L01">
+                     <img src="http://cpbl-elta.cdn.hinet.net/upload/system_app/web_media/ad/rows_file/1440058858.4378.png" style="width:160px;" />
+                     <img style="height:0px; width:0px;" src ='/ad.html?id=1440058858.4378&zone=L01&php_5d493377d7860' />
+                     </a>-->
+                  <!--name='l'-->
+                  <!-- PHOTO區塊 start -->
+                  <h2 class="index_block_h"><span>PHOTO</span></h2>
+                                    <div class="small_cover_box">
+                     <a href="/photo/lists.html?id=1562060383.2633">
+                        <img title="" style="width:160px; height:90px;" src="http://cpbl-elta.cdn.hinet.net/upload/system_app/web_media/album/rows_file/1562060383.2633.thumb.jpg" />
+                        <div class="title"><span title="">20190630-富邦 VS 中信</span></div>
+                     </a>
+                  </div>
+                                    <div class="small_cover_box">
+                     <a href="/photo/lists.html?id=1562060307.6912">
+                        <img title="" style="width:160px; height:90px;" src="http://cpbl-elta.cdn.hinet.net/upload/system_app/web_media/album/rows_file/1562060307.6912.thumb.jpg" />
+                        <div class="title"><span title="">20190629-Lamigo VS 富邦</span></div>
+                     </a>
+                  </div>
+                                    <div class="small_cover_box">
+                     <a href="/photo/lists.html?id=1562060199.9879">
+                        <img title="" style="width:160px; height:90px;" src="http://cpbl-elta.cdn.hinet.net/upload/system_app/web_media/album/rows_file/1562060199.9879.thumb.jpg" />
+                        <div class="title"><span title="">20190628-Lamigo VS 富邦</span></div>
+                     </a>
+                  </div>
+                                    <div class="small_cover_box">
+                     <a href="/photo/lists.html?id=1562060109.4637">
+                        <img title="" style="width:160px; height:90px;" src="http://cpbl-elta.cdn.hinet.net/upload/system_app/web_media/album/rows_file/1562060109.4637.thumb.jpg" />
+                        <div class="title"><span title="">20190627-Lamigo VS 富邦</span></div>
+                     </a>
+                  </div>
+                                    <div class="small_cover_box">
+                     <a href="/photo/lists.html?id=1562060026.3316">
+                        <img title="" style="width:160px; height:90px;" src="http://cpbl-elta.cdn.hinet.net/upload/system_app/web_media/album/rows_file/1562060026.3316.thumb.jpg" />
+                        <div class="title"><span title="">20190626-Lamigo VS 統一</span></div>
+                     </a>
+                  </div>
+                                    <!-- small_cover_box -->
+                  <a href="/photo/album/" class="more_row">more</a>
+                  <!-- PHOTO區塊 end -->
+               </div>
+               <!-- sec_left_cont -->
+            </div>
+            <!-- sec_left -->
+            <!-- 左欄 end -->
+            <!-- 中間區塊 start -->
+            <div class="sec_center">
+               <!-- 輪播AD start -->
+               <div class="slider_ad">
+                  <!-- 這是主圖↓ -->
+                      <!-- Jssor Slider Begin -->
+    <!-- To move inline styles to css file/block, please specify a class name for each element. --> 
+    <div id="slider_news_container" style="position: relative; top: 0px; left: 0px; width: 610px; height: 343px; overflow: hidden; ">
+
+        <!-- Loading Screen -->
+        <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+            <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
+                background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;">
+            </div>
+            <div style="position: absolute; display: block; background: url(../img/loading.gif) no-repeat center center;
+                top: 0px; left: 0px;width: 100%;height:100%;">
+            </div>
+        </div>
+
+        <!-- Slides Container -->
+        <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 610px; height: 343px; overflow: hidden;">
+                             
+                 <div>
+                    <a href=""><img u="image" src="http://cpbl-elta.cdn.hinet.net/upload/news/19386.jpg"  height="343" width="610" /></a>
+                    <a href="#"><div class="slider_overlay"></div></a>
+
+                    <div class="slider_info">
+
+                                                
+                        <a href="news/view/19386.html?&news=19386">
+                        <div class="slider_info_box">
+                        	<div class="slider_info_title">二軍交流賽圓滿落幕 統一奪得冠軍</div>
+                            <span>為期一週的「中華職棒二軍交流盃賽」4日進行季軍戰、冠軍戰，中信兄弟以4:0擊敗富邦悍將，獲得季軍；冠軍戰則由Lamigo桃猿和統一7-ELEVEn獅交手，最終獅隊以18:9..</span>
+                        </div><!-- slider_info_box -->
+
+                        </a>
+                        <div class="clean"></div>
+						
+						<div class="slider_info_tag">
+												</div>
+
+                    </div>
+                </div>
+                
+      		        </div>
+        
+        <!--#region Bullet Navigator Skin Begin -->
+        <!-- Help: http://www.jssor.com/development/slider-with-bullet-navigator-jquery.html -->
+        <style>
+            /* jssor slider bullet navigator skin 05 css */
+            /*
+            .jssorb05 div           (normal)
+            .jssorb05 div:hover     (normal mouseover)
+            .jssorb05 .av           (active)
+            .jssorb05 .av:hover     (active mouseover)
+            .jssorb05 .dn           (mousedown)
+            */
+            .jssorb05 {
+                position: absolute;
+            }
+            .jssorb05 div, .jssorb05 div:hover, .jssorb05 .av {
+                position: absolute;
+                /* size of bullet elment */
+                width: 16px;
+                height: 16px;
+                background: url(/web/images/b05.png) no-repeat;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            .jssorb05 div { background-position: -7px -7px; }
+            .jssorb05 div:hover, .jssorb05 .av:hover { background-position: -37px -7px; }
+            .jssorb05 .av { background-position: -67px -7px; }
+            .jssorb05 .dn, .jssorb05 .dn:hover { background-position: -97px -7px; }
+        </style>
+        <!-- bullet navigator container -->
+       <!-- <div u="navigator" class="jssorb05" style="bottom: 16px; right: 6px;">
+            
+            <div u="prototype"></div>
+        </div>-->
+        <!--#endregion Bullet Navigator Skin End -->
+        
+        <!--#region Arrow Navigator Skin Begin -->
+        <!-- Help: http://www.jssor.com/development/slider-with-arrow-navigator-jquery.html -->
+        <style>
+            /* jssor slider arrow navigator skin 12 css */
+            /*
+            .jssora12l                  (normal)
+            .jssora12r                  (normal)
+            .jssora12l:hover            (normal mouseover)
+            .jssora12r:hover            (normal mouseover)
+            .jssora12l.jssora12ldn      (mousedown)
+            .jssora12r.jssora12rdn      (mousedown)
+            */
+            .jssora12l, .jssora12r {
+                display: block;
+                position: absolute;
+                /* size of arrow element */
+                width: 30px;
+                height: 46px;
+                cursor: pointer;
+                background: url(/web/images/a12.png) no-repeat;
+                overflow: hidden;
+            }
+            .jssora12l { background-position: -16px -37px; }
+            .jssora12r { background-position: -75px -37px; }
+            .jssora12l:hover { background-position: -136px -37px; }
+            .jssora12r:hover { background-position: -195px -37px; }
+            .jssora12l.jssora12ldn { background-position: -256px -37px; }
+            .jssora12r.jssora12rdn { background-position: -315px -37px; }
+        </style>
+        <!-- Arrow Left -->
+        <span u="arrowleft" class="jssora12l" style="top: 123px; left: 0px;">
+        </span>
+        <!-- Arrow Right -->
+        <span u="arrowright" class="jssora12r" style="top: 123px; right: 0px;">
+        </span>
+        <!--#endregion Arrow Navigator Skin End -->
+        <a style="display: none" href="http://www.jssor.com">Bootstrap Slider</a>
+    </div>
+    <!-- Jssor Slider End -->
+
+                  <!-- 若為影音AD則顯示以下slider_cover_box區塊點選控制iframe顯示 -->
+                  <!-- 影音AD播放iframe↓ -->
+                  <!-- <div class="slider_vdo" id ='slider_vdo' style="display:none;"><iframe id='#slider_vdo_ifram' name='slider_vdo_ifram' width="610px" height="343px" scrolling="no" border="0" src="http://www.cpbltv.com/vod/player.html?&amp;type=vod&amp;width=610&amp;height=343&amp;id=5359&amp;autoPlay=true"></iframe></div> -->
+                  <!-- 關閉影音播放↓ -->
+                  <<!-- div class="slider_vdo_close" id='slider_vdo_close' style="display:none;"><a href="#close_vdo" onclick=" $('#slider_news_container').show();  $('#slider_vdo').hide(); $('#slider_vdo_close').hide();" ><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_close.gif" width="30" height="30" /></a></div> -->
+               </div>
+               <!-- 輪播AD end -->
+
+
+               <!--<div class="gap_t10 gap_b10 align_c">
+                  <a href="https://promo.campaign.yahoo.com.tw/cpbl-allstar/2019/index.php" target="_blank"><img src="http://cpbl-elta.cdn.hinet.net/web/images/20190710/banner.jpg" /></a>
+                  </div>-->
+
+               <div class="gap_t10 gap_b10 align_c">
+                  <a href="http://www.cpbl.com.tw/CPBL30th-Exhibition-Kaohsiung" target="_blank"><img src="http://cpbl-elta.cdn.hinet.net/web/images/20190619/banner.jpg" /></a>
+                  </div>
+
+               <!-- 聯播網 AD 600x100 -->
+               <div class="gap_t10 gap_b10 align_c">
+                  <!--name='a'-->
+                  <!--600x100-->
+<!---->
+<!-- <a href="http://www.cpblallstar.com/" target="_blank"><img src="http://cpbl-elta.cdn.hinet.net/web/images/cpbl_banner_20170426.jpg" /></a> -->
+
+<!--728x90-->
+<!---->
+<!--cpbl_index_mm-->
+<div align="center" style="margin: 0 auto;">
+
+<!--首頁中間-->  
+
+</div>
+               </div>
+               <!-- 最新消息 start -->
+               <!--/*'A02' => 'Lamigo', 'B03' => '義大','E01' => '兄弟','E02' => '中信兄弟','L01' => '統一7-ELEVEn'-->
+               <!-- 5頁籤 start -->
+               <ul class="five_tab_610" id="news_headers">
+                  <li data-tags="top" class="focus"><a href="#">最新消息</a></li>
+                  <!-- <li data-tags="E02" ><a href="#" >中信兄弟</a></li>
+                  <li data-tags="A02" ><a href="#" >Lamigo桃猿</a></li>
+                  <li data-tags="L01" ><a href="#" >統一獅</a></li>
+                  <li data-tags="B04" ><a href="#" >富邦悍將</a></li> -->
+               </ul>
+               <!-- 5頁籤 end -->
+               <!-- 頁籤內容 start-->
+               <div id ='news_top' class="five_tab_cont" style="display:block;">
+                   
+
+
+
+
+
+<div id="news_tab_img_19386" data-zn_id="19386" data-tabs="news_top" class="index_news_pic" style="display:block; "><img src="http://cpbl-elta.cdn.hinet.net/upload/news/19386.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_19385" data-zn_id="19385" data-tabs="news_top" class="index_news_pic" style="display:none; "><img src="http://cpbl-elta.cdn.hinet.net/upload/news/19385.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_19384" data-zn_id="19384" data-tabs="news_top" class="index_news_pic" style="display:none; "><img src="http://cpbl-elta.cdn.hinet.net/upload/news/19384.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_19383" data-zn_id="19383" data-tabs="news_top" class="index_news_pic" style="display:none; "><img src="http://cpbl-elta.cdn.hinet.net/upload/news/19383.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_19382" data-zn_id="19382" data-tabs="news_top" class="index_news_pic" style="display:none; "><img src="http://cpbl-elta.cdn.hinet.net/upload/news/19382.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+	<ul class="index_news_list">
+			<li id="news_tab_over_19386" data-zn_id="19386" data-tabs="news_top" ><a href="/news/view/19386.html?&news=19386">二軍交流賽圓滿落幕 統一奪得冠軍</a></li>
+			<li id="news_tab_over_19385" data-zn_id="19385" data-tabs="news_top" ><a href="/news/view/19385.html?&news=19385">王正棠代打建功 富邦擊敗Lamigo重回龍頭</a></li>
+			<li id="news_tab_over_19384" data-zn_id="19384" data-tabs="news_top" ><a href="/news/view/19384.html?&news=19384">統一5分大局奠定勝基 戰勝兄弟中止四連敗</a></li>
+			<li id="news_tab_over_19383" data-zn_id="19383" data-tabs="news_top" ><a href="/news/view/19383.html?&news=19383">兄弟攜手開轟擊退統一 雙重賽首戰奪勝</a></li>
+			<li id="news_tab_over_19382" data-zn_id="19382" data-tabs="news_top" ><a href="/news/view/19382.html?&news=19382">朱育賢致勝全壘打 Lamigo奪五連勝</a></li>
+	
+	</ul>
+<div class="clean"></div>
+               </div>
+               <div id ='news_A02' class="five_tab_cont" style="display:none">
+                   
+
+
+
+
+
+<div id="news_tab_img_12666" data-zn_id="12666" data-tabs="A02" class="index_news_pic" style="display:block; "><img src="/web/images/L.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_12667" data-zn_id="12667" data-tabs="A02" class="index_news_pic" style="display:none; "><img src="/web/images/L.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_12665" data-zn_id="12665" data-tabs="A02" class="index_news_pic" style="display:none; "><img src="/web/images/L.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+	<ul class="index_news_list">
+			<li id="news_tab_over_12666" data-zn_id="12666" data-tabs="A02" ><a href="/news/view/12666.html?&news=12666">桃猿最強！Lamigo 2014封王感動錄與路開始預購</a></li>
+			<li id="news_tab_over_12667" data-zn_id="12667" data-tabs="A02" ><a href="/news/view/12667.html?&news=12667">「紅不讓趴」第2轟 球場高空彈跳JUMP爆桃園</a></li>
+			<li id="news_tab_over_12665" data-zn_id="12665" data-tabs="A02" ><a href="/news/view/12665.html?&news=12665">Lamigo推桃猿珍藏專案 林智勝出書講述棒球人生</a></li>
+	
+	</ul>
+<div class="clean"></div>
+               </div>
+               <div id ='news_B04' class="five_tab_cont" style="display:none">
+                   
+
+
+
+
+	<ul class="index_news_list">
+	
+	</ul>
+<div class="clean"></div>
+               </div>
+               <div id ='news_E02' class="five_tab_cont" style="display:none">
+                   
+
+
+
+
+
+<div id="news_tab_img_12643" data-zn_id="12643" data-tabs="E02" class="index_news_pic" style="display:block; "><img src="/web/images/B.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_12468" data-zn_id="12468" data-tabs="E02" class="index_news_pic" style="display:none; "><img src="/web/images/B.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_12469" data-zn_id="12469" data-tabs="E02" class="index_news_pic" style="display:none; "><img src="/web/images/B.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_12470" data-zn_id="12470" data-tabs="E02" class="index_news_pic" style="display:none; "><img src="/web/images/B.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_12420" data-zn_id="12420" data-tabs="E02" class="index_news_pic" style="display:none; "><img src="/web/images/B.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+	<ul class="index_news_list">
+			<li id="news_tab_over_12643" data-zn_id="12643" data-tabs="E02" ><a href="/news/view/12643.html?&news=12643">中信兄弟主場預售票 3月9日開賣</a></li>
+			<li id="news_tab_over_12468" data-zn_id="12468" data-tabs="E02" ><a href="/news/view/12468.html?&news=12468">夢想領航員朱萬花 中信兄弟主場開唱</a></li>
+			<li id="news_tab_over_12469" data-zn_id="12469" data-tabs="E02" ><a href="/news/view/12469.html?&news=12469">清新女聲王詩安 本周五新莊開唱</a></li>
+			<li id="news_tab_over_12470" data-zn_id="12470" data-tabs="E02" ><a href="/news/view/12470.html?&news=12470">雙胞胎女團BY2 周六天母為中信兄弟開球</a></li>
+			<li id="news_tab_over_12420" data-zn_id="12420" data-tabs="E02" ><a href="/news/view/12420.html?&news=12420">中信兄弟邀生命鬥士開唱 洪新智歌聲撫慰高雄</a></li>
+	
+	</ul>
+<div class="clean"></div>
+               </div>
+               <div id ='news_L01' class="five_tab_cont" style="display:none">
+                   
+
+
+
+
+
+<div id="news_tab_img_12621" data-zn_id="12621" data-tabs="L01" class="index_news_pic" style="display:block; "><img src="/web/images/U.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_11706" data-zn_id="11706" data-tabs="L01" class="index_news_pic" style="display:none; "><img src="/web/images/U.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_11707" data-zn_id="11707" data-tabs="L01" class="index_news_pic" style="display:none; "><img src="/web/images/U.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+
+<div id="news_tab_img_11420" data-zn_id="11420" data-tabs="L01" class="index_news_pic" style="display:none; "><img src="/web/images/U.jpg"  style="width:230px; max-height:130px;" onerror="$(this).remove();" /></div>
+
+	<ul class="index_news_list">
+			<li id="news_tab_over_12621" data-zn_id="12621" data-tabs="L01" ><a href="/news/view/12621.html?&news=12621">2015 Uni-Lions X Filter017 聯手打造獅隊全新球季周邊單品</a></li>
+			<li id="news_tab_over_11706" data-zn_id="11706" data-tabs="L01" ><a href="/news/view/11706.html?&news=11706">五月獅子粉紅祭 享受棒球最美麗 Uni Girls超靚粉紅票券五月主場搶先推出</a></li>
+			<li id="news_tab_over_11707" data-zn_id="11707" data-tabs="L01" ><a href="/news/view/11707.html?&news=11707">本季統一獅嘉義主場最後一場，邀請超人氣「神奇特攻隊」開場表演</a></li>
+			<li id="news_tab_over_11420" data-zn_id="11420" data-tabs="L01" ><a href="/news/view/11420.html?&news=11420">3/22中職開幕戰統一獅新莊棒球場 棒球嘉年華邀請您一起來同樂</a></li>
+	
+	</ul>
+<div class="clean"></div>
+               </div>
+               <!-- 頁籤內容 end-->
+               <!-- 最新消息 end -->
+               <!-- 兩個 300x250 AD start -->
+               <!-- 
+               <div class="gap_t10 gap_b10 align_c">
+                  <a href="http://www.cpbl.com.tw/CPBL30th-Exhibition/" target="_blank"><img src="http://cpbl-elta.cdn.hinet.net/web/images/20181225/banner.jpg" style="width:100%;" /></a>
+                  </div> -->
+                  
+               <div>
+                  <div class="gap_t10 left">
+                     <!--600x100-->
+<!---->
+<!-- <a href="http://www.cpblallstar.com/" target="_blank"><img src="http://cpbl-elta.cdn.hinet.net/web/images/cpbl_banner_20170426.jpg" /></a> -->
+
+<!--728x90-->
+<!---->
+<!--m1-->
+<div align="center" style="margin: 0 auto;">
+
+<!--首頁中間-->  
+
+</div>
+                  </div>
+                  <div class="gap_t10 right">
+                     <!--600x100-->
+<!---->
+<!-- <a href="http://www.cpblallstar.com/" target="_blank"><img src="http://cpbl-elta.cdn.hinet.net/web/images/cpbl_banner_20170426.jpg" /></a> -->
+
+<!--728x90-->
+<!---->
+<!--m2-->
+<div align="center" style="margin: 0 auto;">
+
+<!--首頁中間-->  
+
+</div>
+                  </div>
+                  <div class="clean"></div>
+               </div>
+               <!-- 兩個 300x250 AD end -->
+               <!-- 兩個 TOP5 start -->
+               <div>
+                  <!-- 投手TOP5 start -->
+                  <div class="top5_box gap_r10">
+                     <h2 class="index_block_h">投手<span>TOP5</span></h2>
+                     <!-- 5頁籤 start -->
+                     <ul class="five_tab_300" id="pitcher_headers">
+                        <li data-tags="ERA" class="focus">  <a href="#" >ERA</a></li>
+                        <li data-tags="W" >     <a href="#" >W</a></li>
+                        <li data-tags="SV" >    <a href="#" >SV</a></li>
+                        <li data-tags="HLD" >   <a href="#" >H</a></li>
+                        <li data-tags="SO" >    <a href="#" >SO</a></li>
+                     </ul>
+                     <!-- 5頁籤 end -->
+                     <!-- 頁籤內容 start-->
+                     <div id="pitcher_ERA" >
+                        <div class="five_tab_cont" >
+                           <!-- 頁籤內容 start-->
+<!-- <div id ="" class="five_tab_cont">-->
+  <div class="index_top5_pic">
+        <img src="http://cpbl-elta.cdn.hinet.net/upload/head/004770.jpg" style="width: 80px;" onerror="this.src='http://cpbl-elta.cdn.hinet.net/phone/images/playerhead.png'" />
+      </div>
+  <!--<div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head60x60/004770.jpg" /></div>-->
+  <table border="0" cellspacing="0" cellpadding="0" class="index_top5_list">
+              <tr>
+      <th width="10"><span>1</span></th>
+      <td><a href="/players/person.html?player_id=004770&teamno=B04">索沙&nbsp;(富邦)</a></td>
+
+            <td width="20" class="data">1.56</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>2</span></th>
+      <td><a href="/players/person.html?player_id=A0C0&teamno=B04">羅力&nbsp;(富邦)</a></td>
+
+            <td width="20" class="data">2.96</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>3</span></th>
+      <td><a href="/players/person.html?player_id=004569&teamno=E02">萊福力&nbsp;(中信兄弟)</a></td>
+
+            <td width="20" class="data">3.13</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>4</span></th>
+      <td><a href="/players/person.html?player_id=L0P1&teamno=A02">尼克斯&nbsp;(Lamigo)</a></td>
+
+            <td width="20" class="data">3.61</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>5</span></th>
+      <td><a href="/players/person.html?player_id=004821&teamno=A02">李茲&nbsp;(Lamigo)</a></td>
+
+            <td width="20" class="data">3.91</td>
+      
+
+    </tr>
+            </table>
+  <div class="clean"></div>
+  <!--</div>-->
+  <!-- 頁籤內容 end-->
+
+
+                        </div>
+                        <a href="/stats/all.html?&year=2019&stat=ppit&sort=ERA&order=desc" class="more_row">more</a>
+                     </div>
+                     <div id="pitcher_W" style="display:none">
+                        <div class="five_tab_cont" >
+                           <!-- 頁籤內容 start-->
+<!-- <div id ="" class="five_tab_cont">-->
+  <div class="index_top5_pic">
+        <img src="http://cpbl-elta.cdn.hinet.net/upload/head/L0P1.jpg" style="width: 80px;" onerror="this.src='http://cpbl-elta.cdn.hinet.net/phone/images/playerhead.png'" />
+      </div>
+  <!--<div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head60x60/L0P1.jpg" /></div>-->
+  <table border="0" cellspacing="0" cellpadding="0" class="index_top5_list">
+              <tr>
+      <th width="10"><span>1</span></th>
+      <td><a href="/players/person.html?player_id=L0P1&teamno=A02">尼克斯&nbsp;(Lamigo)</a></td>
+
+            <td width="20" class="data">10</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>2</span></th>
+      <td><a href="/players/person.html?player_id=004821&teamno=A02">李茲&nbsp;(Lamigo)</a></td>
+
+            <td width="20" class="data">9</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>3</span></th>
+      <td><a href="/players/person.html?player_id=R527&teamno=A02">王溢正&nbsp;(Lamigo)</a></td>
+
+            <td width="20" class="data">9</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>4</span></th>
+      <td><a href="/players/person.html?player_id=004770&teamno=B04">索沙&nbsp;(富邦)</a></td>
+
+            <td width="20" class="data">8</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>5</span></th>
+      <td><a href="/players/person.html?player_id=A0C0&teamno=B04">羅力&nbsp;(富邦)</a></td>
+
+            <td width="20" class="data">8</td>
+      
+
+    </tr>
+            </table>
+  <div class="clean"></div>
+  <!--</div>-->
+  <!-- 頁籤內容 end-->
+
+
+                        </div>
+                        <a href="/stats/all.html?&year=2019&stat=ppit&sort=WIN&order=desc" class="more_row">more</a>
+                     </div>
+                     <div id="pitcher_SV" style="display:none">
+                        <div class="five_tab_cont" >
+                           <!-- 頁籤內容 start-->
+<!-- <div id ="" class="five_tab_cont">-->
+  <div class="index_top5_pic">
+        <img src="http://cpbl-elta.cdn.hinet.net/upload/head/L0M7.jpg" style="width: 80px;" onerror="this.src='http://cpbl-elta.cdn.hinet.net/phone/images/playerhead.png'" />
+      </div>
+  <!--<div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head60x60/L0M7.jpg" /></div>-->
+  <table border="0" cellspacing="0" cellpadding="0" class="index_top5_list">
+              <tr>
+      <th width="10"><span>1</span></th>
+      <td><a href="/players/person.html?player_id=L0M7&teamno=L01">陳韻文&nbsp;(統一獅)</a></td>
+
+            <td width="20" class="data">15</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>2</span></th>
+      <td><a href="/players/person.html?player_id=R669&teamno=B04">陳鴻文&nbsp;(富邦)</a></td>
+
+            <td width="20" class="data">13</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>3</span></th>
+      <td><a href="/players/person.html?player_id=R568&teamno=E02">謝榮豪&nbsp;(中信兄弟)</a></td>
+
+            <td width="20" class="data">8</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>4</span></th>
+      <td><a href="/players/person.html?player_id=A0D4&teamno=A02">陳禹勳&nbsp;(Lamigo)</a></td>
+
+            <td width="20" class="data">6</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>5</span></th>
+      <td><a href="/players/person.html?player_id=R081&teamno=B04">倪福德&nbsp;(富邦)</a></td>
+
+            <td width="20" class="data">3</td>
+      
+
+    </tr>
+            </table>
+  <div class="clean"></div>
+  <!--</div>-->
+  <!-- 頁籤內容 end-->
+
+
+                        </div>
+                        <a href="/stats/all.html?&year=2019&stat=ppit&sort=SV&order=desc" class="more_row">more</a>
+                     </div>
+                     <div id="pitcher_HLD" style="display:none">
+                        <div  class="five_tab_cont" >
+                           <!-- 頁籤內容 start-->
+<!-- <div id ="" class="five_tab_cont">-->
+  <div class="index_top5_pic">
+        <img src="http://cpbl-elta.cdn.hinet.net/upload/head/k428.jpg" style="width: 80px;" onerror="this.src='http://cpbl-elta.cdn.hinet.net/phone/images/playerhead.png'" />
+      </div>
+  <!--<div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head60x60/k428.jpg" /></div>-->
+  <table border="0" cellspacing="0" cellpadding="0" class="index_top5_list">
+              <tr>
+      <th width="10"><span>1</span></th>
+      <td><a href="/players/person.html?player_id=k428&teamno=A02">黃子鵬&nbsp;(Lamigo)</a></td>
+
+            <td width="20" class="data">17</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>2</span></th>
+      <td><a href="/players/person.html?player_id=R670&teamno=B04">林羿豪&nbsp;(富邦)</a></td>
+
+            <td width="20" class="data">15</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>3</span></th>
+      <td><a href="/players/person.html?player_id=H468&teamno=E02">鄭佳彥&nbsp;(中信兄弟)</a></td>
+
+            <td width="20" class="data">14</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>4</span></th>
+      <td><a href="/players/person.html?player_id=004637&teamno=L01">劉軒荅&nbsp;(統一獅)</a></td>
+
+            <td width="20" class="data">11</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>5</span></th>
+      <td><a href="/players/person.html?player_id=H108&teamno=L01">邱浩鈞&nbsp;(統一獅)</a></td>
+
+            <td width="20" class="data">10</td>
+      
+
+    </tr>
+            </table>
+  <div class="clean"></div>
+  <!--</div>-->
+  <!-- 頁籤內容 end-->
+
+
+                        </div>
+                        <a href="/stats/all.html?&year=2019&stat=ppit&sort=HLD&order=desc" class="more_row">more</a>
+                     </div>
+                     <div id="pitcher_SO" style="display:none">
+                        <div class="five_tab_cont" >
+                           <!-- 頁籤內容 start-->
+<!-- <div id ="" class="five_tab_cont">-->
+  <div class="index_top5_pic">
+        <img src="http://cpbl-elta.cdn.hinet.net/upload/head/004821.jpg" style="width: 80px;" onerror="this.src='http://cpbl-elta.cdn.hinet.net/phone/images/playerhead.png'" />
+      </div>
+  <!--<div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head60x60/004821.jpg" /></div>-->
+  <table border="0" cellspacing="0" cellpadding="0" class="index_top5_list">
+              <tr>
+      <th width="10"><span>1</span></th>
+      <td><a href="/players/person.html?player_id=004821&teamno=A02">李茲&nbsp;(Lamigo)</a></td>
+
+            <td width="20" class="data">110</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>2</span></th>
+      <td><a href="/players/person.html?player_id=A0C0&teamno=B04">羅力&nbsp;(富邦)</a></td>
+
+            <td width="20" class="data">103</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>3</span></th>
+      <td><a href="/players/person.html?player_id=L0P1&teamno=A02">尼克斯&nbsp;(Lamigo)</a></td>
+
+            <td width="20" class="data">96</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>4</span></th>
+      <td><a href="/players/person.html?player_id=004569&teamno=E02">萊福力&nbsp;(中信兄弟)</a></td>
+
+            <td width="20" class="data">94</td>
+      
+
+    </tr>
+                    <tr>
+      <th width="10"><span>5</span></th>
+      <td><a href="/players/person.html?player_id=004770&teamno=B04">索沙&nbsp;(富邦)</a></td>
+
+            <td width="20" class="data">85</td>
+      
+
+    </tr>
+            </table>
+  <div class="clean"></div>
+  <!--</div>-->
+  <!-- 頁籤內容 end-->
+
+
+                        </div>
+                        <a href="/stats/all.html?&year=2019&stat=ppit&sort=SO&order=desc" class="more_row">more</a>
+                     </div>
+                     <!-- 頁籤內容 end-->
+                  </div>
+                  <!-- 投手TOP5 end -->
+                  <!-- 打擊TOP5 start -->
+                  <div class="top5_box">
+                     <h2 class="index_block_h">打擊<span>TOP5</span></h2>
+                     <!-- 5頁籤 start -->
+                     <ul class="five_tab_300" id="pbat_headers">
+                        <li data-tags="AVG" class="focus"><a href="#" >AVG</a></li>
+                        <li data-tags="HIT"><a href="#" >H</a></li>
+                        <li data-tags="HR"><a href="#" >HR</a></li>
+                        <li data-tags="RBI"><a href="#" >RBI</a></li>
+                        <li data-tags="SB"><a href="#" >SB</a></li>
+                     </ul>
+                     <!-- 5頁籤 end -->
+                     <!-- 頁籤內容 start-->
+                     <div id ="pbat_AVG">
+                        <div class="five_tab_cont" >
+                           <!-- s頁籤內容 start-->  
+  <!--<div id = "avg" class="five_tab_cont">-->
+    <div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head/k441.jpg" style="width: 80px;" onerror="this.src='http://cpbl-elta.cdn.hinet.net/phone/images/playerhead.png'" /></div>
+    <!--<div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head60x60/k441.jpg" /></div>-->
+    <table border="0" cellspacing="0" cellpadding="0" class="index_top5_list">
+            <tr>
+        <th width="10"><span>1</span></th>
+        <td><a href="/players/person.html?player_id=k441&teamno=A02">林立&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">0.407</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>2</span></th>
+        <td><a href="/players/person.html?player_id=H435&teamno=A02">朱育賢&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">0.381</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>3</span></th>
+        <td><a href="/players/person.html?player_id=R672&teamno=A02">陳俊秀&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">0.356</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>4</span></th>
+        <td><a href="/players/person.html?player_id=R529&teamno=A02">林泓育&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">0.353</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>5</span></th>
+        <td><a href="/players/person.html?player_id=R595&teamno=A02">藍寅倫&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">0.334</td>
+		        
+      </tr>
+           </table>
+    <div class="clean"></div>
+  <!--</div>-->
+<!-- 頁籤內容 end-->
+
+                        </div>
+                        <a href="/stats/all.html?&year=2019&stat=pbat&sort=AVG&order=desc" class="more_row">more</a>
+                     </div>
+                     <div id ="pbat_HIT" style="display:none">
+                        <div  class="five_tab_cont" >
+                           <!-- s頁籤內容 start-->  
+  <!--<div id = "avg" class="five_tab_cont">-->
+    <div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head/H435.jpg" style="width: 80px;" onerror="this.src='http://cpbl-elta.cdn.hinet.net/phone/images/playerhead.png'" /></div>
+    <!--<div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head60x60/H435.jpg" /></div>-->
+    <table border="0" cellspacing="0" cellpadding="0" class="index_top5_list">
+            <tr>
+        <th width="10"><span>1</span></th>
+        <td><a href="/players/person.html?player_id=H435&teamno=A02">朱育賢&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">119</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>2</span></th>
+        <td><a href="/players/person.html?player_id=R529&teamno=A02">林泓育&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">104</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>3</span></th>
+        <td><a href="/players/person.html?player_id=R595&teamno=A02">藍寅倫&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">102</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>4</span></th>
+        <td><a href="/players/person.html?player_id=k441&teamno=A02">林立&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">94</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>5</span></th>
+        <td><a href="/players/person.html?player_id=R405&teamno=A02">郭嚴文&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">93</td>
+		        
+      </tr>
+           </table>
+    <div class="clean"></div>
+  <!--</div>-->
+<!-- 頁籤內容 end-->
+
+                        </div>
+                        <a href="/stats/all.html?&year=2019&stat=pbat&sort=HIT&order=desc" class="more_row">more</a>
+                     </div>
+                     <div id ="pbat_HR" style="display:none">
+                        <div  class="five_tab_cont" >
+                           <!-- s頁籤內容 start-->  
+  <!--<div id = "avg" class="five_tab_cont">-->
+    <div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head/H435.jpg" style="width: 80px;" onerror="this.src='http://cpbl-elta.cdn.hinet.net/phone/images/playerhead.png'" /></div>
+    <!--<div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head60x60/H435.jpg" /></div>-->
+    <table border="0" cellspacing="0" cellpadding="0" class="index_top5_list">
+            <tr>
+        <th width="10"><span>1</span></th>
+        <td><a href="/players/person.html?player_id=H435&teamno=A02">朱育賢&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">24</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>2</span></th>
+        <td><a href="/players/person.html?player_id=R244&teamno=E02">張志豪&nbsp;(中信兄弟)</a></td>
+				<td width="20" class="data">19</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>3</span></th>
+        <td><a href="/players/person.html?player_id=R205&teamno=B04">林益全&nbsp;(富邦)</a></td>
+				<td width="20" class="data">19</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>4</span></th>
+        <td><a href="/players/person.html?player_id=k453&teamno=E02">詹子賢&nbsp;(中信兄弟)</a></td>
+				<td width="20" class="data">18</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>5</span></th>
+        <td><a href="/players/person.html?player_id=R529&teamno=A02">林泓育&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">18</td>
+		        
+      </tr>
+           </table>
+    <div class="clean"></div>
+  <!--</div>-->
+<!-- 頁籤內容 end-->
+
+                        </div>
+                        <a href="/stats/all.html?&year=2019&stat=pbat&sort=HR&order=desc" class="more_row">more</a>
+                     </div>
+                     <div id ="pbat_RBI" style="display:none">
+                        <div  class="five_tab_cont" >
+                           <!-- s頁籤內容 start-->  
+  <!--<div id = "avg" class="five_tab_cont">-->
+    <div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head/H435.jpg" style="width: 80px;" onerror="this.src='http://cpbl-elta.cdn.hinet.net/phone/images/playerhead.png'" /></div>
+    <!--<div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head60x60/H435.jpg" /></div>-->
+    <table border="0" cellspacing="0" cellpadding="0" class="index_top5_list">
+            <tr>
+        <th width="10"><span>1</span></th>
+        <td><a href="/players/person.html?player_id=H435&teamno=A02">朱育賢&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">80</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>2</span></th>
+        <td><a href="/players/person.html?player_id=R205&teamno=B04">林益全&nbsp;(富邦)</a></td>
+				<td width="20" class="data">68</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>3</span></th>
+        <td><a href="/players/person.html?player_id=R405&teamno=A02">郭嚴文&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">61</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>4</span></th>
+        <td><a href="/players/person.html?player_id=R529&teamno=A02">林泓育&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">61</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>5</span></th>
+        <td><a href="/players/person.html?player_id=E0J8&teamno=E02">陳子豪&nbsp;(中信兄弟)</a></td>
+				<td width="20" class="data">54</td>
+		        
+      </tr>
+           </table>
+    <div class="clean"></div>
+  <!--</div>-->
+<!-- 頁籤內容 end-->
+
+                        </div>
+                        <a href="/stats/all.html?&year=2019&stat=pbat&sort=RBI&order=desc" class="more_row">more</a>
+                     </div>
+                     <div id ="pbat_SB" style="display:none">
+                        <div  class="five_tab_cont" >
+                           <!-- s頁籤內容 start-->  
+  <!--<div id = "avg" class="five_tab_cont">-->
+    <div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head/H038.jpg" style="width: 80px;" onerror="this.src='http://cpbl-elta.cdn.hinet.net/phone/images/playerhead.png'" /></div>
+    <!--<div class="index_top5_pic"><img src="http://cpbl-elta.cdn.hinet.net/upload/head60x60/H038.jpg" /></div>-->
+    <table border="0" cellspacing="0" cellpadding="0" class="index_top5_list">
+            <tr>
+        <th width="10"><span>1</span></th>
+        <td><a href="/players/person.html?player_id=H038&teamno=E02">王威晨&nbsp;(中信兄弟)</a></td>
+				<td width="20" class="data">22</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>2</span></th>
+        <td><a href="/players/person.html?player_id=004633&teamno=A02">陳晨威&nbsp;(Lamigo)</a></td>
+				<td width="20" class="data">16</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>3</span></th>
+        <td><a href="/players/person.html?player_id=H594&teamno=L01">蘇智傑&nbsp;(統一獅)</a></td>
+				<td width="20" class="data">12</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>4</span></th>
+        <td><a href="/players/person.html?player_id=R401&teamno=B04">林哲瑄&nbsp;(富邦)</a></td>
+				<td width="20" class="data">10</td>
+		        
+      </tr>
+             <tr>
+        <th width="10"><span>5</span></th>
+        <td><a href="/players/person.html?player_id=H593&teamno=B04">李宗賢&nbsp;(富邦)</a></td>
+				<td width="20" class="data">10</td>
+		        
+      </tr>
+           </table>
+    <div class="clean"></div>
+  <!--</div>-->
+<!-- 頁籤內容 end-->
+
+                        </div>
+                        <a href="/stats/all.html?&year=2019&stat=pbat&sort=SB&order=desc" class="more_row">more</a>
+                     </div>
+                     <!-- 頁籤內容 end-->
+                  </div>
+                  <!-- 打擊TOP5 end -->
+                  <div class="clean"></div>
+               </div>
+               <!-- 兩個 TOP5 end -->
+               <!-- 職棒商品 start -->
+               <style type="text/css">.goods_name{height:50px;}</style>
+               <h2 class="index_block_h">職棒商品</h2>
+               <div class="goods_list">
+                                    <div class="goods_box">
+                     <a href="http://www.pcstore.com.tw/shopping_cpbl/M54182272.htm" target="_blank"><img src="http://img.pcstore.com.tw/~prod/M54182272_sma.jpg?pimg=static&P=1565078391" /></a>
+                     <div class="goods_name">CPBL 30方型設計TEE / 白</div>
+                     <div class="goods_price">NT.800</div>
+                     <a href="http://www.pcstore.com.tw/shopping_cpbl/M54182272.htm" class="goods_buy" target="_blank">選購</a>
+                  </div>
+                                    <div class="goods_box">
+                     <a href="http://www.pcstore.com.tw/shopping_cpbl/M54182374.htm" target="_blank"><img src="http://img.pcstore.com.tw/~prod/M54182374_sma.jpg?pimg=static&P=1565078391" /></a>
+                     <div class="goods_name">CPBL 30台北球場限定TEE / 黑</div>
+                     <div class="goods_price">NT.800</div>
+                     <a href="http://www.pcstore.com.tw/shopping_cpbl/M54182374.htm" class="goods_buy" target="_blank">選購</a>
+                  </div>
+                                    <div class="goods_box">
+                     <a href="http://www.pcstore.com.tw/shopping_cpbl/M54182464.htm" target="_blank"><img src="http://img.pcstore.com.tw/~prod/M54182464_sma.jpg?pimg=static&P=1565078391" /></a>
+                     <div class="goods_name">CPBL 1990時光TEE / 白</div>
+                     <div class="goods_price">NT.800</div>
+                     <a href="http://www.pcstore.com.tw/shopping_cpbl/M54182464.htm" class="goods_buy" target="_blank">選購</a>
+                  </div>
+                                    <div class="goods_box">
+                     <a href="http://www.pcstore.com.tw/shopping_cpbl/M54182524.htm" target="_blank"><img src="http://img.pcstore.com.tw/~prod/M54182524_sma.jpg?pimg=static&P=1565078391" /></a>
+                     <div class="goods_name">CPBL 30棒球帽 / 藍</div>
+                     <div class="goods_price">NT.800</div>
+                     <a href="http://www.pcstore.com.tw/shopping_cpbl/M54182524.htm" class="goods_buy" target="_blank">選購</a>
+                  </div>
+                                    <div class="clean"></div>
+               </div>
+               <!-- 職棒商品 end -->
+               <!-- 好事989電台 -->
+               <!-- <div class="gap_t10">
+                  <a href="http://www.bestradio.com.tw/" target="_blank"><img src="http://cpbl-elta.cdn.hinet.net/web/images/bestradio.png" style="width:610px;" /></a>
+                  </div> -->
+               <!-- 好事989電台 end -->
+               <!--花蓮-->
+                           </div>
+            <!-- sec_center -->
+            <!-- 中間區塊 end -->
+            <!-- 右欄 start -->
+            <div class="sec_right">
+               <div class="sec_right_cont">
+                  <!-- 側欄賽程區塊 start -->
+
+                  <h2 id="index_schedule_title" class="index_block_h">
+                     <span>&nbsp;</span>
+                     <div id="schedule_gametype_01" class="mini_game_type"></div>
+                     <div class="mini_txt_tab">
+                        <a id="tab_schedule_slider_01" href="#" class="mini_tab_focus">一軍</a> |
+                        <a id="tab_schedule_slider_04" href="#" class="mini_tab">二軍</a>
+                     </div>
+                  </h2>
+                  <div id="schedule_slider">
+                     <div id='schedule_slider_01'>
+                            <!-- Jssor Slider Begin -->
+    <!-- To move inline styles to css file/block, please specify a class name for each element. -->
+  <div id="slider_schedule_01" style="position: relative; z-index:0;  top: 0px; left: 0px; width: 190px; height: 1000px;  ">
+        <!--#endregion Bullet Navigator Skin End -->
+
+        <!--#region Arrow Navigator Skin Begin -->
+        <!-- Help: http://www.jssor.com/development/slider-with-arrow-navigator-jquery.html -->
+        <style>
+            /* jssor slider arrow navigator skin 12 css */
+            /*
+            .jssora12l                  (normal)
+            .jssora12r                  (normal)
+            .jssora12l:hover            (normal mouseover)
+            .jssora12r:hover            (normal mouseover)
+            .jssora12l.jssora12ldn      (mousedown)
+            .jssora12r.jssora12rdn      (mousedown)
+            */
+            .jssora12ll, .jssora12rr {
+                display: block;
+                position: absolute;
+                /* size of arrow element */
+                width: 30px;
+                height: 46px;
+                cursor: pointer;
+                /*background: url(/web/images/a12.png) no-repeat;*/
+                overflow: hidden;
+            }
+            .jssora12ll { background-position: -16px -37px; }
+            .jssora12rr { background-position: -75px -37px; }
+            .jssora12ll:hover { background-position: -136px -37px; }
+            .jssora12rr:hover { background-position: -195px -37px; }
+            .jssora12ll.jssora12ldn { background-position: -256px -37px; }
+            .jssora12rr.jssora12rdn { background-position: -315px -37px; }
+        </style>
+        <!-- Loading Screen -->
+        <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+            <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
+                background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;">
+            </div>
+            <div style="position: absolute; display: block; background: url(../img/loading.gif) no-repeat center center;
+                top: 0px; left: 0px;width: 100%;height:100%;">
+            </div>
+        </div>
+
+        <!-- Slides Container -->
+        <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 190px; height: 1000px; overflow: hidden;">
+            
+            <div>
+                <div class="side_date_bar" id="side_date_bar" data-gameno="">
+                  2019.08.05  Mon
+                  <!--<div class="side_date_bar_arr left"><a id = 'prev' onclick=" flage--; if(flage == -2){$('#prev').hide(); }$('#next').show();  return false;" href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_left.png" width="30" height="34" /></a></div>
+                  <div class="side_date_bar_arr right"><a id = 'next' onclick=" flage++; if(flage == 2){$('#next').hide(); }$('#prev').show();  return false;" href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_right.png" width="30" height="34" /></a></div>-->
+                  <div class="side_date_bar_arr left">
+                  </div>
+                  <div class="side_date_bar_arr right">
+               	  </div>
+                </div><!-- side_date_bar -->
+
+
+                                    		
+         <div class="vs_box_side">
+		<a href="../result/lottery.html">
+		<img src="/web/images/logo_1680.gif" align="left" border="0" height="48" width="64">
+		<span style="color:red; font-size: 12px;"> 實際派彩結果，以台灣運彩官網公布之內容為準。</span>
+		</a>
+		</div>
+
+             
+             </div>
+            
+            <div>
+                <div class="side_date_bar" id="side_date_bar" data-gameno="">
+                  2019.08.06  Tue
+                  <!--<div class="side_date_bar_arr left"><a id = 'prev' onclick=" flage--; if(flage == -2){$('#prev').hide(); }$('#next').show();  return false;" href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_left.png" width="30" height="34" /></a></div>
+                  <div class="side_date_bar_arr right"><a id = 'next' onclick=" flage++; if(flage == 2){$('#next').hide(); }$('#prev').show();  return false;" href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_right.png" width="30" height="34" /></a></div>-->
+                  <div class="side_date_bar_arr left">
+                  </div>
+                  <div class="side_date_bar_arr right">
+               	  </div>
+                </div><!-- side_date_bar -->
+
+
+                                    
+                    <div class="vs_box_side" >
+                    	<div class="vs_box_border">
+                      <div class="vs_team_side"><img src="http://cpbl-elta.cdn.hinet.net/pad/images/team/A02_logo_01.png" width="45" height="45" /></div>
+                      <div class="vs_info_side">
+
+                                                <a href="/games/starters.html?&game_type=01&game_id=161&game_date=2019-08-06&pbyear=2019" class="tiny_tag tt_starters">STARTERS</a>
+                        <div class="vs_score_side">&nbsp;vs&nbsp;
+                        <div class="vs_field_side">洲際</div>
+                        <div class="vs_field_side">18:35</div>
+                        <!--:-->
+                        </div>
+                        
+                        
+
+                      </div><!-- vs_info_side -->
+                      <div class="vs_team_side"><img src="http://cpbl-elta.cdn.hinet.net/pad/images/team/E02_logo_01.png" width="45" height="45" /></div>
+			                       </div>
+                    </div><!-- vs_box_side -->
+
+
+                  		
+         <div class="vs_box_side">
+		<a href="../result/lottery.html">
+		<img src="/web/images/logo_1680.gif" align="left" border="0" height="48" width="64">
+		<span style="color:red; font-size: 12px;"> 實際派彩結果，以台灣運彩官網公布之內容為準。</span>
+		</a>
+		</div>
+
+             
+             </div>
+            
+            <div>
+                <div class="side_date_bar" id="side_date_bar" data-gameno="">
+                  2019.08.07  Wed
+                  <!--<div class="side_date_bar_arr left"><a id = 'prev' onclick=" flage--; if(flage == -2){$('#prev').hide(); }$('#next').show();  return false;" href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_left.png" width="30" height="34" /></a></div>
+                  <div class="side_date_bar_arr right"><a id = 'next' onclick=" flage++; if(flage == 2){$('#next').hide(); }$('#prev').show();  return false;" href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_right.png" width="30" height="34" /></a></div>-->
+                  <div class="side_date_bar_arr left">
+                  </div>
+                  <div class="side_date_bar_arr right">
+               	  </div>
+                </div><!-- side_date_bar -->
+
+
+                                    
+                    <div class="vs_box_side" >
+                    	<div class="vs_box_border">
+                      <div class="vs_team_side"><img src="http://cpbl-elta.cdn.hinet.net/pad/images/team/A02_logo_01.png" width="45" height="45" /></div>
+                      <div class="vs_info_side">
+
+                                                <div class="vs_score_side">&nbsp;vs&nbsp; </div>
+                        <div class="vs_field_side">洲際</div>
+                        <div class="vs_field_side">18:35</div>
+                        
+
+                      </div><!-- vs_info_side -->
+                      <div class="vs_team_side"><img src="http://cpbl-elta.cdn.hinet.net/pad/images/team/E02_logo_01.png" width="45" height="45" /></div>
+			                       </div>
+                    </div><!-- vs_box_side -->
+
+
+                  
+                    <div class="vs_box_side" >
+                    	<div class="vs_box_border">
+                      <div class="vs_team_side"><img src="http://cpbl-elta.cdn.hinet.net/pad/images/team/B04_logo_01.png" width="45" height="45" /></div>
+                      <div class="vs_info_side">
+
+                                                <div class="vs_score_side">&nbsp;vs&nbsp; </div>
+                        <div class="vs_field_side">花蓮</div>
+                        <div class="vs_field_side">18:35</div>
+                        
+
+                      </div><!-- vs_info_side -->
+                      <div class="vs_team_side"><img src="http://cpbl-elta.cdn.hinet.net/pad/images/team/L01_logo_01.png" width="45" height="45" /></div>
+			                       </div>
+                    </div><!-- vs_box_side -->
+
+
+                  		
+         <div class="vs_box_side">
+		<a href="../result/lottery.html">
+		<img src="/web/images/logo_1680.gif" align="left" border="0" height="48" width="64">
+		<span style="color:red; font-size: 12px;"> 實際派彩結果，以台灣運彩官網公布之內容為準。</span>
+		</a>
+		</div>
+
+             
+             </div>
+                    </div>
+
+        <!--#region Bullet Navigator Skin Begin -->
+        <!-- Help: http://www.jssor.com/development/slider-with-bullet-navigator-jquery.html -->
+
+      	<span id='arrowleft_01' u="arrowleft" class="jssora12ll" style="top: 0px; left: 0px;">
+        <img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_left.png" width="30" height="34" />
+        </span>
+        <!-- Arrow Right -->
+        <span id='arrowright_01' u="arrowright" class="jssora12rr" style="top: 0px; right: 0px;">
+        <img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_right.png" width="30" height="34" />
+        </span>
+
+        <!--#endregion Arrow Navigator Skin End -->
+        <a style="display: none" href="http://www.jssor.com">Bootstrap Slider</a>
+    </div>
+    <!-- Jssor Slider End -->
+    <style type="text/css">.vs_box_side{width:100%;}</style>
+                     </div>
+                     <div id='schedule_slider_04' style="display:none">
+                            <!-- Jssor Slider Begin -->
+    <!-- To move inline styles to css file/block, please specify a class name for each element. --> 
+    <div id="slider_schedule_04" style="position: relative; z-index:0; top: 0px; left: 0px; width: 190px; height:240px; overflow: hidden; ">
+        <!--#endregion Bullet Navigator Skin End -->
+        
+        <!--#region Arrow Navigator Skin Begin -->
+        <!-- Help: http://www.jssor.com/development/slider-with-arrow-navigator-jquery.html -->
+        <style>
+            /* jssor slider arrow navigator skin 12 css */
+            /*
+            .jssora12l                  (normal)
+            .jssora12r                  (normal)
+            .jssora12l:hover            (normal mouseover)
+            .jssora12r:hover            (normal mouseover)
+            .jssora12l.jssora12ldn      (mousedown)
+            .jssora12r.jssora12rdn      (mousedown)
+            */
+            .jssora12ll, .jssora12rr {
+                display: block;
+                position: absolute;
+                /* size of arrow element */
+                width: 30px;
+                height: 46px;
+                cursor: pointer;
+                /*background: url(/web/images/a12.png) no-repeat;*/
+                overflow: hidden;
+            }
+            .jssora12ll { background-position: -16px -37px; }
+            .jssora12rr { background-position: -75px -37px; }
+            .jssora12ll:hover { background-position: -136px -37px; }
+            .jssora12rr:hover { background-position: -195px -37px; }
+            .jssora12ll.jssora12ldn { background-position: -256px -37px; }
+            .jssora12rr.jssora12rdn { background-position: -315px -37px; }
+        </style>
+        <!-- Loading Screen -->
+        <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+            <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
+                background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;">
+            </div>
+            <div style="position: absolute; display: block; background: url(../img/loading.gif) no-repeat center center;
+                top: 0px; left: 0px;width: 100%;height:100%;">
+            </div>
+        </div>
+
+        <!-- Slides Container -->
+        <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 190px; height: 240px; overflow: hidden;">
+            
+            
+            <div>
+                <div class="side_date_bar" id="side_date_bar" data-gameno="">
+                  2019.08.05  Mon
+                  <!--<div class="side_date_bar_arr left"><a id = 'prev' onclick=" flage--; if(flage == -2){$('#prev').hide(); }$('#next').show();  return false;" href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_left.png" width="30" height="34" /></a></div>
+                  <div class="side_date_bar_arr right"><a id = 'next' onclick=" flage++; if(flage == 2){$('#next').hide(); }$('#prev').show();  return false;" href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_right.png" width="30" height="34" /></a></div>-->
+                  <div class="side_date_bar_arr left">
+                  </div>
+                  <div class="side_date_bar_arr right"> 
+               	  </div>
+                </div><!-- side_date_bar -->
+                    
+            
+                              <!-- 若無賽事則顯示 --><div class="align_c gap_b15" >今日無比賽</div>
+                          </div>
+            
+            
+            <div>
+                <div class="side_date_bar" id="side_date_bar" data-gameno="04">
+                  2019.08.06  Tue
+                  <!--<div class="side_date_bar_arr left"><a id = 'prev' onclick=" flage--; if(flage == -2){$('#prev').hide(); }$('#next').show();  return false;" href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_left.png" width="30" height="34" /></a></div>
+                  <div class="side_date_bar_arr right"><a id = 'next' onclick=" flage++; if(flage == 2){$('#next').hide(); }$('#prev').show();  return false;" href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_right.png" width="30" height="34" /></a></div>-->
+                  <div class="side_date_bar_arr left">
+                  </div>
+                  <div class="side_date_bar_arr right"> 
+               	  </div>
+                </div><!-- side_date_bar -->
+                    
+            
+                                                        <div class="vs_box_side" >
+                      <div class="vs_team_side"><img src="http://cpbl-elta.cdn.hinet.net/phone/images/team/L02_logo_02.png" width="45" height="45" /></div>
+                      <div class="vs_info_side">
+                      
+                                                <a href="games/box.html?&game_type=04&game_id=119&game_date=2019-08-06&pbyear=2019" class="tiny_tag tt_live">8局下</a>
+                        <div class="vs_score_side">
+                        6:0                        <div class="vs_field_side">澄清湖</div>
+                        </div>
+                        
+                                    
+                        
+                      </div><!-- vs_info_side -->
+                      <div class="vs_team_side"><img src="http://cpbl-elta.cdn.hinet.net/phone/images/team/AA1_logo_02.png" width="45" height="45" /></div>
+                    </div><!-- vs_box_side -->
+                   
+                                
+               
+                          </div>
+            
+            
+            <div>
+                <div class="side_date_bar" id="side_date_bar" data-gameno="04">
+                  2019.08.07  Wed
+                  <!--<div class="side_date_bar_arr left"><a id = 'prev' onclick=" flage--; if(flage == -2){$('#prev').hide(); }$('#next').show();  return false;" href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_left.png" width="30" height="34" /></a></div>
+                  <div class="side_date_bar_arr right"><a id = 'next' onclick=" flage++; if(flage == 2){$('#next').hide(); }$('#prev').show();  return false;" href="#"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_right.png" width="30" height="34" /></a></div>-->
+                  <div class="side_date_bar_arr left">
+                  </div>
+                  <div class="side_date_bar_arr right"> 
+               	  </div>
+                </div><!-- side_date_bar -->
+                    
+            
+                                                        <div class="vs_box_side" >
+                      <div class="vs_team_side"><img src="http://cpbl-elta.cdn.hinet.net/phone/images/team/EE2_logo_02.png" width="45" height="45" /></div>
+                      <div class="vs_info_side">
+                      
+                                                
+                        <div class="vs_score_side">&nbsp;vs&nbsp; </div>
+                        <div class="vs_field_side">澄清湖</div>
+                        <div class="vs_field_side">13:00</div>
+                                    
+                        
+                      </div><!-- vs_info_side -->
+                      <div class="vs_team_side"><img src="http://cpbl-elta.cdn.hinet.net/phone/images/team/BA3_logo_02.png" width="45" height="45" /></div>
+                    </div><!-- vs_box_side -->
+                   
+                                
+               
+                          </div>
+                    </div>
+
+        <!--#region Bullet Navigator Skin Begin -->
+        <!-- Help: http://www.jssor.com/development/slider-with-bullet-navigator-jquery.html -->
+
+      	<span id="arrowleft_04" u="arrowleft" class="jssora12ll" style="top: 0px; left: 0px;" >
+        <img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_left.png" width="30" height="34" />
+        </span>
+        <!-- Arrow Right -->
+        <span id="arrowright_04" u="arrowright" class="jssora12rr" style="top: 0px; right: 0px;">
+        <img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_arrow_right.png" width="30" height="34" />
+        </span>
+        
+        <!--#endregion Arrow Navigator Skin End -->
+        <a style="display: none" href="http://www.jssor.com">Bootstrap Slider</a>
+    </div>
+    <!-- Jssor Slider End -->
+                     </div>
+                  </div>
+                  <div id="weather_icon" class="gap_t10" style = "position:relative;z-index:1;" >
+                     <a href="/weather/">
+                     <img src="http://cpbl-elta.cdn.hinet.net/web/images/20170704/weather.jpg" />
+                     </a>
+                  </div>
+                                    <!-- 側欄賽程區塊 end -->
+                  <!-- STANDING區塊 start -->
+                  <h2 class="index_block_h">
+                     <span>STANDING</span>
+                     <div class="mini_txt_tab">
+                        <a id= 'standing_up' href="#" class="mini_tab">上半季</a>|<a id= 'standing_down' href="#" class="mini_tab_focus">下半季</a>
+                     </div>
+                  </h2>
+                  <!-- 上半季STANDING區塊 start -->
+                  <div id='standing_01' style="display:none">
+                  <div style = "position:relative;z-index:1;" >
+                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="data_tb">
+                        <tr>
+                           <th>TEAM</th>
+                           <th>W</th>
+                           <th>L</th>
+                           <th>D</th>
+                           <th>%</th>
+                           <th>GB</th>
+                        </tr>
+                                                <tr>
+                           <td><img src="http://cpbl-elta.cdn.hinet.net/web/images/logo/A02_logo.png" width="38" height="30" align="absmiddle" /></td>
+                           <td>35</td>
+                           <td>24</td>
+                           <td>1</td>
+                           <td>0.593</td>
+                           <td>-</td>
+                        </tr>
+                                                <tr>
+                           <td><img src="http://cpbl-elta.cdn.hinet.net/web/images/logo/B04_logo.png" width="38" height="30" align="absmiddle" /></td>
+                           <td>31</td>
+                           <td>27</td>
+                           <td>2</td>
+                           <td>0.534</td>
+                           <td>3.5</td>
+                        </tr>
+                                                <tr>
+                           <td><img src="http://cpbl-elta.cdn.hinet.net/web/images/logo/E02_logo.png" width="38" height="30" align="absmiddle" /></td>
+                           <td>26</td>
+                           <td>32</td>
+                           <td>2</td>
+                           <td>0.448</td>
+                           <td>8.5</td>
+                        </tr>
+                                                <tr>
+                           <td><img src="http://cpbl-elta.cdn.hinet.net/web/images/logo/L01_logo.png" width="38" height="30" align="absmiddle" /></td>
+                           <td>25</td>
+                           <td>34</td>
+                           <td>1</td>
+                           <td>0.424</td>
+                           <td>10.0</td>
+                        </tr>
+                                             </table>
+                     <a href="/standing/season/?&season=1" class="more_row">more</a>
+                  </div>
+               </div>
+               <!-- 下半季STANDING區塊 start -->
+               <div id='standing_02' >
+               <div style = "position:relative;z-index:1;" >
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="data_tb">
+                     <tr>
+                        <th>TEAM</th>
+                        <th>W</th>
+                        <th>L</th>
+                        <th>D</th>
+                        <th>%</th>
+                        <th>GB</th>
+                     </tr>
+                                          <tr>
+                        <td><img src="http://cpbl-elta.cdn.hinet.net/web/images/logo/B04_logo.png" width="38" height="30" align="absmiddle" /></td>
+                        <td>12</td>
+                        <td>8</td>
+                        <td>0</td>
+                        <td>0.600</td>
+                        <td>-</td>
+                     </tr>
+                                          <tr>
+                        <td><img src="http://cpbl-elta.cdn.hinet.net/web/images/logo/A02_logo.png" width="38" height="30" align="absmiddle" /></td>
+                        <td>11</td>
+                        <td>8</td>
+                        <td>0</td>
+                        <td>0.579</td>
+                        <td>0.5</td>
+                     </tr>
+                                          <tr>
+                        <td><img src="http://cpbl-elta.cdn.hinet.net/web/images/logo/E02_logo.png" width="38" height="30" align="absmiddle" /></td>
+                        <td>10</td>
+                        <td>10</td>
+                        <td>0</td>
+                        <td>0.500</td>
+                        <td>2.0</td>
+                     </tr>
+                                          <tr>
+                        <td><img src="http://cpbl-elta.cdn.hinet.net/web/images/logo/L01_logo.png" width="38" height="30" align="absmiddle" /></td>
+                        <td>6</td>
+                        <td>13</td>
+                        <td>0</td>
+                        <td>0.316</td>
+                        <td>5.5</td>
+                     </tr>
+                                       </table>
+                  <a href="/standing/season/?&season=1" class="more_row">more</a>
+               </div>
+            </div>
+            <!-- STANDING區塊 end -->
+                                    <div class="gap_t10" style = "position:relative;z-index:1;" >
+               <!-- 20170301 remove by kevin@dosomething
+                  <img src="web/images/TS_logo.png" /></a> -->
+            </div>
+            <!-- 總冠軍賽區塊 start -->
+                           <!--<div class="cp_note">* G7 如有必要才進行。</div>-->
+               <!-- 總冠軍賽區塊 end -->
+                              
+               <!-- ANNOUNCEMENT區塊 start -->
+               <h2 class="index_block_h"><span>ANNOUNCEMENT</span></h2>
+               <div style = "position:relative;z-index:1;" >
+                                    <a   href="/news/view/19289.html?&news=19289" class="announcement">【2019年下半季例行賽補賽辦法公告】</a>
+                                    <a   href="/news/view/19226.html?&news=19226" class="announcement">中華職棒大聯盟仲裁委員會公告</a>
+                                    <a   href="/news/view/19158.html?&news=19158" class="announcement">【二軍場地異動公告】(7/22更新)</a>
+                                    <a   href="/news/view/19152.html?&news=19152" class="announcement">中華職棒大聯盟仲裁委員會公告</a>
+                                    <a   href="/news/view/19128.html?&news=19128" class="announcement">二軍例行賽延賽公告(8/1更新)</a>
+                                    <a   href="/news/view/19093.html?&news=19093" class="announcement"> 一軍下半季延賽公告(8月2日更新) </a>
+                                    <a   href="/news/view/18660.html?&news=18660" class="announcement">聯盟相關規則修定公告</a>
+                                 </div>
+               <!-- ANNOUNCEMENT區塊 end -->
+               <!-- AD區塊 start -->
+               <!-- 球員卡 -->
+               <!-- <div class="gap_t10" style = "position:relative;z-index:1;" >
+                  <a  href="http://cpblonline.pixnet.net/blog" target="_blank">
+                  <img src="http://cpbl-elta.cdn.hinet.net/web/images/banner_2017_ELE.jpg" /></a>
+                  </div> -->
+               <!-- 2019球棒認證 -->
+               <div class="gap_t10" style = "position:relative;z-index:1;" >
+                  <a  href="http://www.cpbl.com.tw/2019_bat_adjustment/" target="_blank">
+                  <img src="http://cpbl-elta.cdn.hinet.net/web/images/20181106/banner.jpg" /></a>
+               </div>
+               <!-- 2017球棒認證 -->
+               <div class="gap_t10" style = "position:relative;z-index:1;" >
+                  <a  href="http://www.cpbl.com.tw/2016_bat/" target="_blank">
+                  <img src="http://cpbl-elta.cdn.hinet.net/web/images/20180323/banner.jpg" /></a>
+               </div>
+               <!-- 2019球棒認證 -->
+               <div class="gap_t10" style = "position:relative;z-index:1;" >
+                  <a  href="http://www.cpbl.com.tw/news/view/15739.html" target="_blank">
+                  <img src="http://cpbl-elta.cdn.hinet.net/web/images/20190214/banner.png" /></a>
+               </div>
+               <!-- 2018訓練營 -->
+               <!-- <div class="gap_t10" style = "position:relative;z-index:1;" >
+                  <a  href="http://www.cpbl.com.tw/2018CPBLBC/" target="_blank">
+                  <img width="190" src="http://cpbl-elta.cdn.hinet.net/web/images/20181001/banner.jpg" /></a>
+               </div> -->
+               <!--TUTU&BOW-->
+                              <!--game-->
+                              <!-- 運彩 -->
+               <div class="gap_t10" style = "position:relative;z-index:1;" >
+                  <a  href="https://www.sportslottery.com.tw/zh/web/guest/home" target="_blank">
+                  <img src="http://cpbl-elta.cdn.hinet.net/web/images/sportslottery.jpg" /></a>
+               </div>
+               <!-- 松果 -->
+               <div class="gap_t10" style = "position:relative;z-index:1;" >
+                  <a  href="http://ms7.io/YOAaY" target="_blank">
+                  <img width="190" height="76" src="http://cpbl-elta.cdn.hinet.net/web/images/20190227/banner.jpg" /></a>
+               </div>
+               <!-- AsiaYo -->
+               <div class="gap_t10" style = "position:relative;z-index:1;" >
+                  <a  href="https://pse.is/FRkJ5" target="_blank">
+                  <img width="190" height="76" src="http://cpbl-elta.cdn.hinet.net/web/images/20190225/banner.jpg" /></a>
+               </div>
+               <!-- 業務合作 -->
+               <div class="gap_t10" style = "position:relative;z-index:1;" >
+                  <a  href="http://www.cpbl.com.tw/news/view/17263.html" target="_blank">
+                  <img src="http://cpbl-elta.cdn.hinet.net/web/images/20180223/banner.jpg" /></a>
+               </div>
+                              <!--台中廣播-->
+                              <div class="gap_t10" style = "position:relative;z-index:1;" >
+                  <a href="http://www.lucky7.com.tw/" target="_blank">
+                  <img src="http://cpbl-elta.cdn.hinet.net/web/images/20170325/ad2017032501.jpg" /></a>
+               </div>
+                              <!--環宇電台-->
+                              <div class="gap_t10" style = "position:relative;z-index:1;" >
+                  <a href="http://www.uni967.com/newweb/index.php?page=1" target="_blank">
+                  <img src="http://cpbl-elta.cdn.hinet.net/web/images/20170325/ad2017032502.png" /></a>
+               </div>
+                              
+               <!--職棒總教頭-->
+                              <!-- <div class="gap_t10" style = "position:relative;z-index:1;" >
+                  <a href="http://tzone.acestadium.com/clubhouse/promotions/cpbl/branding" target="_blank">
+                  <img src="http://cpbl-elta.cdn.hinet.net/web/images/20180611/banner.png" /></a>
+               </div> -->
+               
+               <!-- AD 190x140 -->
+               <!--<div class="gap_t10"><a href="/ad.php?id=1437795951.104&zone=R01"><img src="http://cpbl-elta.cdn.hinet.net/upload/system_app/web_media/ad/rows_file/1437795951.104.png" style="width:190px;" /></a><img style="height:0px; width:0px;" src ='/ad.html?id=1437795951.104&zone=R01&php_5d493377d9537' /></div>-->
+               <!-- AD 190x140 -->
+               <!--<div class="gap_t10"><a href="/ad.php?id=1437796238.5868&zone=R02"><img src="http://cpbl-elta.cdn.hinet.net/upload/system_app/web_media/ad/rows_file/1437796238.5868.png" style="width:190px;" /></a><img style="height:0px; width:0px;" src ='/ad.html?id=1437796238.5868&zone=R02&php_5d493377d9581' /></div>-->
+               <!-- AD 190x410 -->
+               <!--<div class="gap_t10"><a href="/ad.php?id=1437796280.1473&zone=R03" class="gap_t15"><img src="http://cpbl-elta.cdn.hinet.net/upload/system_app/web_media/ad/rows_file/1437796280.1473.png" style="width:190px;" /></a><img style="height:0px; width:0px;" src ='/ad.html?id=1437796280.1473&zone=R03&php_5d493377d95ca' /></div>-->
+               <!-- AD區塊 end -->
+            </div>
+            <!-- sec_right_cont -->
+         </div>
+         <!-- sec_right -->
+         <!-- 右欄 end -->
+         <!-- 清除左中右欄浮動 -->
+         <div class="clean"></div>
+      </div>
+      <!-- cont -->
+      </div>
+      <!-- cont_bk -->
+      <!-- footer start -->
+      <!-- footer start -->
+<div class="footer">
+  <div class="footer_cont">
+  
+  <div class="footer_logo"><a href="/cpbl/index/"><img src="http://cpbl-elta.cdn.hinet.net/web/images/logo.png" width="74" height="34" align="absmiddle" /></a></div>
+  <div class="footer_line"></div>
+  <div class="footer_team">
+    <a href="/web/team_brief.php?&team=E02"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_brothers2.png" width="38" height="30" align="absmiddle" /></a>
+    <a href="/web/team_brief.php?&team=L01"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_lion2.png" width="38" height="30" align="absmiddle" /></a>
+    <a href="/web/team_brief.php?&team=A02"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_lamigo2.png" width="38" height="30" align="absmiddle" /></a>
+    <a href="/web/team_brief.php?&team=B04"><img src="http://cpbl-elta.cdn.hinet.net/web/images/icon_Guardians.png" width="33" height="28" align="absmiddle" /></a>
+  </div>
+  <div class="footer_line"></div>
+  <div class="footer_nav">
+    <a href="/footer/about/" class="footer_link">關於中職</a>
+    <a href="/footer/stadium/" class="footer_link">球場介紹</a>
+    <a href="/footer/rule/" class="footer_link">棒球規則</a>
+    <a href="/footer/contact/" class="footer_link">聯絡我們</a>
+    <a href="/footer/sitemap/" class="footer_link">網站導覽</a>
+    <a href="/eng/history/" class="footer_link">Eng</a>
+    <a href="http://winter.cpbl.com.tw/" target="_blank" class="footer_link">冬季聯盟</a>
+  </div>
+  
+  </div><!-- footer_cont -->
+  <div class="copyright">Copyright &copy;2015 Chinese Professional Baseball League.All rights reserved.</div>
+</div><!-- footer -->
+<!-- footer end -->
+
+<script>
+
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-48754261-1', 'cpbl.com.tw');
+	ga('send', 'pageview');
+	
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-56Z9JC');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-56Z9JC"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+      <!-- footer end -->
+      <script>
+         /**
+         *  standing切換控制
+         */
+         $('#standing_up').on('click', function(){
+         
+            $('#standing_01').show();
+            $('#standing_02').hide();
+            $('#standing_up').addClass('mini_tab_focus').removeClass('mini_tab');
+            $('#standing_down').addClass('mini_tab').removeClass('mini_tab_focus');
+         
+            return false;
+         });
+         $('#standing_down').on('click', function(){
+         
+            $('#standing_02').show();
+            $('#standing_01').hide();
+            $('#standing_down').addClass('mini_tab_focus').removeClass('mini_tab');
+            $('#standing_up').addClass('mini_tab').removeClass('mini_tab_focus');
+         
+            return false;
+         });
+         
+         
+         /**
+         *  調整highlights
+         */
+         var speeds = typeof(speeds) != 'undefined' && /^[0-9]+$/.test(speeds) ? speeds : 6000;
+         var wdith = typeof(wdith) != 'undefined' && /^[0-9]+$/.test(wdith) ? wdith : 500; //170
+         var height = typeof(height) != 'undefined' && /^[0-9]+$/.test(height) ? height : 20;
+         
+         $('div[id^=highlights_box_]', $("div.sec_left_cont")).each(function(){
+            var self = this;
+            if (typeof($('.title span', self).html()) != 'undefined') {
+                $('.title span', self).html('<div id="_item">' + $('.title span', self).html() + '</div>');
+                var _item = $('#_item', self);
+         
+                if ((_item.height() / height) >= 1) {
+                    _item.css({ 'position': 'relative' }).width(Math.ceil(_item.height() / height * wdith));
+                    var _num = 1;
+                    while (true) {
+                        _item.width(_item.width() - 10);
+                        if ( (_item.height() / height >= 2) || _num>=15) break;
+                        _num++;
+                    }
+                    _item.width(_item.width() + 10);
+         
+                    $('#highlight_img', self).hover(function() {
+                          _item.animate({ left: "-=" + _item.width()
+                      }, speeds, function() { _item.css({ 'left': '0' }); });
+                      },
+                      function() { _item.css({ 'left': '0' }).stop(); });
+                }
+            }
+         });
+         
+         
+         /**
+         *  新聞圖片控制
+         */
+         var _c = $('.sec_center');
+         var _imgs = $('div[id^=news_tab_img_]', _c);
+         $('li[id^=news_tab_over_]').each(function(i, d){
+            var self = this;
+            $(self).hover(function(){
+                var $tabs = $(self).data('tabs');
+                $(_imgs).each(function($i, $d){
+                    if ($tabs==$($d).data('tabs')) $($d).hide();
+                });
+                var $id = $(self).data('zn_id');
+                $('#news_tab_img_' + $id).show();
+            }, function(){
+            });
+         });
+         
+         
+         /**
+         *  新聞tab 控制
+         */
+         
+         var news_focus = 0;
+         var news_focus_id = 'top';
+         $("li", $('#news_headers')).each(function(i, data){
+            var self = this;
+            $('a', self).on('click', function(){
+                var $id = $(self).data('tags');
+                $('#news_' + news_focus_id).hide();
+                $('#news_' + $id).show();
+                $("li:eq(" + news_focus + ")", $('#news_headers')).removeClass('focus');
+                $("li:eq(" + i + ")", $('#news_headers')).addClass('focus');
+                news_focus = i;  news_focus_id = $id; return false;
+            });
+         });
+         
+         /**
+         *  投手TOP5 控制
+         */
+         var pitcher_focus = 0;
+         var pitcher_focus_id = 'ERA';
+         $("li", $('#pitcher_headers')).each(function(i, data){
+            var self = this;
+            $('a', self).on('click', function(){
+                var $id = $(self).data('tags');
+                $('#pitcher_' + pitcher_focus_id).hide();
+                $('#pitcher_' + $id).show();
+                $("li:eq(" + pitcher_focus + ")", $('#pitcher_headers')).removeClass('focus');
+                $("li:eq(" + i + ")", $('#pitcher_headers')).addClass('focus');
+                pitcher_focus = i; pitcher_focus_id = $id; return false;
+            });
+         });
+         
+         /**
+         *  打擊TOP5 控制
+         */
+         var pbat_focus = 0;
+         var pbat_focus_id = 'AVG';
+         $("li", $('#pbat_headers')).each(function(i, data){
+            var self = this;
+            $('a', self).on('click', function(){
+                var $id = $(self).data('tags');
+                $('#pbat_' + pbat_focus_id).hide();
+                $('#pbat_' + $id).show();
+                $("li:eq(" + pbat_focus + ")", $('#pbat_headers')).removeClass('focus');
+                $("li:eq(" + i + ")", $('#pbat_headers')).addClass('focus');
+                pbat_focus = i; pbat_focus_id = $id; return false;
+            });
+         });
+         
+      </script>
+   </body>
+</html>
