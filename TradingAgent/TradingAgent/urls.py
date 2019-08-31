@@ -21,5 +21,6 @@ from TradingGame import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	# url(r'^$', views.index, name='index'),
-	url(r'^$', views.index2, name='index2'),
+	# url(r'^$', views.index2, name='index2'),
+	url(r'^$', views.stockGame, name='stockGame'),
 ]

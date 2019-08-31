@@ -7,3 +7,6 @@ def index(request):
 	
 def index2(request):
     return render(request, 'index.html', {'question': 'aaa'})
+	
+def stockGame(request):
+    return render(request, 'stockGame.html')
