@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>無標題文件</title>
+<style>
+#picture {
+	float:left;
+	width:60%;
+	background:#FFF;
+}
+#status {
+	float:right;
+	width:40%;
+	background:#FFC;
+	border-radius:25px;
+}
+#tbl {
+	float:left;
+	width:80%;
+	background:#FFF;
+}
+#decision {
+	float:right;
+	width:20%;
+}
+#btn {
+	background:#FC6;
+	color:#966;
+	width:80px;
+	height:40px;
+	font-size:16px;
+	border-radius:12px;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  	text-align: center;
+	margin-right:25px;
+	margin-left:25px;
+	margin-bottom: 10px;
+}
+#setBtn {
+	background:#3CF;
+	color:#006;
+	width:80px;
+	height:40px;
+	font-size:16px;
+	border-radius:12px;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  	text-align: center;
+	margin-right:25px;
+	margin-left:25px;
+	margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div id = 'picture'>
+<img src="VIX_trend.png" alt="" name="stockTrend" width="800" height="500" id="stockTrend" style="background-color: #CCC" />
+</div>
+
+<div id = 'status'>
+  	<p style="margin-left:25px">Day 27</p>
+  	<p style="margin-left:25px">您現在持有 台灣50 2036股</p>
+  	<p style="margin-left:25px">您截至今天的報酬為 7489.59 元</p>
+  	<p style="margin-left:25px">您截至今天的報酬率為 7.486 %</p>
+	<p>&nbsp;</p>
+    
+  <form id="infoForm" method="post" action="">
+    	<input type="submit" id="setBtn" value="財務狀況" />
+    	<input type="submit" id="setBtn" value="歷史紀錄" />
+  	</form>
+    <p>&nbsp;</p>
+</div>
+<p>&nbsp;</p>
+<div id = 'tbl'>
+	<table width="1000px" border="1">
+  	<tr>
+    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">開盤價</th>
+    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">最高價<</th>
+    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">最低價</th>
+    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">收盤價</th>
+    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">成交股數</th>
+    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">成交金額</th>
+  	</tr>
+  	<tr>
+    	<td align="center">88.5</td>
+    	<td align="center">89.3</td>
+    	<td align="center">88.4</td>
+    	<td align="center">88.6</td>
+    	<td align="center">5248301</td>
+    	<td align="center">43810297</td>
+  	</tr>
+  	<tr>
+    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">收盤價MA3</th>
+    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">收盤價MA5</th>
+    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">成交股數MA5</th>
+    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">成交股數MA10</th>
+    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">成交金額MA5</th>
+    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">成交金額MA10</th>
+  	</tr>
+  	<tr>
+    	<td align="center">87.5</td>
+    	<td align="center">87.9</td>
+    	<td align="center">5301498</td>
+    	<td align="center">5290187</td>
+    	<td align="center">42149970</td>
+    	<td align="center">41658123</td>
+  	</tr>
+	</table>
+</div>
+
+<div id = 'decision'>
+  <form id="actionForm"  method="post" action="">
+    <input type="submit" id="btn" value="買入" />
+    <input type="submit" id="btn" value="賣出" />
+  </form>
+  <br />
+  <form id="settingForm" method="post" action="">
+    <input type="submit" id="setBtn" value="交易設定" />
+    <input type="submit" id="setBtn" value="重玩" />
+  </form>	
+</div>
+</body>
+</html>
