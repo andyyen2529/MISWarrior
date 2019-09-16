@@ -20,7 +20,6 @@ from TradingGame import views
 
 urlpatterns = [
     url(r'^$', views.home, name = 'home'),
-    url(r'^admin/', admin.site.urls),
 	url(r'^stockGame/', views.stockGame, name = 'stockGame'),
     url(r'^admin/', admin.site.urls)
 ]

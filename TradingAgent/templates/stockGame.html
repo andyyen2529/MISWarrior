@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>交易模擬遊戲</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- 以連結方式引用static資料夾中的css檔案 -->
 <style>
 #picture {
 	float:left;
@@ -52,42 +53,11 @@
 	margin-left:25px;
 	margin-bottom: 10px;
 }
-
-
-      body {
-        margin: 0px; /* 移除網頁預設的邊框 */
-      }
-
-      div > ul {
-          background-color: rgb(230, 230, 230);
-          list-style: none;   /* 移除項目符號 */
-          margin: 0;
-          padding: 0;
-      }
-
-      div a {
-          color: inherit; /* 移除超連結顏色 */
-          display: block; /* 讓 <a> 填滿 <li> */
-          font-size: 1.5rem;
-          padding: 15px;
-          text-decoration: none;  /* 移除超連結底線 */
-          font-weight: bold;
-          font-family: '微軟正黑體';
-      }
-
-      /* 滑鼠移到 <a> 時變成深底淺色 */
-      div li:hover {
-          background-color: rgb(115, 115, 115);
-          color: white;
-      }
-
-      .flex-div {
-          display: flex;
-          justify-content: space-around;
-      }
-
-
-
+th {
+  font-family: '微軟正黑體';
+  background-color: #417690;
+  color:#fff;
+}
 </style>
 </head>
 
@@ -95,24 +65,24 @@
 
         <div>
             <ul class="flex-div">
-              <img src="https://image.flaticon.com/icons/png/512/124/124010.png" width="64px" height="64px">
+              <img src = "{% static 'images/logo_home.png' %}" width="64px" height="64px">
                 <li><a href="http://127.0.0.1:8000/">首頁</a></li> 
                 <li><a href="#">關於股獲仔</a></li>
-                <li><a href="http://127.0.0.1:8000/stockGame/">個股投資模擬</a></li>
+                <li><a href="#">開發團隊</a></li>
+                <li style="background-color: #003C9D;color: white;"><a href="http://127.0.0.1:8000/stockGame/">個股投資模擬</a></li>
                 <li><a href="#">智能投資建議</a></li>
                 <li><a href="http://127.0.0.1:8000/admin/">註冊/登入</a></li>
             </ul>
         </div>
 
-本網頁設計者：{{author}}
 <br>
 
 <div id = 'picture'>
-<img src="{% static 'images/VIX_trend.png' %}" alt="" name="stockTrend" width="800" height="500" id="stockTrend" style="background-color: #CCC" />
+<img src="{% static 'images/VIX_trend.png' %}" alt="" name="stockTrend" width="800" height="480" id="stockTrend" style="background-color: #CCC" />
 </div>
 
 <div id = 'status'>
-  	<p style="margin-left:25px">Day 27</p>
+  	<p style="margin-left:25px">Day 1</p>
   	<p style="margin-left:25px">您現在持有 台灣50 2036股</p>
   	<p style="margin-left:25px">您截至今天的報酬為 7489.59 元</p>
   	<p style="margin-left:25px">您截至今天的報酬率為 7.486 %</p>
@@ -125,6 +95,44 @@
     <p>&nbsp;</p>
 </div>
 <p>&nbsp;</p>
+
+<div id = 'tbl'>
+  <table width=80% border="1" style="table-layout:fixed">
+
+  　<tr>
+    　<th>股票代碼</td>
+    　<th>日期</td>
+    　<th>成交股數</td>
+    　<th>成交金額</td>
+    </tr>
+  　<tr>
+    　<td>{{stock.code}}</td>
+    　<td>{{stock.date}} </td>
+    　<td>{{stock.volumn}} </td>
+    　<td>{{stock.turnover}} </td>
+    </tr>
+
+  　<tr>
+    　<th>開盤價</td>
+    　<th>最高價</td>
+    　<th>最低價</td>
+    　<th>收盤價</td>
+    </tr>
+    <tr>
+    　<td>{{stock.opening_price}} </td>
+    　<td>{{stock.high}} </td>
+    　<td>{{stock.low}} </td>
+    　<td>{{stock.closeing_price}} </td>
+    <!--
+      <td>漲跌價差：{{stock.spread}} </td>
+    　<td>成交筆數：{{stock.transaction_number}} </td>
+    -->
+  　</tr>
+
+  </table>
+</div>
+
+<!--
 <div id = 'tbl'>
 	<table width="1000px" border="1">
   	<tr>
@@ -161,6 +169,7 @@
   	</tr>
 	</table>
 </div>
+-->
 
 <div id = 'decision'>
   <form id="actionForm"  method="post" action="">
@@ -173,5 +182,6 @@
     <input type="submit" id="setBtn" value="重玩" />
   </form>	
 </div>
+
 </body>
 </html>
