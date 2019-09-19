@@ -4,8 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>交易模擬遊戲</title>
 <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- 以連結方式引用static資料夾中的css檔案 -->
+
 <style>
 #picture {
 	float:left;
@@ -122,7 +124,7 @@ th {
     　<td>{{stock.opening_price}} </td>
     　<td>{{stock.high}} </td>
     　<td>{{stock.low}} </td>
-    　<td>{{stock.closeing_price}} </td>
+    　<td id="closeing_price">{{stock.closeing_price}} </td>
     <!--
       <td>漲跌價差：{{stock.spread}} </td>
     　<td>成交筆數：{{stock.transaction_number}} </td>
@@ -170,12 +172,35 @@ th {
 	</table>
 </div>
 -->
-
+<p class='testing'>iiiiiii</p>
 <div id = 'decision'>
-  <form id="actionForm"  method="post" action="">
-    <input type="submit" id="btn" value="買入" />
-    <input type="submit" id="btn" value="賣出" />
+  <form id="actionForm" type='post'>
+    {% csrf_token %}
+    <input type="button" id="btn" value="買入" />
+    <input type="button" id="btn" value="賣出" />
+    <input id="stockIdField" type="hidden" name="id" value="{{ stock.id }}">
   </form>
+  <script>
+     $('#actionForm').click(function(){
+          $.ajax({
+                url : "/ajax/stockDay/", // the endpoint
+                type : "POST", // http method
+                data : $('#actionForm').serialize(), // data sent with the post request
+
+                // handle a successful response
+                success : function(json) {
+                    console.log("success"); // another sanity check
+                    $("#closeing_price").text(json[0].fields.closeing_price);
+                    $('#stockIdField').val(json[0].pk);
+                },
+                error: function() {
+                    $('.testing').text('失敗');
+                },
+            });
+        });
+   
+
+  </script>
   <br />
   <form id="settingForm" method="post" action="">
     <input type="submit" id="setBtn" value="交易設定" />
