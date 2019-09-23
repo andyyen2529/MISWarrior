@@ -1,0 +1,92 @@
+{% load static %}
+{% load staticfiles %}
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>股獲仔 - 智能投資平台</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- 以連結方式引用static資料夾中的css檔案 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        {% block styles %}{% endblock styles %}
+        <style>
+			body{
+	            background-repeat: no-repeat;
+	            background-attachment: fixed;
+	            background-position: bottom;
+	            background-size: cover;
+	            background-color: rgba(255,255,255,0.6);
+	            background-blend-mode: lighten;
+			}
+			#div-relative1 {
+			    position: relative;
+			    margin:0px auto; /* 讓該div置中 */
+			    width: 80%;
+			    top: 10vh;
+			    height: 60vh;
+			}
+			#inner-div-absolute1 {
+				position: absolute;
+				width: 50%;
+				height: 100%;
+				background-image: url("{% static 'images/home_dancingRobot.gif' %}");
+				background-size: 60% 80%;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+			#inner-div-absolute2 {
+				position: absolute;
+				width: 50%;
+				height: 100%;
+				left: 50%;
+				background-color: rgba(255,255,255,0.4);
+				font-family: 微軟正黑體;
+				font-weight: bold;
+				font-size: 3rem;
+				text-align: center; 
+			}
+			footer {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				height: 50px;
+				background-color: dimgray;
+				width: 100%;
+				font-family: 微軟正黑體;
+				color: white;
+				display: flex;
+				justify-content: space-around;
+				text-align: center;
+			}
+        </style>
+    </head>
+    <body background = "{% static 'images/background_home.png' %}">
+        <div id = 'menuBar'>
+            <ul class="flex-div">
+            	<img src = "{% static 'images/logo_home.png' %}" width="64px" height="64px">
+                <li><a href="http://127.0.0.1:8000/">首頁</a></li> 
+                <li><a href="http://127.0.0.1:8000/aboutMe/">關於股獲仔</a></li>
+                <li><a href="http://127.0.0.1:8000/developmentTeam/">開發團隊</a></li>
+                <li><a href="http://127.0.0.1:8000/stockGame/">個股投資模擬</a></li>
+                <li><a href="#">智能投資建議</a></li>
+                {% if not user.is_authenticated %}
+                    <li><a href="http://127.0.0.1:8000/accounts/login/">註冊/登入</a></li>
+                {% else %}
+               	    你好 {{ userName }}
+                    <li><a href="http://127.0.0.1:8000/accounts/logout/">登出</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+   		{% block content %}
+    	{% endblock %}
+
+		<footer>
+			<p>Copyright© 2019 StockWinner All Right Reserved</p>
+			<p>服務條款 | 隱私權政策</p>
+		</footer>
+
+
+
+
+    </body>
+</html>

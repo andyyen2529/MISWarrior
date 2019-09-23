@@ -1,127 +1,49 @@
-﻿<!DOCTYPE html>
+﻿{% extends 'base.html' %}
+{% block styles %}
+<style type="text/css">
+	#setBtn {
+		font-family: 微軟正黑體;		
+	}
+	input{
+		border:0;
+	  	background-color:#003C9D;
+	  	color:#fff;
+	  	border-radius:10px;
+	  	cursor:pointer;
+	  	height: 60px;
+	  	width: 200px;
+	  	font-size: 1.5rem;
+	}
 
-{% load staticfiles %}
+	input:hover{
+	  	color:#003C9D;
+	  	background-color:#fff;
+	 	border:5px #003C9D 
+	 	solid;
+	}
+</style>
+{% endblock styles %}
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>股獲仔 - 智能投資平台</title>
-        <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- 以連結方式引用static資料夾中的css檔案 -->
-        <style>
-			#status {
-				float:right;
-				width:60%;
-				background:#FFC;
-				border-radius:25px;
-			}
-			body{
-	            background-repeat: no-repeat;
-	            background-attachment: fixed;
-	            background-position: bottom;
-	            background-size: cover;
-	            background-color: rgba(255,255,255,0.6);
-	            background-blend-mode: lighten;
-			}
-			#div-relative1 {
-			    position: relative;
-			    margin:0px auto; /* 讓該div置中 */
-			    width: 80%;
-			    top: 10vh;
-			    height: 60vh;
-			}
-			#inner-div-absolute1 {
-				position: absolute;
-				width: 50%;
-				height: 100%;
-				background-image: url("{% static 'images/home_dancingRobot.gif' %}");
-				background-size: 60% 80%;
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-			#inner-div-absolute2 {
-				position: absolute;
-				width: 50%;
-				height: 100%;
-				left: 50%;
-				background-color: rgba(255,255,255,0.4);
-				font-family: 微軟正黑體;
-				font-weight: bold;
-				font-size: 3rem;
-				text-align: center; 
-			}
-			footer {
-				position: fixed;
-				bottom: 0;
-				left: 0;
-				height: 50px;
-				background-color: dimgray;
-				width: 100%;
-				font-family: 微軟正黑體;
-				color: white;
-				display: flex;
-				justify-content: space-around;
-				text-align: center;
-			}
-			#setBtn {
-				font-family: 微軟正黑體;		
-			}
-			input{border:0;
-			  background-color:#003C9D;
-			  color:#fff;
-			  border-radius:10px;
-			  cursor:pointer;
-			  height: 60px;
-			  width: 200px;
-			  font-size: 1.5rem;
-			}
+{% block content %}
 
-			input:hover{
-			  color:#003C9D;
-			  background-color:#fff;
-			  border:5px #003C9D solid;
-			}
-        </style>
-    </head>
-    <body background = "{% static 'images/background_home.png' %}">
-        <div>
-            <ul class="flex-div">
-            	<img src = "{% static 'images/logo_home.png' %}" width="64px" height="64px">
-                <li style="background-color: #003C9D;color: white;"><a href="http://127.0.0.1:8000/">首頁</a></li> 
-                <li><a href="#">關於股獲仔</a></li>
-                <li><a href="#">開發團隊</a></li>
-                <li><a href="http://127.0.0.1:8000/stockGame/">個股投資模擬</a></li>
-                <li><a href="#">智能投資建議</a></li>
+	<div id = 'div-relative1'>
+
+	  	<div id = 'inner-div-absolute1'></div>
+
+	  	<div id = 'inner-div-absolute2'>
+	  		<p>歡迎來到</p>
+	  		<p>股獲仔 - 智能投資平台</p>
+			 <form id="infoForm" method="post" action="">
                 {% if not user.is_authenticated %}
-                    <li><a href="http://127.0.0.1:8000/accounts/login/">註冊/登入</a></li>
-                {% else %}
-                    <li><a href="http://127.0.0.1:8000/accounts/logout/">登出</a></li>
+                	<input type="button" id="setBtn" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" 
+                	value="立即使用" />
                 {% endif %}
-            </ul>
-        </div>
+                <input type="button" id="setBtn" onclick="location.href='http://127.0.0.1:8000/aboutMe/';" 
+                	value="了解更多" />
+			 </form>
+	  	</div>
 
-		<div id = 'div-relative1'>
+	</div>
 
-		  	<div id = 'inner-div-absolute1'></div>
+{% endblock %}
 
-		  	<div id = 'inner-div-absolute2'>
-		  		<p>歡迎來到</p>
-		  		<p>股獲仔 - 智能投資平台</p>
-		  		<!-- <font size = "3">關鍵字：投資模擬、金融科技、智能技術交易、深度強化學習、類神經網路、人工智慧</font> -->
-				 <form id="infoForm" method="post" action="">
-				    <input type="submit" id="setBtn" value="立即使用" />
-				    <input type="submit" id="setBtn" value="了解更多" />
-				 </form>
-		  	</div>
-
-		</div>
-
-		<footer>
-			<p>Copyright© 2019 StockWinner All Right Reserved</p>
-			<p>服務條款 | 隱私權政策</p>
-		</footer>>
-
-
-
-
-    </body>
-</html>

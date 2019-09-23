@@ -1,99 +1,86 @@
+{% extends 'base.html' %}
 {% load static %}
+{% load staticfiles %}
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<title>交易模擬遊戲</title>
-<link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- 以連結方式引用static資料夾中的css檔案 -->
 
+{% block styles %}
 <style>
 #picture {
-	float:left;
-	width:60%;
-	background:#FFF;
+  float:left;
+  width:60%;
 }
 #status {
-	float:right;
-	width:40%;
-	background:#FFC;
-	border-radius:25px;
+  float:right;
+  width:40%;
+  background:#FFC;
+  border-radius:25px;
 }
 #tbl {
-	float:left;
-	width:80%;
-	background:#FFF;
+  float:left;
+  width:80%;
 }
 #decision {
-	float:right;
-	width:20%;
+  float:right;
+  width:20%;
 }
 #btn {
-	background:#FC6;
-	color:#966;
-	width:80px;
-	height:40px;
-	font-size:16px;
-	border-radius:12px;
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  	text-align: center;
-	margin-right:25px;
-	margin-left:25px;
-	margin-bottom: 10px;
+  background:#FC6;
+  color:#966;
+  width:80px;
+  height:40px;
+  font-size:16px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
 }
 #setBtn {
-	background:#3CF;
-	color:#006;
-	width:80px;
-	height:40px;
-	font-size:16px;
-	border-radius:12px;
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  	text-align: center;
-	margin-right:25px;
-	margin-left:25px;
-	margin-bottom: 10px;
+  background:#3CF;
+  color:#006;
+  width:80px;
+  height:40px;
+  font-size:16px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
 }
 th {
   font-family: '微軟正黑體';
   background-color: #417690;
   color:#fff;
 }
+td {
+  background-color: #fff;
+}
 </style>
-</head>
+{% endblock styles %}
 
-<body>
 
-        <div>
-            <ul class="flex-div">
-              <img src = "{% static 'images/logo_home.png' %}" width="64px" height="64px">
-                <li><a href="http://127.0.0.1:8000/">首頁</a></li> 
-                <li><a href="#">關於股獲仔</a></li>
-                <li><a href="#">開發團隊</a></li>
-                <li style="background-color: #003C9D;color: white;"><a href="http://127.0.0.1:8000/stockGame/">個股投資模擬</a></li>
-                <li><a href="#">智能投資建議</a></li>
-                <li><a href="http://127.0.0.1:8000/admin/">註冊/登入</a></li>
-            </ul>
-        </div>
+{% block content %}
+{% if user.is_authenticated %}
 
 <br>
 
 <div id = 'picture'>
-<img src="{% static 'images/VIX_trend.png' %}" alt="" name="stockTrend" width="800" height="480" id="stockTrend" style="background-color: #CCC" />
+<img src="{% static 'images/VIX_trend.png' %}" alt="" name="stockTrend" width="800" height="400" id="stockTrend" style="background-color: #CCC" />
 </div>
 
 <div id = 'status'>
-  	<p style="margin-left:25px">Day 1</p>
-  	<p style="margin-left:25px">您現在持有 台灣50 2036股</p>
-  	<p style="margin-left:25px">您截至今天的報酬為 7489.59 元</p>
-  	<p style="margin-left:25px">您截至今天的報酬率為 7.486 %</p>
-	<p>&nbsp;</p>
+    <p style="margin-left:25px">Day 1</p>
+    <p style="margin-left:25px">您現在持有 台灣50 2036股</p>
+    <p style="margin-left:25px">您截至今天的報酬為 7489.59 元</p>
+    <p style="margin-left:25px">您截至今天的報酬率為 7.486 %</p>
+  <p>&nbsp;</p>
     
   <form id="infoForm" method="post" action="">
-    	<input type="submit" id="setBtn" value="財務狀況" />
-    	<input type="submit" id="setBtn" value="歷史紀錄" />
-  	</form>
+      <input type="submit" id="setBtn" value="財務狀況" />
+      <input type="submit" id="setBtn" value="歷史紀錄" />
+    </form>
     <p>&nbsp;</p>
 </div>
 <p>&nbsp;</p>
@@ -108,10 +95,10 @@ th {
     　<th>成交金額</td>
     </tr>
   　<tr>
-    　<td>{{stock.code}}</td>
-    　<td>{{stock.date}} </td>
-    　<td>{{stock.volumn}} </td>
-    　<td>{{stock.turnover}} </td>
+    　<td id="code">{{stock.code}}</td>
+    　<td id="date">{{stock.date |date:"Y-m-d"}} </td>
+    　<td id="volumn">{{stock.volumn}} </td>
+    　<td id="turnover">{{stock.turnover}} </td>
     </tr>
 
   　<tr>
@@ -121,10 +108,10 @@ th {
     　<th>收盤價</td>
     </tr>
     <tr>
-    　<td>{{stock.opening_price}} </td>
-    　<td>{{stock.high}} </td>
-    　<td>{{stock.low}} </td>
-    　<td id="closeing_price">{{stock.closeing_price}} </td>
+    　<td id="opening_price">{{stock.opening_price}} </td>
+    　<td id="high">{{stock.high}} </td>
+    　<td id="low">{{stock.low}} </td>
+    　<td id="closing_price">{{stock.closing_price}} </td>
     <!--
       <td>漲跌價差：{{stock.spread}} </td>
     　<td>成交筆數：{{stock.transaction_number}} </td>
@@ -134,45 +121,6 @@ th {
   </table>
 </div>
 
-<!--
-<div id = 'tbl'>
-	<table width="1000px" border="1">
-  	<tr>
-    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">開盤價</th>
-    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">最高價<</th>
-    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">最低價</th>
-    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">收盤價</th>
-    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">成交股數</th>
-    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">成交金額</th>
-  	</tr>
-  	<tr>
-    	<td align="center">88.5</td>
-    	<td align="center">89.3</td>
-    	<td align="center">88.4</td>
-    	<td align="center">88.6</td>
-    	<td align="center">5248301</td>
-    	<td align="center">43810297</td>
-  	</tr>
-  	<tr>
-    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">收盤價MA3</th>
-    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">收盤價MA5</th>
-    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">成交股數MA5</th>
-    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">成交股數MA10</th>
-    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">成交金額MA5</th>
-    	<th align="center" nowrap="nowrap" bgcolor="#66FFCC">成交金額MA10</th>
-  	</tr>
-  	<tr>
-    	<td align="center">87.5</td>
-    	<td align="center">87.9</td>
-    	<td align="center">5301498</td>
-    	<td align="center">5290187</td>
-    	<td align="center">42149970</td>
-    	<td align="center">41658123</td>
-  	</tr>
-	</table>
-</div>
--->
-<p class='testing'>iiiiiii</p>
 <div id = 'decision'>
   <form id="actionForm" type='post'>
     {% csrf_token %}
@@ -190,7 +138,17 @@ th {
                 // handle a successful response
                 success : function(json) {
                     console.log("success"); // another sanity check
-                    $("#closeing_price").text(json[0].fields.closeing_price);
+
+                    $("#code").text(json[0].fields.code);
+                    $("#date").text(json[0].fields.date);
+                    $("#volumn").text(json[0].fields.volumn);                    
+                    $("#turnover").text(json[0].fields.turnover);
+
+                    $("#opening_price").text(json[0].fields.opening_price);
+                    $("#high").text(json[0].fields.high);
+                    $("#low").text(json[0].fields.low);                    
+                    $("#closing_price").text(json[0].fields.closing_price);
+
                     $('#stockIdField').val(json[0].pk);
                 },
                 error: function() {
@@ -205,8 +163,13 @@ th {
   <form id="settingForm" method="post" action="">
     <input type="submit" id="setBtn" value="交易設定" />
     <input type="submit" id="setBtn" value="重玩" />
-  </form>	
+  </form> 
 </div>
+{% endif %}
+{% endblock %}
 
-</body>
-</html>
+
+
+
+
+

@@ -1,11 +1,45 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+
+<style type="text/css">
+#signUpDiv {
+  position: relative;
+  margin:0px auto; /* 讓該div置中 */
+  width: 460px;
+  top: 5vh;
+  height: 70vh;
+  text-align: center;
+  background-color: rgba(255,255,255,0.5);
+}
+button[type=submit] {
+  width: 40%;
+  background-color: #417690;
+  color: white;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-family: 微軟正黑體;
+}
+button[type=submit]:hover {
+  background-color: #003C9D;
+}
+</style>
+
+{% endblock styles %}
+
 {% block content %}
-  <h2>Sign up</h2>
+<div id = 'signUpDiv'>
+  <h2>帳號註冊</h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
       <p>
         {{ field.label_tag }}<br>
-        {{ field }}
+        {{ field }}<br>
         {% if field.help_text %}
           <small style="color: grey">{{ field.help_text }}</small>
         {% endif %}
@@ -14,6 +48,7 @@
         {% endfor %}
       </p>
     {% endfor %}
-    <button type="submit">Sign up</button>
+    <button type="submit">註冊</button>
   </form>
+</div>
 {% endblock %}

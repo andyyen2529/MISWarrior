@@ -21,7 +21,7 @@ class Stock(models.Model):
 	opening_price = models.FloatField() # 開盤價
 	high = models.FloatField() # 最高價
 	low = models.FloatField() # 最低價
-	closeing_price = models.FloatField() # 收盤價
+	closing_price = models.FloatField() # 收盤價
 	spread = models.FloatField() # 漲跌價差
 	transaction_number = models.IntegerField() # 成交筆數
 

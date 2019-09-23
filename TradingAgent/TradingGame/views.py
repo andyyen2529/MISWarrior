@@ -6,15 +6,14 @@ from django.core import serializers
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 
-
-# def index(request):
-#     return HttpResponse("Hello, world. You're 是 887")
-	
-# def index2(request):
-#     return render(request, 'index.html', {'question': 'aaa'})
-
 def home(request):
-    return render(request, 'home.html', {'author': '陳宇鑫'})
+    return render(request, 'home.html', {'userName': '陳宇鑫'})
+
+def aboutMe(request):
+    return render(request, 'aboutMe.html')
+
+def developmentTeam(request):
+    return render(request, 'developmentTeam.html')
 
 def stockGame(request):
 	stock = Stock.objects.get(pk = 1)
@@ -27,7 +26,6 @@ def stockDay(request):
     stock_list = serializers.serialize('json', stock)
     print(stock_list)
     return HttpResponse(stock_list, content_type="text/json-comment-filtered")
-    #return HttpResponse(stock)
 
 def signup(request):
     if request.method == 'POST':

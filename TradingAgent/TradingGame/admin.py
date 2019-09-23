@@ -8,7 +8,7 @@ class UserAdmin(ImportExportModelAdmin):
 
 class StockAdmin(ImportExportModelAdmin):
 	list_display = ('id', 'code', 'date', 'volumn', 'turnover', 'opening_price', 
-		'high', 'low', 'closeing_price', 'spread', 'transaction_number')
+		'high', 'low', 'closing_price', 'spread', 'transaction_number')
 
 class HistoryAdmin(ImportExportModelAdmin):
 	list_display = ('id', 'user', 'stock', 'position_before_action', 

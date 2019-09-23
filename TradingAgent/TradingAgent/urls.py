@@ -20,9 +20,11 @@ from TradingGame import views
 
 urlpatterns = [
     url(r'^$', views.home, name = 'home'),
+    url(r'^aboutMe/', views.aboutMe, name = 'aboutMe'),
 	url(r'^stockGame/', views.stockGame, name = 'stockGame'),
-    url(r'^admin/', admin.site.urls),
+    url(r'^developmentTeam/', views.developmentTeam, name = 'developmentTeam'),
     url(r'^ajax/stockDay', views.stockDay, name='stockDay'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/signup/', views.signup, name='signup'),
+    url(r'^admin/', admin.site.urls),
 ]
