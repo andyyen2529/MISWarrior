@@ -14,21 +14,22 @@
   width:40%;
   background:#FFC;
   border-radius:25px;
+  font-size: 20px;
 }
 #tbl {
   float:left;
-  width:80%;
+  width:60%;
 }
 #decision {
   float:right;
-  width:20%;
+  width:30%;
 }
 #btn {
   background:#FC6;
   color:#966;
-  width:80px;
-  height:40px;
-  font-size:16px;
+  width:100px;
+  height:50px;
+  font-size:20px;
   border-radius:12px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     text-align: center;
@@ -39,9 +40,9 @@
 #setBtn {
   background:#3CF;
   color:#006;
-  width:80px;
-  height:40px;
-  font-size:16px;
+  width:100px;
+  height:50px;
+  font-size:20px;
   border-radius:12px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     text-align: center;
@@ -53,9 +54,12 @@ th {
   font-family: '微軟正黑體';
   background-color: #417690;
   color:#fff;
+  font-size: 18px;
 }
 td {
   background-color: #fff;
+  font-family: Times New Roman;
+  font-size: 18px;
 }
 </style>
 {% endblock styles %}
@@ -86,7 +90,7 @@ td {
 <p>&nbsp;</p>
 
 <div id = 'tbl'>
-  <table width=80% border="1" style="table-layout:fixed">
+  <table width=100% border="1" style="table-layout:fixed">
 
   　<tr>
     　<th>股票代碼</td>
@@ -159,11 +163,17 @@ td {
    
 
   </script>
-  <br />
+  <br>
   <form id="settingForm" method="post" action="">
     <input type="submit" id="setBtn" value="交易設定" />
     <input type="submit" id="setBtn" value="重玩" />
   </form> 
+</div>
+{% else %}
+<div id = 'signUpNotificationDiv'>
+  <p>想要使用「個股投資模擬」的功能嗎？</p>
+  <p>那就立刻加入股獲仔吧！</p>
+  <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" value="立即使用" />
 </div>
 {% endif %}
 {% endblock %}

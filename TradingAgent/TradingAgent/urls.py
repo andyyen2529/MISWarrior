@@ -24,6 +24,7 @@ urlpatterns = [
 	url(r'^stockGame/', views.stockGame, name = 'stockGame'),
     url(r'^developmentTeam/', views.developmentTeam, name = 'developmentTeam'),
     url(r'^ajax/stockDay', views.stockDay, name='stockDay'),
+    url(r'^intelligentInvestmentAdvise/', views.intelligentInvestmentAdvise, name = 'intelligentInvestmentAdvise'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/signup/', views.signup, name='signup'),
     url(r'^admin/', admin.site.urls),

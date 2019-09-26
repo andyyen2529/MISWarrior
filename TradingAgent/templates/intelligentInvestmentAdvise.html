@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+
+{% block styles %}
+<style>
+#picture {
+  float:left;
+  width:60%;
+}
+#status {
+  float:right;
+  width:40%;
+  background:#FFC;
+  border-radius:25px;
+}
+#tbl {
+  float:left;
+  width:80%;
+}
+#decision {
+  float:right;
+  width:20%;
+}
+#btn {
+  background:#FC6;
+  color:#966;
+  width:80px;
+  height:40px;
+  font-size:16px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
+}
+#setBtn {
+  background:#3CF;
+  color:#006;
+  width:80px;
+  height:40px;
+  font-size:16px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
+}
+th {
+  font-family: '微軟正黑體';
+  background-color: #417690;
+  color:#fff;
+}
+td {
+  background-color: #fff;
+}
+#developingNotificationDiv {
+    position: relative;
+    margin:0px auto; /* 讓該div置中 */
+    width: 40%;
+    padding: 60px;
+    top: 10vh;
+    text-align: center;
+    font-size: 2rem;
+    font-family: 微軟正黑體;
+    font-weight: bold;
+    background-color: rgb(255,255,255,0.5);
+}
+</style>
+{% endblock styles %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<br>
+
+<div id = 'developingNotificationDiv'>
+  <p>持續開發中，敬請期待！</p>
+</div>
+
+{% else %}
+<div id = 'signUpNotificationDiv'>
+  <p>想要使用「智能投資建議」的功能嗎？</p>
+  <p>那就立刻加入股獲仔吧！</p>
+  <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" value="立即使用" />
+</div>
+{% endif %}
+{% endblock %}
+
+
+
+
+
+

@@ -1,17 +1,57 @@
 {% extends 'base.html' %}
-{% block styles %}{% endblock styles %}
+{% load static %}
+
+{% block styles %}
+<style type="text/css">
+	#aboutMe-Div1 {
+	    position: relative;
+	    margin:0px auto; /* 讓該div置中 */
+	    width: 80%;
+	    top: 10vh;
+	    height: 60vh;
+	}
+	#aboutMe-Div1-innerDiv1 {
+		position: absolute;
+		width: 50%;
+		height: 100%;
+		background-image: url("{% static 'images/home_dancingRobot.gif' %}");
+		background-size: 60% 80%;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	#aboutMe-Div1-innerDiv2 {
+		position: absolute;
+		width: 50%;
+		height: 100%;
+		left: 50%;
+		background-color: rgba(255,255,255,0.4);
+		font-weight: bold;
+		font-size: 3rem;
+		text-align: center; 
+	}
+	#aboutMe-Div1-innerDiv2-textDiv {
+		text-align: left; 
+		padding: 20px;
+	}
+</style>
+{% endblock styles %}
 {% block content %}
 
-	<div id = 'div-relative1'>
+	<div id = 'aboutMe-Div1'>
 
-	  	<div id = 'inner-div-absolute1'></div>
+	  	<div id = 'aboutMe-Div1-innerDiv1'></div>
 
-	  	<div id = 'inner-div-absolute2'>
-	  		<p>關於股獲仔</p>
-	  		<font size = "3">內容待補</font>
+	  	<div id = 'aboutMe-Div1-innerDiv2'>
 	  		<br>
-	  		<br>
-			<font size = "3">關鍵字：投資模擬、金融科技、智能技術交易、深度強化學習、類神經網路、人工智慧</font>
+	  		關於股獲仔
+	  		<div id = "aboutMe-Div1-innerDiv2-textDiv">
+	  			<font size = "3">
+	  				DQN(Deep Q Network)，一種強化學習的神經網路，已經能夠應用在許多方面，像是玩遊戲、圖形辨識等，而股獲仔透過這項技術，將人工智慧應用在股市的交易上。
+	  				<br>目前股獲仔是以個股的交易為主，短期目標是打敗Buy&Hold的投資策略，中長期目標則是希望能媲美專業的股票技術分析師。
+	  			</font>
+	  		</div>
+			<font size = "5">關鍵字：投資模擬、金融科技、智能技術交易、
+				<br>深度強化學習、類神經網路、人工智慧</font>
 	  	</div>
 
 	</div>

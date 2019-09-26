@@ -86,17 +86,18 @@ input[type=submit]:hover {
 </div>
 
 <div id = 'loginInput'>
+
+{% if form.errors %}
+<font style="color: red; font-size: 1.25rem">您嘗試登入失敗，請再試一次。</font>
+{% endif %}
+
 <div>
 <input type="text" name="username" placeholder="用戶名">
 </div>
 <div>
 <input type="password" name="password" placeholder="密碼">
-<p><a href="{% url 'password_reset' %}">忘記密碼？</a></p>
+<p><a href="{% url 'password_reset' %}">重設密碼</a></p>
 </div>
-
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
 
 {% if next %}
     {% if user.is_authenticated %}

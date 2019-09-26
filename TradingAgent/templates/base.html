@@ -16,33 +16,10 @@
 	            background-size: cover;
 	            background-color: rgba(255,255,255,0.6);
 	            background-blend-mode: lighten;
+	            font-family: 微軟正黑體;
 			}
-			#div-relative1 {
-			    position: relative;
-			    margin:0px auto; /* 讓該div置中 */
-			    width: 80%;
-			    top: 10vh;
-			    height: 60vh;
-			}
-			#inner-div-absolute1 {
-				position: absolute;
-				width: 50%;
-				height: 100%;
-				background-image: url("{% static 'images/home_dancingRobot.gif' %}");
-				background-size: 60% 80%;
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-			#inner-div-absolute2 {
-				position: absolute;
-				width: 50%;
-				height: 100%;
-				left: 50%;
-				background-color: rgba(255,255,255,0.4);
+			input{
 				font-family: 微軟正黑體;
-				font-weight: bold;
-				font-size: 3rem;
-				text-align: center; 
 			}
 			footer {
 				position: fixed;
@@ -51,11 +28,37 @@
 				height: 50px;
 				background-color: dimgray;
 				width: 100%;
-				font-family: 微軟正黑體;
 				color: white;
 				display: flex;
 				justify-content: space-around;
 				text-align: center;
+			}
+			#input-style1{
+			    border:0;
+			      background-color:#003C9D;
+			      color:#fff;
+			      border-radius:10px;
+			      cursor:pointer;
+			      height: 60px;
+			      width: 200px;
+			      font-size: 1.5rem;
+			}
+			#input-style1[type=button]:hover{
+			  color:#003C9D;
+			  background-color:#fff;
+			  border:5px #003C9D solid;
+			}
+			#signUpNotificationDiv {
+			    position: relative;
+			    margin:0px auto; /* 讓該div置中 */
+			    width: 40%;
+			    padding: 60px;
+			    top: 10vh;
+			    text-align: center;
+			    font-size: 2rem;
+			    font-family: 微軟正黑體;
+			    font-weight: bold;
+			    background-color: rgb(255,255,255,0.5);
 			}
         </style>
     </head>
@@ -67,11 +70,11 @@
                 <li><a href="http://127.0.0.1:8000/aboutMe/">關於股獲仔</a></li>
                 <li><a href="http://127.0.0.1:8000/developmentTeam/">開發團隊</a></li>
                 <li><a href="http://127.0.0.1:8000/stockGame/">個股投資模擬</a></li>
-                <li><a href="#">智能投資建議</a></li>
+                <li><a href="http://127.0.0.1:8000/intelligentInvestmentAdvise">智能投資建議</a></li>
                 {% if not user.is_authenticated %}
                     <li><a href="http://127.0.0.1:8000/accounts/login/">註冊/登入</a></li>
                 {% else %}
-               	    你好 {{ userName }}
+               	    <p>您好， {{ user }}</p>
                     <li><a href="http://127.0.0.1:8000/accounts/logout/">登出</a></li>
                 {% endif %}
             </ul>

@@ -1,44 +1,52 @@
 ﻿{% extends 'base.html' %}
+{% load static %}
+
 {% block styles %}
 <style type="text/css">
-	#setBtn {
-		font-family: 微軟正黑體;		
+	#home-Div1 {
+	    position: relative;
+	    margin:0px auto; /* 讓該div置中 */
+	    width: 80%;
+	    top: 10vh;
+	    height: 60vh;
 	}
-	input{
-		border:0;
-	  	background-color:#003C9D;
-	  	color:#fff;
-	  	border-radius:10px;
-	  	cursor:pointer;
-	  	height: 60px;
-	  	width: 200px;
-	  	font-size: 1.5rem;
+	#home-Div1-innerDiv1 {
+		position: absolute;
+		width: 50%;
+		height: 100%;
+		background-image: url("{% static 'images/home_dancingRobot.gif' %}");
+		background-size: 60% 80%;
+		background-repeat: no-repeat;
+		background-position: center;
 	}
-
-	input:hover{
-	  	color:#003C9D;
-	  	background-color:#fff;
-	 	border:5px #003C9D 
-	 	solid;
+	#home-Div1-innerDiv2 {
+		position: absolute;
+		width: 50%;
+		height: 100%;
+		left: 50%;
+		background-color: rgba(255,255,255,0.4);
+		font-weight: bold;
+		font-size: 3rem;
+		text-align: center; 
 	}
 </style>
 {% endblock styles %}
 
 {% block content %}
 
-	<div id = 'div-relative1'>
+	<div id = 'home-Div1'>
 
-	  	<div id = 'inner-div-absolute1'></div>
+	  	<div id = 'home-Div1-innerDiv1'></div>
 
-	  	<div id = 'inner-div-absolute2'>
+	  	<div id = 'home-Div1-innerDiv2'>
 	  		<p>歡迎來到</p>
 	  		<p>股獲仔 - 智能投資平台</p>
 			 <form id="infoForm" method="post" action="">
                 {% if not user.is_authenticated %}
-                	<input type="button" id="setBtn" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" 
+                	<input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" 
                 	value="立即使用" />
                 {% endif %}
-                <input type="button" id="setBtn" onclick="location.href='http://127.0.0.1:8000/aboutMe/';" 
+                <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/aboutMe/';" 
                 	value="了解更多" />
 			 </form>
 	  	</div>

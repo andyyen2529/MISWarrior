@@ -7,10 +7,39 @@
   position: relative;
   margin:0px auto; /* 讓該div置中 */
   width: 460px;
-  top: 5vh;
-  height: 70vh;
+  top: 0vh;
+  height: 80vh;
   text-align: center;
   background-color: rgba(255,255,255,0.5);
+}
+#signUpDiv-titleDiv {
+  position: absolute;
+  top: 5%;
+  width: 100%;       
+  text-align: center; 
+  font-family: 微軟正黑體;
+  font-weight: bold;
+  font-size: 2rem;
+}
+#signUpDiv-inputDiv {
+  position: absolute;
+  top: 15%;
+  width: 100%;       
+  text-align: center; 
+  font-family: 微軟正黑體;
+  font-weight: bold;
+  font-size: 1rem;
+}
+input {
+  width: 80%;
+  padding: 8px 20px;
+  margin: 4px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: 微軟正黑體;
+  font-size: 1rem;
 }
 button[type=submit] {
   width: 40%;
@@ -33,22 +62,25 @@ button[type=submit]:hover {
 
 {% block content %}
 <div id = 'signUpDiv'>
-  <h2>帳號註冊</h2>
+  <div id = 'signUpDiv-titleDiv'>
+    註冊股獲仔會員
+  </div>
   <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}<br>
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">註冊</button>
+  <div id = 'signUpDiv-inputDiv'>
+      {% csrf_token %}
+      {% for field in form %}
+        <p>
+          {{ field }}<br>
+          {% if field.help_text %}
+            <small style="color: grey">{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        </p>
+      {% endfor %}
+      <button type="submit">註冊</button>
+  </div>
   </form>
 </div>
 {% endblock %}
