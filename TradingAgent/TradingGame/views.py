@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
+from TradingGame.forms import SetupForm
+
+
 class SignUpForm(UserCreationForm): 
 	username = forms.Field(widget=forms.TextInput(attrs={'placeholder': '用戶名'})) 
 	email = forms.Field(widget=forms.EmailInput(attrs={'placeholder':'電子郵件'})) 
@@ -30,7 +33,14 @@ def developmentTeam(request):
 
 def stockGame(request):
 	stock = Stock.objects.get(pk = 1)
-	return render(request, 'stockGame.html', {'stock': stock})
+
+	form = SetupForm(request.POST or None)
+	if form.is_valid():
+		setup = form.save(commit=False)
+		setup.user = request.user
+		setup.save()
+
+	return render(request, 'stockGame.html', {'stock': stock, 'form':form})
     
 def intelligentInvestmentAdvise(request):
 	return render(request, 'intelligentInvestmentAdvise.html')
@@ -41,6 +51,11 @@ def stockDay(request):
     stock = Stock.objects.filter(pk = int(stockId)+1)
     stock_list = serializers.serialize('json', stock)
     print(stock_list)
+
+    # 神經網路
+    # 讀神經網路的參數
+    #...
+    #神經網路當天的決定
     return HttpResponse(stock_list, content_type="text/json-comment-filtered")
 
 def signup(request):

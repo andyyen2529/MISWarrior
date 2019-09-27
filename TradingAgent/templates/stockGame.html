@@ -5,6 +5,17 @@
 
 {% block styles %}
 <style>
+
+#targetSettingDiv {
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  top: 20%;
+  left: 20%;
+  background-color: rgb(255,255,255,0.5);
+}
+
+
 #picture {
   float:left;
   width:60%;
@@ -61,6 +72,7 @@ td {
   font-family: Times New Roman;
   font-size: 18px;
 }
+
 </style>
 {% endblock styles %}
 
@@ -69,6 +81,9 @@ td {
 {% if user.is_authenticated %}
 
 <br>
+
+
+<!--
 
 <div id = 'picture'>
 <img src="{% static 'images/VIX_trend.png' %}" alt="" name="stockTrend" width="800" height="400" id="stockTrend" style="background-color: #CCC" />
@@ -116,10 +131,6 @@ td {
     　<td id="high">{{stock.high}} </td>
     　<td id="low">{{stock.low}} </td>
     　<td id="closing_price">{{stock.closing_price}} </td>
-    <!--
-      <td>漲跌價差：{{stock.spread}} </td>
-    　<td>成交筆數：{{stock.transaction_number}} </td>
-    -->
   　</tr>
 
   </table>
@@ -160,7 +171,6 @@ td {
                 },
             });
         });
-   
 
   </script>
   <br>
@@ -169,12 +179,58 @@ td {
     <input type="submit" id="setBtn" value="重玩" />
   </form> 
 </div>
+-->
+
+
+<script>
+$(document).ready(function(){
+  $("#show").hide();
+
+  $("#hide").click(function(){
+    $("#targetSettingDiv").hide();
+    $("#hide").hide();
+    $("#show").show();
+  });
+
+  $("#show").click(function(){
+    $("#targetSettingDiv").show();
+    $("#hide").show();
+    $("#show").hide();
+  });
+
+});
+</script>
+<div id = 'targetSettingDiv'>
+<p>個股投資模擬 - 交易設定</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="保存設定"/>
+</form>
+
+
+
+
+<button id="hide">關閉交易設定</button>
+
+</div>
+
+
+
+<button id="show">交易設定</button>
+
+
+
+
+
 {% else %}
 <div id = 'signUpNotificationDiv'>
   <p>想要使用「個股投資模擬」的功能嗎？</p>
   <p>那就立刻加入股獲仔吧！</p>
   <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" value="立即使用" />
 </div>
+
 {% endif %}
 {% endblock %}
 

@@ -1,16 +1,5 @@
 from django.db import models
-
-### 用戶 ###
-class User(models.Model): 
-	name = models.CharField(max_length = 30)
-	last_modify_date = models.DateTimeField(auto_now=True)
-	created = models.DateTimeField(auto_now_add=True)
-
-	class Meta:
-		db_table = 'user'
-
-	def __str__(self):
-		return self.name
+from django.contrib.auth.models import User
 
 ### 股票資料 ###
 class Stock(models.Model):
