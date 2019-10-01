@@ -6,7 +6,7 @@
 {% block styles %}
 <style>
 
-#targetSettingDiv {
+#transactionSetting-MainDiv {
   position: absolute;
   width: 60%;
   height: 60%;
@@ -72,6 +72,7 @@ td {
   font-family: Times New Roman;
   font-size: 18px;
 }
+
 
 </style>
 {% endblock styles %}
@@ -184,41 +185,131 @@ td {
 
 <script>
 $(document).ready(function(){
-  $("#show").hide();
-
-  $("#hide").click(function(){
-    $("#targetSettingDiv").hide();
-    $("#hide").hide();
-    $("#show").show();
+  $("#startGameButton").click(function(){
+    $("#transactionSetting").hide();
+    $("#stockInvestingSimulationInterface").show();
   });
 
-  $("#show").click(function(){
-    $("#targetSettingDiv").show();
-    $("#hide").show();
-    $("#show").hide();
+  $("#resetGameButton").click(function(){
+    $("#transactionSetting").show();
+    $("#stockInvestingSimulationInterface").hide();
   });
 
 });
 </script>
-<div id = 'targetSettingDiv'>
-<p>個股投資模擬 - 交易設定</p>
 
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="保存設定"/>
-</form>
+<div id = 'transactionSetting'>
+  <div id = 'transactionSetting-MainDiv'>
+    <p>個股投資模擬 - 交易設定</p>
 
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="保存設定"/>
+    </form>
 
+    {% if form.is_valid %}
+      <button id="startGameButton">開始模擬投資</button>
+    {% endif %}
 
-
-<button id="hide">關閉交易設定</button>
-
+  </div>
 </div>
 
 
 
-<button id="show">交易設定</button>
+<div id = 'stockInvestingSimulationInterface' hidden="hidden">
+
+  <div id = 'status'>
+      <p style="margin-left:25px">Day 1</p>
+      <p style="margin-left:25px">您現在持有 台灣50 2036股</p>
+      <p style="margin-left:25px">您截至今天的報酬為 7489.59 元</p>
+      <p style="margin-left:25px">您截至今天的報酬率為 7.486 %</p>
+    <p>&nbsp;</p>
+      
+    <form id="infoForm" method="post" action="">
+        <input type="submit" id="setBtn" value="歷史紀錄" />
+      </form>
+      <p>&nbsp;</p>
+  </div>
+  <p>&nbsp;</p>
+
+  <div id = 'tbl'>
+    <table width=100% border="1" style="table-layout:fixed">
+
+    　<tr>
+      　<th>股票代碼</td>
+      　<th>日期</td>
+      　<th>成交股數</td>
+      　<th>成交金額</td>
+      </tr>
+    　<tr>
+      　<td id="code">{{stock.code}}</td>
+      　<td id="date">{{stock.date |date:"Y-m-d"}} </td>
+      　<td id="volumn">{{stock.volumn}} </td>
+      　<td id="turnover">{{stock.turnover}} </td>
+      </tr>
+
+    　<tr>
+      　<th>開盤價</td>
+      　<th>最高價</td>
+      　<th>最低價</td>
+      　<th>收盤價</td>
+      </tr>
+      <tr>
+      　<td id="opening_price">{{stock.opening_price}} </td>
+      　<td id="high">{{stock.high}} </td>
+      　<td id="low">{{stock.low}} </td>
+      　<td id="closing_price">{{stock.closing_price}} </td>
+    　</tr>
+
+    </table>
+  </div>
+
+  <div id = 'decision'>
+    <form id="actionForm" type='post'>
+      {% csrf_token %}
+      <input type="button" id="btn" value="買入" />
+      <input type="button" id="btn" value="賣出" />
+      <input id="stockIdField" type="hidden" name="id" value="{{ stock.id }}">
+    </form>
+    <script>
+       $('#actionForm').click(function(){
+            $.ajax({
+                  url : "/ajax/stockDay/", // the endpoint
+                  type : "POST", // http method
+                  data : $('#actionForm').serialize(), // data sent with the post request
+
+                  // handle a successful response
+                  success : function(json) {
+                      console.log("success"); // another sanity check
+
+                      $("#code").text(json[0].fields.code);
+                      $("#date").text(json[0].fields.date);
+                      $("#volumn").text(json[0].fields.volumn);                    
+                      $("#turnover").text(json[0].fields.turnover);
+
+                      $("#opening_price").text(json[0].fields.opening_price);
+                      $("#high").text(json[0].fields.high);
+                      $("#low").text(json[0].fields.low);                    
+                      $("#closing_price").text(json[0].fields.closing_price);
+
+                      $('#stockIdField').val(json[0].pk);
+                  },
+                  error: function() {
+                      $('.testing').text('失敗');
+                  },
+              });
+          });
+
+    </script>
+    <br>
+    <form>
+      <button id="resetGameButton">重新開始</button>
+    </form> 
+  </div>
+
+
+</div>
 
 
 

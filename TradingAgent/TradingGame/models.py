@@ -31,14 +31,20 @@ class History(models.Model):
 	class Meta:
 		db_table = 'history'
 
+from datetime import datetime 
 ### 交易設定 ###
 class Setup(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE) # 用戶編號(外來鍵)
-	stock_code = models.CharField(max_length = 4, choices = (('0050', '元大台灣50'), ('2430', '燦坤'))) # 股票代碼
-	initial_transaction_date = models.DateField() # 起始交易日
-	playing_duration = models.IntegerField() # 遊玩天數(只計股市交易日)
+	stock_code = models.CharField(max_length = 4, choices = (('0050', '元大台灣50(0050)'), ('2430', '燦坤(2430)'))) # 股票代碼
+	initial_transaction_date = models.DateField(choices = (
+			(datetime.strptime('2016-01-04', "%Y-%m-%d").date(), '2016-01-04'), 
+			(datetime.strptime('2017-01-03', "%Y-%m-%d").date(), '2017-01-03')
+		)
+	) # 起始交易日
+	playing_duration = models.IntegerField(choices = ((60, '60個交易日(三個月)'), (240, '240個交易日(一年)'))) 
+		# 遊玩天數(只計股市交易日)
 	principal = models.IntegerField() # 本金
-	transaction_cost_rate = models.FloatField() # 交易成本比率
+	transaction_cost_rate = models.FloatField(choices = ((0.001425, '股票買賣現行手續費率(0.1425%)'), (0, '無'))) # 交易成本比率
 
 	class Meta:
 		db_table = 'setup'

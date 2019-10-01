@@ -1,5 +1,10 @@
 from django.forms import ModelForm
 from TradingGame.models import Setup
+from django import forms
+from django.forms.widgets import TextInput
+
+class NumberInput(TextInput):
+    input_type = 'number'
 
 # Create the form class.
 class SetupForm(ModelForm):
@@ -15,3 +20,10 @@ class SetupForm(ModelForm):
             'principal': '本金',
             'transaction_cost_rate': '交易成本比率'
         }
+
+        widgets = {
+            'principal': NumberInput(
+                attrs={'min': '0', 'max': '1000000', 'step': '10000', 'value': '100000', 'onkeydown':"return false"}),
+        }
+
+        
