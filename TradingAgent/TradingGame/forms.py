@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from TradingGame.models import Setup
+from TradingGame.models import Setup, AdviseSetup
 from django import forms
 from django.forms.widgets import TextInput
 
@@ -26,4 +26,21 @@ class SetupForm(ModelForm):
                 attrs={'min': '0', 'max': '1000000', 'step': '10000', 'value': '100000', 'onkeydown':"return false"}),
         }
 
-        
+class AdviseSetupForm(ModelForm):
+    class Meta:
+        model = AdviseSetup
+        fields= ('stock_code', 'principal', 'initialStockHold')
+        exclude = ('user',)
+        # 新增 labels 對應
+        labels = {
+            'stock_code': '股票名稱',
+            'principal': '本金',
+            'initialStockHold': '持有股數'
+        }
+
+        widgets = {
+            'principal': NumberInput(
+                attrs={'min': '0', 'max': '1000000', 'step': '10000', 'value': '100000', 'onkeydown':"return false"}),
+			'initialStockHold': NumberInput(
+                attrs={'min': '0', 'max': '1000000', 'step': '10000', 'value': '0', 'onkeydown':"return false"}),
+        }

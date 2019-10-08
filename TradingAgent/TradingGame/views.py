@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
-from TradingGame.forms import SetupForm
+from TradingGame.forms import SetupForm, AdviseSetupForm
 
 
 class SignUpForm(UserCreationForm): 
@@ -43,7 +43,15 @@ def stockGame(request):
 	return render(request, 'stockGame.html', {'stock': stock, 'form':form})
     
 def intelligentInvestmentAdvise(request):
-	return render(request, 'intelligentInvestmentAdvise.html')
+	stock = Stock.objects.get(pk = 1)
+
+	form = AdviseSetupForm(request.POST or None)
+	if form.is_valid():
+		setup = form.save(commit=False)
+		setup.user = request.user
+		setup.save()
+
+	return render(request, 'intelligentInvestmentAdvise.html', {'stock': stock, 'form':form})
 
 def stockDay(request):
     print(request.POST.get('day'))

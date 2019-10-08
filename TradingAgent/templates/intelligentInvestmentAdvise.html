@@ -69,6 +69,13 @@ td {
     font-weight: bold;
     background-color: rgb(255,255,255,0.5);
 }
+
+#initialCondition4Advice {
+  font-size: 1rem;
+  text-align: left;
+  margin-left: 100px;
+  
+}
 </style>
 {% endblock styles %}
 
@@ -79,7 +86,19 @@ td {
 <br>
 
 <div id = 'developingNotificationDiv'>
-  <p>持續開發中，敬請期待！</p>
+  <p>智能投資建議 - 條件設定</p>
+  
+  <div id = 'initialCondition4Advice'>
+	<form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="保存設定"/>
+	</form>
+	
+	{% if form.is_valid %}
+      <button id="startInvestBtn">開始操盤</button>
+    {% endif %}
+  </div>
 </div>
 
 {% else %}
