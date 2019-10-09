@@ -85,6 +85,21 @@ td {
 
 <br>
 
+<script>
+$(document).ready(function(){
+  $("#startInvestBtn").click(function(){
+    $("#developingNotificationDiv").hide();
+    $("#intelligentInvestmentAdviseInterface").show();
+  });
+
+  $("#resetBtn").click(function(){
+    $("#developingNotificationDiv").show();
+    $("#intelligentInvestmentAdviseInterface").hide();
+  });
+
+});
+</script>
+
 <div id = 'developingNotificationDiv'>
   <p>智能投資建議 - 條件設定</p>
   
@@ -99,6 +114,13 @@ td {
       <button id="startInvestBtn">開始操盤</button>
     {% endif %}
   </div>
+</div>
+
+<div id = 'intelligentInvestmentAdviseInterface' hidden="hidden">
+	<h1>{{stock.code}} 智能投資</h1>
+	<form>
+		<button id="resetBtn">重新開始</button>
+    </form> 
 </div>
 
 {% else %}
