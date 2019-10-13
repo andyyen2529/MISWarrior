@@ -20,17 +20,6 @@ class Stock(models.Model):
 	def __str__(self):
 		return '股票代碼：' + str(self.code) + '；日期：' + str(self.date)
 
-### 交易歷史 ###
-class History(models.Model):
-	user = models.ForeignKey(User, on_delete = models.CASCADE) # 用戶編號(外來鍵)
-	stock = models.ForeignKey(Stock, related_name = 'stocks', on_delete = models.CASCADE) # 股票資料編號(外來鍵)
-	position_before_action = models.CharField(max_length = 1, choices = (('0', '現金'), ('1', '股票'))) # 行動之前的資產持有狀態
-	rate_of_return_before_action = models.FloatField() # 行動之前的報酬率	
-	action = models.CharField(max_length = 1, choices = (('0', '等待or持有'), ('1', '買or賣'))) # 行動
-
-	class Meta:
-		db_table = 'history'
-
 from datetime import datetime 
 ### 交易設定 ###
 class Setup(models.Model):
@@ -48,6 +37,20 @@ class Setup(models.Model):
 
 	class Meta:
 		db_table = 'setup'
+
+	def __str__(self):
+		return '使用者：' + str(self.user)
+
+### 交易歷史 ###
+class History(models.Model):
+	setup = models.ForeignKey(Setup, on_delete = models.CASCADE) # 交易設定(外來鍵)
+	day = models.IntegerField(default = 0) # 目前遊玩的天數
+	position_before_action = models.CharField(max_length = 1, choices = (('現金','現金'), ('股票','股票'))) # 行動之前的資產持有狀態
+	rate_of_return_before_action = models.FloatField() # 行動之前的報酬率	
+	action = models.CharField(max_length = 1, choices = (('0', '等待or持有'), ('1', '買or賣'))) # 行動
+
+	class Meta:
+		db_table = 'history'
 
 ### 投資建議設定 ###		
 class AdviseSetup(models.Model):

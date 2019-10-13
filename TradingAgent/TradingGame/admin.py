@@ -8,7 +8,7 @@ class StockAdmin(ImportExportModelAdmin):
 		'high', 'low', 'closing_price', 'spread', 'transaction_number')
 
 class HistoryAdmin(ImportExportModelAdmin):
-	list_display = ('id', 'user', 'stock', 'position_before_action', 
+	list_display = ('id', 'setup', 'day', 'position_before_action', 
 		'rate_of_return_before_action', 'action')
 
 class SetupAdmin(ImportExportModelAdmin):

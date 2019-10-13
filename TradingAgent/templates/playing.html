@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+
+{% block styles %}
+<style>
+
+#transactionSetting-MainDiv {
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  top: 20%;
+  left: 20%;
+  background-color: rgb(255,255,255,0.5);
+}
+
+
+#picture {
+  float:left;
+  width:60%;
+}
+#status {
+  float:right;
+  width:40%;
+  background:#FFC;
+  border-radius:25px;
+  font-size: 20px;
+}
+#tbl {
+  float:left;
+  width:60%;
+}
+#decision {
+  float:right;
+  width:30%;
+}
+#btn, #btn2 {
+  background:#FC6;
+  color:#966;
+  width:100px;
+  height:50px;
+  font-size:20px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
+}
+#setBtn {
+  background:#3CF;
+  color:#006;
+  width:100px;
+  height:50px;
+  font-size:20px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
+}
+th {
+  font-family: '微軟正黑體';
+  background-color: #417690;
+  color:#fff;
+  font-size: 18px;
+}
+td {
+  background-color: #fff;
+  font-family: Times New Roman;
+  font-size: 18px;
+}
+
+
+</style>
+{% endblock styles %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+
+
+  <div id = 'status'>
+      <p style="margin-left:25px">Day <a id="day">{{history.day}}</a></p>
+      <p style="margin-left:25px">目前持有的資產為 {{history.position_before_action}}</p>
+      <p style="margin-left:25px"><a id="ttt">您現在持有 100000 元</a></p>
+      <p style="margin-left:25px">您截至今天的報酬率為 {{history.rate_of_return_before_action}} </p>
+    <p>&nbsp;</p>
+      
+    <form id="infoForm" method="post" action="">
+        <input type="button" value="歷史紀錄" onclick="location.href='http://127.0.0.1:8000/history/'">
+      </form>
+      <p>&nbsp;</p>
+  </div>
+  <p>&nbsp;</p>
+
+  <div id = 'tbl'>
+    <table width=100% border="1" style="table-layout:fixed">
+
+    　<tr>
+      　<th>股票代碼</td>
+      　<th>日期</td>
+      　<th>成交股數</td>
+      　<th>成交金額</td>
+      </tr>
+    　<tr>
+      　<td id="code">{{stock.code}}</td>
+      　<td id="date">{{stock.date |date:"Y-m-d"}} </td>
+      　<td id="volumn">{{stock.volumn}} </td>
+      　<td id="turnover">{{stock.turnover}} </td>
+      </tr>
+
+    　<tr>
+      　<th>開盤價</td>
+      　<th>最高價</td>
+      　<th>最低價</td>
+      　<th>收盤價</td>
+      </tr>
+      <tr>
+      　<td id="opening_price">{{stock.opening_price}} </td>
+      　<td id="high">{{stock.high}} </td>
+      　<td id="low">{{stock.low}} </td>
+      　<td id="closing_price">{{stock.closing_price}} </td>
+    　</tr>
+
+    </table>
+  </div>
+
+  <div id = 'decision'>
+    <form id="actionForm" type='post'>
+      {% csrf_token %}
+      <input type="button" id="btn" value="等待" />
+
+      {% if history.position_before_action == '現金' %}
+        <input type="button" id="btn2" value="買入">
+      {% else %}
+        <input type="button" id="btn2" value="賣出">
+      {% endif %}
+
+      <input id="stockIdField" type="hidden" name="id" value="{{ stock.id }}">
+      <input id="setup" type="hidden" name="setup" value="{{ history.setup }}">
+      <input id="day" type="hidden" name="day" value="{{ history.day }}">
+      <input id="ccc" type="hidden" name="id2" value="{{ history.id }}">
+    </form>
+
+    <script>
+       $('#actionForm').click(function(){
+            $.ajax({
+                  url : "/ajax/stockDay/", // the endpoint
+                  type : "POST", // http method
+                  data : $('#actionForm').serialize(), // data sent with the post request
+
+                  // handle a successful response
+                  success : function(json) {
+                      console.log("success"); // another sanity check
+
+                      $("#code").text(json[0].fields.code);
+                      $("#date").text(json[0].fields.date);
+                      $("#volumn").text(json[0].fields.volumn);                    
+                      $("#turnover").text(json[0].fields.turnover);
+
+                      $("#opening_price").text(json[0].fields.opening_price);
+                      $("#high").text(json[0].fields.high);
+                      $("#low").text(json[0].fields.low);                    
+                      $("#closing_price").text(json[0].fields.closing_price);
+
+                      $('#stockIdField').val(json[0].pk);
+                  },
+                  error: function() {
+                      $('.testing').text('失敗');
+                  },
+              });
+          });
+                 $("#btn").click(function(){
+
+            $.ajax({
+                  url : "/ajax/addingHistory/", // the endpoint
+                  type : "POST", // http method
+                  data : $('#actionForm').serialize(),
+
+                  // handle a successful response
+                  success : function(json) {
+                      console.log("success"); // another sanity check
+                      $("#ccc").val(json[0].pk);
+                      $("#day").text(json[0].fields.day);
+
+                  },
+                  error: function() {
+                      $('.testing').text('失敗');
+                  },
+              });
+          });
+
+    </script>
+    <br>
+    <form>
+      <input type="button" value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame'">
+    </form> 
+  </div>
+
+<script type="text/javascript">
+
+    var counter = 1;
+
+    $(document).ready(function() {
+
+        $("#actionForm").click(function(){
+            counter++;
+
+            $("#theCount").text(counter);
+        });
+
+    });
+</script>
+
+
+
+{% else %}
+<div id = 'signUpNotificationDiv'>
+  <p>想要使用「個股投資模擬」的功能嗎？</p>
+  <p>那就立刻加入股獲仔吧！</p>
+  <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" value="立即使用" />
+</div>
+
+{% endif %}
+{% endblock %}
+
+
+
+
+
+

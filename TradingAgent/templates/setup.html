@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+
+{% block styles %}
+<style>
+
+#transactionSetting-MainDiv {
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  top: 20%;
+  left: 20%;
+  background-color: rgb(255,255,255,0.5);
+}
+
+
+#picture {
+  float:left;
+  width:60%;
+}
+#status {
+  float:right;
+  width:40%;
+  background:#FFC;
+  border-radius:25px;
+  font-size: 20px;
+}
+#tbl {
+  float:left;
+  width:60%;
+}
+#decision {
+  float:right;
+  width:30%;
+}
+#btn {
+  background:#FC6;
+  color:#966;
+  width:100px;
+  height:50px;
+  font-size:20px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
+}
+#setBtn {
+  background:#3CF;
+  color:#006;
+  width:100px;
+  height:50px;
+  font-size:20px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
+}
+th {
+  font-family: '微軟正黑體';
+  background-color: #417690;
+  color:#fff;
+  font-size: 18px;
+}
+td {
+  background-color: #fff;
+  font-family: Times New Roman;
+  font-size: 18px;
+}
+
+
+</style>
+{% endblock styles %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<br>
+
+<div id = 'transactionSetting'>
+  <div id = 'transactionSetting-MainDiv'>
+    <p>個股投資模擬 - 交易設定</p>
+
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="保存設定並開始投資模擬"/>
+    </form>
+
+  </div>
+</div>
+
+{% else %}
+<div id = 'signUpNotificationDiv'>
+  <p>想要使用「個股投資模擬」的功能嗎？</p>
+  <p>那就立刻加入股獲仔吧！</p>
+  <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" value="立即使用" />
+</div>
+
+{% endif %}
+{% endblock %}
+
+
+
+
+
+

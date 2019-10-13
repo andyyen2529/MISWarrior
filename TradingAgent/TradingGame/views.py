@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http import JsonResponse
-from TradingGame.models import Stock
+from TradingGame.models import Stock, History
 from django.core import serializers
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -9,7 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
 from TradingGame.forms import SetupForm, AdviseSetupForm
-
+from django.shortcuts import render_to_response
 
 class SignUpForm(UserCreationForm): 
 	username = forms.Field(widget=forms.TextInput(attrs={'placeholder': '用戶名'})) 
@@ -31,17 +31,35 @@ def aboutMe(request):
 def developmentTeam(request):
 	return render(request, 'developmentTeam.html')
 
-def stockGame(request):
-	stock = Stock.objects.get(pk = 1)
 
-	form = SetupForm(request.POST or None)
-	if form.is_valid():
-		setup = form.save(commit=False)
-		setup.user = request.user
-		setup.save()
+# def stockGame(request):
+#     stock = Stock.objects.get(pk = 1)
+#     form = SetupForm(request.POST or None)
+#     if form.is_valid():
+#         setup = form.save(commit=False)
+#         setup.user = request.user
+#         setup.save()
+#         return render(request, 'admin.html', {'stock': stock, 'form':form})
 
-	return render(request, 'stockGame.html', {'stock': stock, 'form':form})
-    
+#     return render(request, 'stockGame.html', {'stock': stock, 'form':form})
+
+def setup(request):
+    form = SetupForm(request.POST or None)
+    if form.is_valid():
+        setup = form.save(commit=False)
+        setup.user = request.user
+        setup.save()
+        stock = Stock.objects.get(code = setup.stock_code, date = setup.initial_transaction_date)
+        history = History.objects.create(setup = setup, day = 0, position_before_action = '現金', 
+            rate_of_return_before_action = 0, action = 0)
+        return render(request, 'playing.html', {'stock': stock, 'history': history})
+
+    return render(request, 'setup.html', {'form': form})
+
+def history(request):
+    historys = History.objects.all()
+    return render(request, 'history.html', {'historys': historys})
+
 def intelligentInvestmentAdvise(request):
 	stock = Stock.objects.get(pk = 1)
 
@@ -54,17 +72,32 @@ def intelligentInvestmentAdvise(request):
 	return render(request, 'intelligentInvestmentAdvise.html', {'stock': stock, 'form':form})
 
 def stockDay(request):
-    print(request.POST.get('day'))
     stockId = request.POST.get('id')
     stock = Stock.objects.filter(pk = int(stockId)+1)
     stock_list = serializers.serialize('json', stock)
-    print(stock_list)
 
     # 神經網路
     # 讀神經網路的參數
     #...
     #神經網路當天的決定
     return HttpResponse(stock_list, content_type="text/json-comment-filtered")
+
+def addingHistory(request):
+    history_id = request.POST.get('id2')
+    history = History.objects.get(pk = history_id)
+
+    history_new = History.objects.create(
+        setup = history.setup,
+        day = int(history.day) + 1, 
+        position_before_action = history.position_before_action, 
+        rate_of_return_before_action = history.rate_of_return_before_action, 
+        action = 0)
+
+    history = History.objects.filter(pk = history_new.id)
+    history_list = serializers.serialize('json', history)
+
+    return HttpResponse(history_list, content_type="text/json-comment-filtered")
+
 
 def signup(request):
     if request.method == 'POST':
