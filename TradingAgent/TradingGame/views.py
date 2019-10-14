@@ -62,14 +62,28 @@ def history(request):
 
 def intelligentInvestmentAdvise(request):
 	stock = Stock.objects.get(pk = 1)
-
+	
+	testStock = Stock.objects.all()
+	data = {}
+	counter = 1
+	for v in testStock:
+		data[v.date] = v.closing_price
+		counter += 1
+		if counter == 30:
+			break
+	date = []
+	price = []
+	for key, value in data.items():
+		date.append(key.strftime("%d-%b-%Y"))
+		price.append(float(value))
+	
 	form = AdviseSetupForm(request.POST or None)
 	if form.is_valid():
 		setup = form.save(commit=False)
 		setup.user = request.user
 		setup.save()
 
-	return render(request, 'intelligentInvestmentAdvise.html', {'stock': stock, 'form':form})
+	return render(request, 'intelligentInvestmentAdvise.html', {'stock': stock, 'form':form, 'category4Xaxis': date, 'price': price})
 
 def stockDay(request):
     stockId = request.POST.get('id')

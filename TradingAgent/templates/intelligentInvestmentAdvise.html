@@ -118,6 +118,81 @@ $(document).ready(function(){
 
 <div id = 'intelligentInvestmentAdviseInterface' hidden="hidden">
 	<h1>{{stock.code}} 智能投資</h1>
+	
+	<!--繪製股價走勢圖-->
+	<div id="trend" style="width: 550px; height: 400px; "></div>
+	{% block js %}
+	<!--引入 JQuery 與 Highchart 的程式庫-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	
+	<script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts/modules/oldie.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+	
+	<script type= "text/javascript">
+	
+	$(document).ready(function() {
+		var title = {
+			text: '股價趨勢'
+		};
+		var subtitle = {
+			text: 'Source: 臺灣證券交易所'
+		};
+		
+		var xAxis = {
+			title: {
+				text: '過去30天股價'
+			},
+		};
+		
+		var yAxis = {
+			title: {
+				text: 'Closing Price (NTD)'
+			},
+			plotLines: [{
+				value: 0,
+				width: 1,
+				color: '#808080'
+			}]
+		};
+
+		var tooltip = {
+			valueSuffix: ' NTD'
+		}
+
+		var legend = {
+			layout: 'vertical',
+			align: 'right',
+			verticalAlign: 'middle',
+			borderWidth: 0
+		};
+
+		var series =  [
+		{
+			name: '{{stock.code}}',
+			data: {{price}}
+		},
+		
+		];
+
+		var json = {};
+
+		json.title = title;
+		json.subtitle = subtitle;
+		json.xAxis = xAxis;
+		json.yAxis = yAxis;
+		json.tooltip = tooltip;
+		json.legend = legend;
+		json.series = series;
+
+		$('#trend').highcharts(json);
+	});
+	
+	</script>
+	{% endblock %}
+	
 	<form>
 		<button id="resetBtn">重新開始</button>
     </form> 
