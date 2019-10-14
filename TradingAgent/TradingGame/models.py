@@ -45,9 +45,20 @@ class Setup(models.Model):
 class History(models.Model):
 	setup = models.ForeignKey(Setup, on_delete = models.CASCADE) # 交易設定(外來鍵)
 	day = models.IntegerField(default = 0) # 目前遊玩的天數
-	position_before_action = models.CharField(max_length = 1, choices = (('現金','現金'), ('股票','股票'))) # 行動之前的資產持有狀態
-	rate_of_return_before_action = models.FloatField() # 行動之前的報酬率	
+
+	# position_before_action = models.CharField(max_length = 1, choices = (('現金','現金'), ('股票','股票'))) # 行動之前的資產持有狀態
+	# last_trading_price_before_action = models.FloatField(blank = True) # 行動之前最後一筆的交易價格	
+	# rate_of_return_before_action = models.FloatField() # 行動之前的報酬率	
+	# cash_held_before_action = models.FloatField(default = 0)  # 行動之前的現金
+	# number_of_shares_held_before_action = models.FloatField(default = 0) # 行動之前的股數
+
 	action = models.CharField(max_length = 1, choices = (('0', '等待or持有'), ('1', '買or賣'))) # 行動
+
+	position_after_action = models.CharField(max_length = 1, choices = (('現金','現金'), ('股票','股票'))) # 行動之後的資產持有狀態
+	last_trading_price_after_action = models.FloatField(null = True)  # 行動之後最後一筆的交易價格
+	rate_of_return_after_action = models.FloatField() # 行動之後的報酬率	
+	cash_held_after_action = models.FloatField(default = 0) # 行動之後持有的現金
+	number_of_shares_held_after_action = models.FloatField(default = 0) # 行動之後持有的股數
 
 	class Meta:
 		db_table = 'history'

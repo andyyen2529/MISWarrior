@@ -31,18 +31,6 @@ def aboutMe(request):
 def developmentTeam(request):
 	return render(request, 'developmentTeam.html')
 
-
-# def stockGame(request):
-#     stock = Stock.objects.get(pk = 1)
-#     form = SetupForm(request.POST or None)
-#     if form.is_valid():
-#         setup = form.save(commit=False)
-#         setup.user = request.user
-#         setup.save()
-#         return render(request, 'admin.html', {'stock': stock, 'form':form})
-
-#     return render(request, 'stockGame.html', {'stock': stock, 'form':form})
-
 def setup(request):
     form = SetupForm(request.POST or None)
     if form.is_valid():
@@ -50,9 +38,11 @@ def setup(request):
         setup.user = request.user
         setup.save()
         stock = Stock.objects.get(code = setup.stock_code, date = setup.initial_transaction_date)
-        history = History.objects.create(setup = setup, day = 0, position_before_action = '現金', 
-            rate_of_return_before_action = 0, action = 0)
-        return render(request, 'playing.html', {'stock': stock, 'history': history})
+        history = History.objects.create(setup = setup, day = 0, action = 0,
+            position_after_action = '現金', rate_of_return_after_action = 0, 
+            cash_held_after_action = setup.principal, number_of_shares_held_after_action = 0)
+        history.day = 1
+        return render(request, 'playing.html', {'stock': stock, 'setup': setup, 'history': history})
 
     return render(request, 'setup.html', {'form': form})
 
@@ -82,19 +72,59 @@ def stockDay(request):
     #神經網路當天的決定
     return HttpResponse(stock_list, content_type="text/json-comment-filtered")
 
-def addingHistory(request):
-    history_id = request.POST.get('id2')
+def addingHistory_waitOrHold(request):
+    history_id = request.POST.get('historyId')
     history = History.objects.get(pk = history_id)
 
     history_new = History.objects.create(
         setup = history.setup,
         day = int(history.day) + 1, 
-        position_before_action = history.position_before_action, 
-        rate_of_return_before_action = history.rate_of_return_before_action, 
-        action = 0)
-
+        action = 0,
+        position_after_action = history.position_after_action, 
+        last_trading_price_after_action = history.last_trading_price_after_action,
+        rate_of_return_after_action = history.rate_of_return_after_action, 
+        cash_held_after_action = history.cash_held_after_action,
+        number_of_shares_held_after_action = history.number_of_shares_held_after_action
+    )
+    print(history_new.position_after_action)
     history = History.objects.filter(pk = history_new.id)
     history_list = serializers.serialize('json', history)
+
+    return HttpResponse(history_list, content_type="text/json-comment-filtered")
+
+def addingHistory_buyOrSell(request):
+    history_id = request.POST.get('historyId')
+    history = History.objects.get(pk = history_id)
+
+    history_list = ''
+
+    if history.position_after_action == '現金':
+        history_new = History.objects.create(
+            setup = history.setup,
+            day = int(history.day) + 1, 
+            action = 1,
+            position_after_action = '股票', 
+            last_trading_price_after_action = 50,
+            rate_of_return_after_action = history.rate_of_return_after_action, 
+            cash_held_after_action = 0,
+            number_of_shares_held_after_action = history.cash_held_after_action / 50
+        )
+        history = History.objects.filter(pk = history_new.id)
+        history_list = serializers.serialize('json', history)
+
+    else:
+        history_new = History.objects.create(
+            setup = history.setup,
+            day = int(history.day) + 1, 
+            action = 1,
+            position_after_action = '現金', 
+            last_trading_price_after_action = 55,
+            rate_of_return_after_action = (1 + history.rate_of_return_after_action) * (55 / 50) - 1, 
+            cash_held_after_action = history.number_of_shares_held_after_action * 55,
+            number_of_shares_held_after_action = 0
+        )
+        history = History.objects.filter(pk = history_new.id)
+        history_list = serializers.serialize('json', history)
 
     return HttpResponse(history_list, content_type="text/json-comment-filtered")
 
