@@ -35,7 +35,7 @@
   float:right;
   width:30%;
 }
-#btn, #btn2 {
+#btn_waitOrHold, #btn_buyOrSell {
   background:#FC6;
   color:#966;
   width:100px;
@@ -83,14 +83,15 @@ td {
 
 
   <div id = 'status'>
-      <p style="margin-left:25px">Day <a id="day">{{history.day}}</a></p>
-      <p style="margin-left:25px">目前持有的資產為 {{history.position_before_action}}</p>
-      <p style="margin-left:25px"><a id="ttt">您現在持有 100000 元</a></p>
-      <p style="margin-left:25px">您截至今天的報酬率為 {{history.rate_of_return_before_action}} </p>
+      <p style="margin-left:25px">現在是第 <a id="day">1</a> 天 (第 <a id="playingDuration">{{setup.playing_duration}}</a> 天結束)</p>
+      <p style="margin-left:25px">目前持有的資產為 <a id="position"> {{history.position_after_action}} </a>
+      <a id="cash"> {{ setup.principal }}</a>元</p>
+      <p style="margin-left:25px"> {{ setup.stock_code }} &nbsp <a id="stockNum">0</a>股</p>
+      <p style="margin-left:25px">您截至今天的報酬率為 <a id="return">0</a></p>
     <p>&nbsp;</p>
       
     <form id="infoForm" method="post" action="">
-        <input type="button" value="歷史紀錄" onclick="location.href='http://127.0.0.1:8000/history/'">
+        <input type="button" id='setBtn' value="歷史紀錄" onclick="location.href='http://127.0.0.1:8000/history/'">
       </form>
       <p>&nbsp;</p>
   </div>
@@ -131,90 +132,130 @@ td {
   <div id = 'decision'>
     <form id="actionForm" type='post'>
       {% csrf_token %}
-      <input type="button" id="btn" value="等待" />
 
-      {% if history.position_before_action == '現金' %}
-        <input type="button" id="btn2" value="買入">
-      {% else %}
-        <input type="button" id="btn2" value="賣出">
-      {% endif %}
+      <input type="button" id="btn_waitOrHold" value="等待">
+      <input type="button" id="btn_buyOrSell" value="買入">
+
 
       <input id="stockIdField" type="hidden" name="id" value="{{ stock.id }}">
-      <input id="setup" type="hidden" name="setup" value="{{ history.setup }}">
-      <input id="day" type="hidden" name="day" value="{{ history.day }}">
-      <input id="ccc" type="hidden" name="id2" value="{{ history.id }}">
+      <input id="historyIdField" type="hidden" name="historyId" value="{{ history.id }}">
+      <input id="closingPriceField" type="hidden" name="closingPrice" value="{{ stock.closing_price }}">
     </form>
 
     <script>
-       $('#actionForm').click(function(){
-            $.ajax({
-                  url : "/ajax/stockDay/", // the endpoint
-                  type : "POST", // http method
-                  data : $('#actionForm').serialize(), // data sent with the post request
+      // 獲取股票資料
+      $('#actionForm').click(function(){
+        $.ajax({
+          url : "/ajax/stockDay/", // the endpoint
+          type : "POST", // http method
+          data : $('#actionForm').serialize(), // data sent with the post request
 
-                  // handle a successful response
-                  success : function(json) {
-                      console.log("success"); // another sanity check
+          // handle a successful response
+          success : function(json) {
+            console.log("success"); // another sanity check
 
-                      $("#code").text(json[0].fields.code);
-                      $("#date").text(json[0].fields.date);
-                      $("#volumn").text(json[0].fields.volumn);                    
-                      $("#turnover").text(json[0].fields.turnover);
+            $("#code").text(json[0].fields.code);
+            $("#date").text(json[0].fields.date);
+            $("#volumn").text(json[0].fields.volumn);                    
+            $("#turnover").text(json[0].fields.turnover);
 
-                      $("#opening_price").text(json[0].fields.opening_price);
-                      $("#high").text(json[0].fields.high);
-                      $("#low").text(json[0].fields.low);                    
-                      $("#closing_price").text(json[0].fields.closing_price);
+            $("#opening_price").text(json[0].fields.opening_price);
+            $("#high").text(json[0].fields.high);
+            $("#low").text(json[0].fields.low);                    
+            $("#closing_price").text(json[0].fields.closing_price);
 
-                      $('#stockIdField').val(json[0].pk);
-                  },
-                  error: function() {
-                      $('.testing').text('失敗');
-                  },
-              });
-          });
-                 $("#btn").click(function(){
+            $("#closingPriceField").val(json[0].fields.closing_price);
 
-            $.ajax({
-                  url : "/ajax/addingHistory/", // the endpoint
-                  type : "POST", // http method
-                  data : $('#actionForm').serialize(),
+            $('#stockIdField').val(json[0].pk);
+          },
+          error: function() {
+            $('.testing').text('失敗');
+          },
+        });
+      });
+                 
 
-                  // handle a successful response
-                  success : function(json) {
-                      console.log("success"); // another sanity check
-                      $("#ccc").val(json[0].pk);
-                      $("#day").text(json[0].fields.day);
+      // 按下「等待or持有」按鈕之後的後端數據處理
+      $("#btn_waitOrHold").click(function(){
+        $.ajax({
+          url : "/ajax/addingHistory_waitOrHold/", // the endpoint
+          type : "POST", // http method
+          data : $('#actionForm').serialize(),
 
-                  },
-                  error: function() {
-                      $('.testing').text('失敗');
-                  },
-              });
-          });
+          // handle a successful response
+          success : function(json) {
+            console.log("success"); // another sanity check
+            $("#historyIdField").val(json[0].pk);
+            $("#day").text(json[0].fields.day + 1);
+            $("#position").text(json[0].fields.position_after_action);
+            $("#return").text(json[0].fields.rate_of_return_after_action);
+            $("#cash").text(json[0].fields.cash_held_after_action);
+            $("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
+
+            if ((json[0].fields.day + 1) > parseInt($("#playingDuration").text())) {
+              alert('本次投資模擬結束，之後將結算成績！')
+            }
+
+            if (json[0].fields.position_after_action == '現金') {
+              document.getElementById("btn_waitOrHold").value = '等待'
+              document.getElementById("btn_buyOrSell").value = '買入'
+            } else { 
+              document.getElementById("btn_waitOrHold").value = '持有'
+              document.getElementById("btn_buyOrSell").value = '賣出'
+            }
+
+          },
+            error: function() {
+            $('.testing').text('失敗');
+          },
+        });
+      });
+
+      // 按下「買入or賣出」按鈕之後的後端數據處理
+      $("#btn_buyOrSell").click(function(){
+        $.ajax({
+          url : "/ajax/addingHistory_buyOrSell/", // the endpoint
+          type : "POST", // http method
+          data : $('#actionForm').serialize(),
+
+          // handle a successful response
+          success : function(json) {
+            console.log("success"); // another sanity check            
+
+            if ((json[0].fields.day + 1) > parseInt($("#playingDuration").text()) - 55) {
+              alert('本次投資模擬結束，之後將結算成績！')
+              document.location.href = "http://127.0.0.1:8000/";
+              return;
+            }
+
+            $("#historyIdField").val(json[0].pk);
+            $("#day").text(json[0].fields.day + 1);
+            $("#position").text(json[0].fields.position_after_action);
+            $("#return").text(json[0].fields.rate_of_return_after_action);
+            $("#cash").text(json[0].fields.cash_held_after_action);
+            $("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
+
+            if (json[0].fields.position_after_action == '現金') {
+              document.getElementById("btn_waitOrHold").value = '等待'
+              document.getElementById("btn_buyOrSell").value = '買入'
+            } else { 
+              document.getElementById("btn_waitOrHold").value = '持有'
+              document.getElementById("btn_buyOrSell").value = '賣出'
+            }
+
+          },
+            error: function() {
+            $('.testing').text('失敗');
+          },
+        });
+      });
 
     </script>
     <br>
     <form>
-      <input type="button" value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame'">
+      <input type="button" id='setBtn' value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame'">
     </form> 
   </div>
-
-<script type="text/javascript">
-
-    var counter = 1;
-
-    $(document).ready(function() {
-
-        $("#actionForm").click(function(){
-            counter++;
-
-            $("#theCount").text(counter);
-        });
-
-    });
-</script>
-
 
 
 {% else %}
@@ -226,9 +267,3 @@ td {
 
 {% endif %}
 {% endblock %}
-
-
-
-
-
-
