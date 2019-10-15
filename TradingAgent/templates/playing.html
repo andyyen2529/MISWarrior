@@ -5,18 +5,7 @@
 
 {% block styles %}
 <style>
-
-#transactionSetting-MainDiv {
-  position: absolute;
-  width: 60%;
-  height: 60%;
-  top: 20%;
-  left: 20%;
-  background-color: rgb(255,255,255,0.5);
-}
-
-
-#picture {
+#trend {
   float:left;
   width:60%;
 }
@@ -47,6 +36,7 @@
   margin-right:25px;
   margin-left:25px;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 #setBtn {
   background:#3CF;
@@ -60,6 +50,7 @@
   margin-right:25px;
   margin-left:25px;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 th {
   font-family: '微軟正黑體';
@@ -72,8 +63,6 @@ td {
   font-family: Times New Roman;
   font-size: 18px;
 }
-
-
 </style>
 {% endblock styles %}
 
@@ -81,19 +70,106 @@ td {
 {% block content %}
 {% if user.is_authenticated %}
 
+  <!--繪製股價走勢圖-->
+  <div id="trend" style="width: 50%; height: 400px; "></div>
+  {% block js %}
+  <!--引入 JQuery 與 Highchart 的程式庫-->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  
+  <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
+  <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com.cn/highcharts/modules/oldie.js"></script>
+  <script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+  
+  <script type= "text/javascript">
+  
+  $(document).ready(function() {
+    var title = {
+      text: '股價趨勢'
+    };
+    var subtitle = {
+      text: 'Source: 臺灣證券交易所'
+    };
+    
+    var xAxis = {
+      title: {
+        text: '過去30天股價'
+      },
+    };
+    
+    var yAxis = {
+      title: {
+        text: 'Closing Price (NTD)'
+      },
+      plotLines: [{
+        value: 0,
+        width: 1,
+        color: '#808080'
+      }]
+    };
+
+    var tooltip = {
+      valueSuffix: ' NTD'
+    }
+
+    var legend = {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+      borderWidth: 0
+    };
+
+    var series =  [
+    {
+      name: '{{stock.code}}',
+      data: {{price}}
+    },
+    
+    ];
+
+    var json = {};
+
+    json.title = title;
+    json.subtitle = subtitle;
+    json.xAxis = xAxis;
+    json.yAxis = yAxis;
+    json.tooltip = tooltip;
+    json.legend = legend;
+    json.series = series;
+
+    $('#trend').highcharts(json);
+  })
+  
+  </script>
+  {% endblock %}
+
 
   <div id = 'status'>
-      <p style="margin-left:25px">現在是第 <a id="day">1</a> 天 (第 <a id="playingDuration">{{setup.playing_duration}}</a> 天結束)</p>
-      <p style="margin-left:25px">目前持有的資產為 <a id="position"> {{history.position_after_action}} </a>
-      <a id="cash"> {{ setup.principal }}</a>元</p>
-      <p style="margin-left:25px"> {{ setup.stock_code }} &nbsp <a id="stockNum">0</a>股</p>
-      <p style="margin-left:25px">您截至今天的報酬率為 <a id="return">0</a></p>
+      <p style="margin-left:25px">現在是第 <a id="day">1</a> 天 
+        (第 <a id="playingDuration">{{setup.playing_duration}}</a> 天結束)</p>
+      <p style="margin-left:25px">您目前持有的資產：<a id="asset">現金{{ setup.principal }}元</a></p>
+      <p style="margin-left:25px">您最後一次的交易價格(收盤價)： <a id="lastTradingPrice">暫無</a></p> 
+      <p style="margin-left:25px">您截至目前的報酬率： <a id="return">0</a></p>
     <p>&nbsp;</p>
-      
+
+    <form id="actionForm" type='post'>
+      {% csrf_token %}
+
+      <input type="button" id="btn_waitOrHold" value="等待">
+      <input type="button" id="btn_buyOrSell" value="買入">
+
+
+      <input id="stockIdField" type="hidden" name="id" value="{{ stock.id }}">
+      <input id="historyIdField" type="hidden" name="historyId" value="{{ history.id }}">
+      <input id="closingPriceField" type="hidden" name="closingPrice" value="{{ stock.closing_price }}">
+    </form>
+
     <form id="infoForm" method="post" action="">
         <input type="button" id='setBtn' value="歷史紀錄" onclick="location.href='http://127.0.0.1:8000/history/'">
-      </form>
-      <p>&nbsp;</p>
+        <input type="button" id='setBtn' value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame'">
+    </form> 
+
   </div>
   <p>&nbsp;</p>
 
@@ -130,17 +206,6 @@ td {
   </div>
 
   <div id = 'decision'>
-    <form id="actionForm" type='post'>
-      {% csrf_token %}
-
-      <input type="button" id="btn_waitOrHold" value="等待">
-      <input type="button" id="btn_buyOrSell" value="買入">
-
-
-      <input id="stockIdField" type="hidden" name="id" value="{{ stock.id }}">
-      <input id="historyIdField" type="hidden" name="historyId" value="{{ history.id }}">
-      <input id="closingPriceField" type="hidden" name="closingPrice" value="{{ stock.closing_price }}">
-    </form>
 
     <script>
       // 獲取股票資料
@@ -153,6 +218,10 @@ td {
           // handle a successful response
           success : function(json) {
             console.log("success"); // another sanity check
+
+            if ((parseInt($("#day").text())) >= (parseInt($("#playingDuration").text()))) {
+              return;
+            }
 
             $("#code").text(json[0].fields.code);
             $("#date").text(json[0].fields.date);
@@ -185,10 +254,24 @@ td {
           // handle a successful response
           success : function(json) {
             console.log("success"); // another sanity check
+
+            if ((json[0].fields.day + 1) > parseInt($("#playingDuration").text())) {
+              alert('本次投資模擬結束，之後將結算成績！')
+              document.location.href = "http://127.0.0.1:8000/";
+              return;
+            }
+
             $("#historyIdField").val(json[0].pk);
             $("#day").text(json[0].fields.day + 1);
             $("#position").text(json[0].fields.position_after_action);
             $("#return").text(json[0].fields.rate_of_return_after_action);
+
+            if (json[0].fields.last_trading_price_after_action == null){
+              $("#lastTradingPrice").text('暫無');
+            } else {
+              $("#lastTradingPrice").text(json[0].fields.last_trading_price_after_action);
+            }
+            
             $("#cash").text(json[0].fields.cash_held_after_action);
             $("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
 
@@ -199,9 +282,11 @@ td {
             if (json[0].fields.position_after_action == '現金') {
               document.getElementById("btn_waitOrHold").value = '等待'
               document.getElementById("btn_buyOrSell").value = '買入'
+              $("#asset").text('現金' + json[0].fields.cash_held_after_action + '元');
             } else { 
               document.getElementById("btn_waitOrHold").value = '持有'
               document.getElementById("btn_buyOrSell").value = '賣出'
+              $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action + '股');
             }
 
           },
@@ -222,7 +307,7 @@ td {
           success : function(json) {
             console.log("success"); // another sanity check            
 
-            if ((json[0].fields.day + 1) > parseInt($("#playingDuration").text()) - 55) {
+            if ((json[0].fields.day + 1) > parseInt($("#playingDuration").text())) {
               alert('本次投資模擬結束，之後將結算成績！')
               document.location.href = "http://127.0.0.1:8000/";
               return;
@@ -232,15 +317,24 @@ td {
             $("#day").text(json[0].fields.day + 1);
             $("#position").text(json[0].fields.position_after_action);
             $("#return").text(json[0].fields.rate_of_return_after_action);
+
+            if (json[0].fields.last_trading_price_after_action == null){
+              $("#lastTradingPrice").text('暫無');
+            } else {
+              $("#lastTradingPrice").text(json[0].fields.last_trading_price_after_action);
+            }
+
             $("#cash").text(json[0].fields.cash_held_after_action);
             $("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
 
             if (json[0].fields.position_after_action == '現金') {
               document.getElementById("btn_waitOrHold").value = '等待'
               document.getElementById("btn_buyOrSell").value = '買入'
+              $("#asset").text('現金' + json[0].fields.cash_held_after_action + '元');
             } else { 
               document.getElementById("btn_waitOrHold").value = '持有'
               document.getElementById("btn_buyOrSell").value = '賣出'
+              $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action + '股');
             }
 
           },
@@ -251,10 +345,6 @@ td {
       });
 
     </script>
-    <br>
-    <form>
-      <input type="button" id='setBtn' value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame'">
-    </form> 
   </div>
 
 

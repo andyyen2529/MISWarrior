@@ -42,13 +42,30 @@ def setup(request):
             position_after_action = '現金', rate_of_return_after_action = 0, 
             cash_held_after_action = setup.principal, number_of_shares_held_after_action = 0)
         history.day = 1
-        return render(request, 'playing.html', {'stock': stock, 'setup': setup, 'history': history})
+        
+        testStock = Stock.objects.all()
+        data = {}
+        counter = 1
+        for v in testStock:
+            data[v.date] = v.closing_price
+            counter += 1
+            if counter == 30:
+                break
+        date = []
+        price = []
+        for key, value in data.items():
+            date.append(key.strftime("%d-%b-%Y"))
+            price.append(float(value))
+
+
+        return render(request, 'playing.html', {'stock': stock, 'setup': setup, 'history': history, 
+            'date': date, 'price': price})
 
     return render(request, 'setup.html', {'form': form})
 
-def history(request):
-    historys = History.objects.all()
-    return render(request, 'history.html', {'historys': historys})
+# def history(request):
+#     historys = History.objects.all()
+#     return render(request, 'history.html', {'historys': historys})
 
 def intelligentInvestmentAdvise(request):
     stock = Stock.objects.get(pk = 1)
