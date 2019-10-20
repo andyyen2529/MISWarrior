@@ -68,30 +68,35 @@ def setup(request):
 #     return render(request, 'history.html', {'historys': historys})
 
 def intelligentInvestmentAdvise(request):
-    stock = Stock.objects.get(pk = 1)
+	# Django QuerySet
+	# solution for negative index
+	# today's data (the newest data)
+	stock = Stock.objects.order_by('-id')[0]
     
-    testStock = Stock.objects.all()
-    data = {}
-    counter = 1
-    for v in testStock:
-        data[v.date] = v.closing_price
-        counter += 1
-        if counter == 30:
-            break
-    date = []
-    price = []
-    for key, value in data.items():
-        date.append(key.strftime("%d-%b-%Y"))
-        price.append(float(value))
-    
-    form = AdviseSetupForm(request.POST or None)
-    if form.is_valid():
-        setup = form.save(commit=False)
-        setup.user = request.user
-        setup.save()
+	form = AdviseSetupForm(request.POST or None)
+	if form.is_valid():
+		setup = form.save(commit=False)
+		setup.user = request.user
+		setup.save()
+		
+		# get data for plot
+		#stockData = Stock.objects.all()
+		stockData = Stock.objects.order_by('-id')[0:30]
+		data = {}
+		for v in stockData:
+			data[v.date] = v.closing_price
+		date = []
+		price = []
+		for key, value in data.items():
+			date.append(key.strftime("%d-%b-%Y"))
+			price.append(float(value))
+		# reverse() >> re-order the series (long term to short term)
+		date.reverse()
+		price.reverse()
+	
+		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 'date': date, 'price': price})
 
-    return render(request, 'intelligentInvestmentAdvise.html', {'stock': stock, 'form':form, 'category4Xaxis': date, 'price': price})
-
+	return render(request, 'intelligentInvestmentAdvise.html', {'form': form})
 
 def stockDay(request):
     stockId = request.POST.get('id')

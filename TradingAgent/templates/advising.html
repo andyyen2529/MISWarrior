@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+
+{% block styles %}
+<style>
+#trend {
+  float:left;
+  width:60%;
+}
+#status {
+  float:right;
+  width:40%;
+  height:50%;
+  background:#FFC;
+  border-radius:25px;
+  font-size: 20px;
+}
+#tbl {
+  float:left;
+  width:60%;
+}
+#decision {
+  float:right;
+  width:30%;
+}
+#btn_waitOrHold, #btn_buyOrSell {
+  background:#FC6;
+  color:#966;
+  width:100px;
+  height:50px;
+  font-size:20px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+#setBtn {
+  background:#3CF;
+  color:#006;
+  width:100px;
+  height:50px;
+  font-size:20px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+th {
+  font-family: '微軟正黑體';
+  background-color: #417690;
+  color:#fff;
+  font-size: 18px;
+}
+td {
+  background-color: #fff;
+  font-family: Times New Roman;
+  font-size: 18px;
+}
+</style>
+{% endblock styles %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+
+  <!--繪製股價走勢圖-->
+  <div id="trend" style="width: 60%; height: 50%; "></div>
+  {% block js %}
+  <!--引入 JQuery 與 Highchart 的程式庫-->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  
+  <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
+  <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com.cn/highcharts/modules/oldie.js"></script>
+  <script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+  
+  <script type= "text/javascript">
+  
+  $(document).ready(function() {
+    var title = {
+      text: '{{setup.stock_code}} 股價趨勢'
+    };
+    var subtitle = {
+      text: 'Source: 臺灣證券交易所'
+    };
+    
+    var xAxis = {
+      title: {
+        text: '過去30天股價'
+      },
+    };
+    
+    var yAxis = {
+      title: {
+        text: 'Closing Price (NTD)'
+      },
+      plotLines: [{
+        value: 0,
+        width: 1,
+        color: '#808080'
+      }]
+    };
+
+    var tooltip = {
+      valueSuffix: ' NTD'
+    }
+
+    var legend = {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+      borderWidth: 0
+    };
+
+    var series =  [
+    {
+      name: '{{setup.stock_code}}',
+      data: {{price}}
+    },
+    
+    ];
+
+    var json = {};
+
+    json.title = title;
+    json.subtitle = subtitle;
+    json.xAxis = xAxis;
+    json.yAxis = yAxis;
+    json.tooltip = tooltip;
+    json.legend = legend;
+    json.series = series;
+
+    $('#trend').highcharts(json);
+  })
+  
+  </script>
+  {% endblock %}
+
+
+  <div id = 'status'>
+      <p style="margin-left:25px">{{stock.date}}</p>
+      <p style="margin-left:25px">您目前持有的資產：<a id="asset">NTD {{ setup.principal }}</a></p>
+      <p style="margin-left:25px">建議投資決策 : (買/等待)</p>
+	<p>&nbsp;</p>
+
+    <form id="infoForm" method="post" action="">
+        <input type="button" id='setBtn' value="歷史紀錄" onclick="location.href='http://127.0.0.1:8000/history/'">
+		<input type="button" id='setBtn' value="重新設定" onClick="location.href = '/intelligentInvestmentAdvise'"/>
+    </form> 
+
+  </div>
+  <p>&nbsp;</p>
+
+  <div id = 'tbl'>
+    <table width=100% border="1" style="table-layout:fixed">
+
+    　<tr>
+      　<th>股票代碼</td>
+      　<th>日期</td>
+      　<th>成交股數</td>
+      　<th>成交金額</td>
+      </tr>
+    　<tr>
+      　<td id="code">{{stock.code}}</td>
+      　<td id="date">{{stock.date |date:"Y-m-d"}} </td>
+      　<td id="volumn">{{stock.volumn}} </td>
+      　<td id="turnover">{{stock.turnover}} </td>
+      </tr>
+
+    　<tr>
+      　<th>開盤價</td>
+      　<th>最高價</td>
+      　<th>最低價</td>
+      　<th>收盤價</td>
+      </tr>
+      <tr>
+      　<td id="opening_price">{{stock.opening_price}} </td>
+      　<td id="high">{{stock.high}} </td>
+      　<td id="low">{{stock.low}} </td>
+      　<td id="closing_price">{{stock.closing_price}} </td>
+    　</tr>
+
+    </table>
+  </div>
+
+{% else %}
+<div id = 'signUpNotificationDiv'>
+  <p>想要使用「個股投資模擬」的功能嗎？</p>
+  <p>那就立刻加入股獲仔吧！</p>
+  <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" value="立即使用" />
+</div>
+
+{% endif %}
+{% endblock %}
