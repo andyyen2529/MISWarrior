@@ -21,7 +21,6 @@ class SignUpForm(UserCreationForm):
         model = User  
         fields = ('username','email','password1','password2') 
 
-
 def home(request):
     return render(request, 'home.html', {'userName': '陳宇鑫'})
 
@@ -33,7 +32,20 @@ def developmentTeam(request):
 
 def setup(request):
     form = SetupForm(request.POST or None)
-    if form.is_valid():
+    return render(request, 'setup.html', {'form': form})
+
+def history(request):
+    historys = History.objects.all()
+    history_list = serializers.serialize('json', historys)
+    return HttpResponse(history_list, content_type="text/json-comment-filtered")
+
+
+#SECONDARY VIEW TO RETURN JSON DATA TO USER ****NEW PART****
+def playing(request):
+    if 'setup' in request.POST:
+        form = SetupForm(request.POST or None)
+        print(form)
+
         setup = form.save(commit=False)
         setup.user = request.user
         setup.save()
@@ -42,7 +54,7 @@ def setup(request):
             position_after_action = '現金', rate_of_return_after_action = 0, 
             cash_held_after_action = setup.principal, number_of_shares_held_after_action = 0)
         history.day = 1
-        
+
         testStock = Stock.objects.all()
         data = {}
         counter = 1
@@ -56,16 +68,17 @@ def setup(request):
         for key, value in data.items():
             date.append(key.strftime("%d-%b-%Y"))
             price.append(float(value))
-
+        print('aaa')
 
         return render(request, 'playing.html', {'stock': stock, 'setup': setup, 'history': history, 
-            'date': date, 'price': price})
+                'date': date, 'price': price})
 
-    return render(request, 'setup.html', {'form': form})
+    else:
+        return redirect('stockGame/setup') # 如果直接輸入遊玩頁面的網址，由於完成交易設定，系統將重新導向交易設定的頁面
 
-# def history(request):
-#     historys = History.objects.all()
-#     return render(request, 'history.html', {'historys': historys})
+def playing2(request):
+    print('嗨嗨')
+    return HttpResponse('coco')
 
 def intelligentInvestmentAdvise(request):
 	# Django QuerySet

@@ -2,7 +2,6 @@
 {% load static %}
 {% load staticfiles %}
 
-
 {% block styles %}
 <style>
 #trend {
@@ -17,6 +16,10 @@
   font-size: 20px;
 }
 #tbl {
+  float:left;
+  width:60%;
+}
+#historyField {
   float:left;
   width:60%;
 }
@@ -150,7 +153,7 @@ td {
         (第 <a id="playingDuration">{{setup.playing_duration}}</a> 天結束)</p>
       <p style="margin-left:25px">您目前持有的資產：<a id="asset">現金{{ setup.principal }}元</a></p>
       <p style="margin-left:25px">您最後一次的交易價格(收盤價)： <a id="lastTradingPrice">暫無</a></p> 
-      <p style="margin-left:25px">您截至目前的報酬率： <a id="return">0</a></p>
+      <p style="margin-left:25px">您截至目前的報酬率： <a id="return">0.000%</a></p>
     <p>&nbsp;</p>
 
     <form id="actionForm" type='post'>
@@ -165,9 +168,13 @@ td {
       <input id="closingPriceField" type="hidden" name="closingPrice" value="{{ stock.closing_price }}">
     </form>
 
+    <form type="post">
+      {% csrf_token %}
+      <input type="button" id='btn_history' value="歷史紀錄" name='getHistory'>
+    </form>
+
     <form id="infoForm" method="post" action="">
-        <input type="button" id='setBtn' value="歷史紀錄" onclick="location.href='http://127.0.0.1:8000/history/'">
-        <input type="button" id='setBtn' value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame'">
+        <input type="button" id='setBtn' value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame/setup'">
     </form> 
 
   </div>
@@ -208,6 +215,26 @@ td {
   <div id = 'decision'>
 
     <script>
+      // 獲取歷史紀錄
+      $('#btn_history').click(function(){
+        $.ajax({
+          url : "/ajax/history/", // the endpoint
+          type : "POST", // http method
+          data: {csrfmiddlewaretoken: "{{ csrf_token }}"}, 
+
+          // handle a successful response
+          success : function(json) {
+            console.log("success"); // another sanity check
+            var myJSON = JSON.stringify(json);
+            $("#historyField").text(myJSON);
+
+          },
+          error: function() {
+            $('.testing').text('失敗');
+          },
+        });
+      });
+
       // 獲取股票資料
       $('#actionForm').click(function(){
         $.ajax({
@@ -264,7 +291,7 @@ td {
             $("#historyIdField").val(json[0].pk);
             $("#day").text(json[0].fields.day + 1);
             $("#position").text(json[0].fields.position_after_action);
-            $("#return").text(json[0].fields.rate_of_return_after_action);
+            $("#return").text((json[0].fields.rate_of_return_after_action * 100).toFixed(3).toString().concat('%'));
 
             if (json[0].fields.last_trading_price_after_action == null){
               $("#lastTradingPrice").text('暫無');
@@ -282,11 +309,11 @@ td {
             if (json[0].fields.position_after_action == '現金') {
               document.getElementById("btn_waitOrHold").value = '等待'
               document.getElementById("btn_buyOrSell").value = '買入'
-              $("#asset").text('現金' + json[0].fields.cash_held_after_action + '元');
+              $("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
             } else { 
               document.getElementById("btn_waitOrHold").value = '持有'
               document.getElementById("btn_buyOrSell").value = '賣出'
-              $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action + '股');
+              $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
             }
 
           },
@@ -316,7 +343,7 @@ td {
             $("#historyIdField").val(json[0].pk);
             $("#day").text(json[0].fields.day + 1);
             $("#position").text(json[0].fields.position_after_action);
-            $("#return").text(json[0].fields.rate_of_return_after_action);
+            $("#return").text((json[0].fields.rate_of_return_after_action * 100).toFixed(3).toString().concat('%'));
 
             if (json[0].fields.last_trading_price_after_action == null){
               $("#lastTradingPrice").text('暫無');
@@ -330,11 +357,11 @@ td {
             if (json[0].fields.position_after_action == '現金') {
               document.getElementById("btn_waitOrHold").value = '等待'
               document.getElementById("btn_buyOrSell").value = '買入'
-              $("#asset").text('現金' + json[0].fields.cash_held_after_action + '元');
+              $("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
             } else { 
               document.getElementById("btn_waitOrHold").value = '持有'
               document.getElementById("btn_buyOrSell").value = '賣出'
-              $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action + '股');
+              $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
             }
 
           },
@@ -347,6 +374,9 @@ td {
     </script>
   </div>
 
+  <div>
+    <a id="historyField"></a>
+  </div>
 
 {% else %}
 <div id = 'signUpNotificationDiv'>
