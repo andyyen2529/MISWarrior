@@ -12,6 +12,8 @@ from TradingGame.forms import SetupForm, AdviseSetupForm
 from django.shortcuts import render_to_response
 from .DQN import adviseAction, makeDecision
 
+import json
+
 class SignUpForm(UserCreationForm): 
     username = forms.Field(widget=forms.TextInput(attrs={'placeholder': '用戶名'})) 
     email = forms.Field(widget=forms.EmailInput(attrs={'placeholder':'電子郵件'})) 
@@ -37,8 +39,14 @@ def setup(request):
 
 def history(request):
     historys = History.objects.all()
-    history_list = serializers.serialize('json', historys)
-    return HttpResponse(history_list, content_type="text/json-comment-filtered")
+    history_list = serializers.serialize('python', historys)
+    
+    # now extract the inner `fields` dicts
+    actual_data = [d['fields'] for d in history_list]
+    # and now dump to JSON
+    output = json.dumps(actual_data)
+
+    return HttpResponse(output, content_type="text/json-comment-filtered")
 
 
 #SECONDARY VIEW TO RETURN JSON DATA TO USER ****NEW PART****
