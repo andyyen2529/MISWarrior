@@ -10,6 +10,7 @@ from django import forms
 
 from TradingGame.forms import SetupForm, AdviseSetupForm
 from django.shortcuts import render_to_response
+from .DQN import adviseAction, makeDecision
 
 class SignUpForm(UserCreationForm): 
     username = forms.Field(widget=forms.TextInput(attrs={'placeholder': '用戶名'})) 
@@ -79,8 +80,18 @@ def intelligentInvestmentAdvise(request):
 		setup.user = request.user
 		setup.save()
 		
+		# state variable
+		if int(request.POST['principal']) != 0:
+			position = 0
+		else:
+			position = 1
+		ratio = 1 # 成對交易比率
+		state = [ratio, stock.volumn, stock.turnover, stock.opening_price, 
+			stock.high, stock.low, stock.closing_price, position]
+		action = adviseAction(state)
+		decision = makeDecision(position, action)
+		
 		# get data for plot
-		#stockData = Stock.objects.all()
 		stockData = Stock.objects.order_by('-id')[0:30]
 		data = {}
 		for v in stockData:
@@ -94,7 +105,7 @@ def intelligentInvestmentAdvise(request):
 		date.reverse()
 		price.reverse()
 	
-		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 'date': date, 'price': price})
+		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 'date': date, 'price': price, 'decision': decision})
 
 	return render(request, 'intelligentInvestmentAdvise.html', {'form': form})
 
