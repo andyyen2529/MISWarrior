@@ -131,17 +131,17 @@ td {
     
     ];
 
-    var json = {};
+    var jsonCharts = {};
 
-    json.title = title;
-    json.subtitle = subtitle;
-    json.xAxis = xAxis;
-    json.yAxis = yAxis;
-    json.tooltip = tooltip;
-    json.legend = legend;
-    json.series = series;
+    jsonCharts.title = title;
+    jsonCharts.subtitle = subtitle;
+    jsonCharts.xAxis = xAxis;
+    jsonCharts.yAxis = yAxis;
+    jsonCharts.tooltip = tooltip;
+    jsonCharts.legend = legend;
+    jsonCharts.series = series;
 
-    $('#trend').highcharts(json);
+    $('#trend').highcharts(jsonCharts);
   })
   
   </script>
@@ -216,6 +216,9 @@ td {
 
     <script>
       // 獲取歷史紀錄
+	  
+	  // 保留股價資訊用來畫圖，持續更新
+	  var pseries = {{price}};
       $('#btn_history').click(function(){
         $.ajax({
           url : "/ajax/history/", // the endpoint
@@ -310,6 +313,64 @@ document.body.appendChild(buildHtmlTable(json));
             $("#closingPriceField").val(json[0].fields.closing_price);
 
             $('#stockIdField').val(json[0].pk);
+			
+			// plot
+			var title = {
+				text: '股價趨勢'
+			};
+			var subtitle = {
+				text: 'Source: 臺灣證券交易所'
+			};
+    
+			var xAxis = {
+				title: {
+					text: '過去30天股價'
+				},
+			};
+    
+			var yAxis = {
+				title: {
+					text: 'Closing Price (NTD)'
+				},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}]
+			};
+
+			var tooltip = {
+				valueSuffix: ' NTD'
+			}
+
+			var legend = {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'middle',
+				borderWidth: 0
+			};
+			
+			// 更新股價資料序列
+			pseries.shift();
+			pseries.push(json[0].fields.closing_price);
+			var series =  [
+			{
+				name: '{{stock.code}}',
+				data: pseries
+			},
+			];
+
+			var jsonCharts = {};
+
+			jsonCharts.title = title;
+			jsonCharts.subtitle = subtitle;
+			jsonCharts.xAxis = xAxis;
+			jsonCharts.yAxis = yAxis;
+			jsonCharts.tooltip = tooltip;
+			jsonCharts.legend = legend;
+			jsonCharts.series = series;
+
+			$('#trend').highcharts(jsonCharts);
           },
           error: function() {
             $('.testing').text('失敗');
