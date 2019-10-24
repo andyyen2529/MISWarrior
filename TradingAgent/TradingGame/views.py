@@ -67,7 +67,7 @@ def playing(request):
         # get data for plot
 		# 2016-01-04 : id = 3110, 2017-01-03 : 3354
 		if (request.POST['initial_transaction_date'] == '2016-01-04'):
-			stockData = Stock.objects.filter(id__lte = 3110).order_by('-id')[0:30]
+			stockData = Stock.objects.filter(id__lte = 3110).order_by('-id')[0:30] # lte : <=
 		elif (request.POST['initial_transaction_date'] == '2017-01-03'):
 			stockData = Stock.objects.filter(id__lte = 3354).order_by('-id')[0:30]
 		
@@ -131,7 +131,7 @@ def intelligentInvestmentAdvise(request):
 		price.reverse()
 	
 		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 'date': date, 'price': price, 'decision': decision})
-
+	
 	return render(request, 'intelligentInvestmentAdvise.html', {'form': form})
 
 def stockDay(request):
