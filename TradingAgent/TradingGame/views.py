@@ -51,39 +51,43 @@ def history(request):
 
 #SECONDARY VIEW TO RETURN JSON DATA TO USER ****NEW PART****
 def playing(request):
-    if 'setup' in request.POST:
-        form = SetupForm(request.POST or None)
-        print(form)
+	if 'setup' in request.POST:
+		form = SetupForm(request.POST or None)
+		print(form)
 
-        setup = form.save(commit=False)
-        setup.user = request.user
-        setup.save()
-        stock = Stock.objects.get(code = setup.stock_code, date = setup.initial_transaction_date)
-        history = History.objects.create(setup = setup, day = 0, action = 0,
-            position_after_action = '現金', rate_of_return_after_action = 0, 
-            cash_held_after_action = setup.principal, number_of_shares_held_after_action = 0)
-        history.day = 1
+		setup = form.save(commit=False)
+		setup.user = request.user
+		setup.save()
+		stock = Stock.objects.get(code = setup.stock_code, date = setup.initial_transaction_date)
+		history = History.objects.create(setup = setup, day = 0, action = 0,
+			position_after_action = '現金', rate_of_return_after_action = 0, 
+			cash_held_after_action = setup.principal, number_of_shares_held_after_action = 0)
+		history.day = 1
 
-        testStock = Stock.objects.all()
-        data = {}
-        counter = 1
-        for v in testStock:
-            data[v.date] = v.closing_price
-            counter += 1
-            if counter == 30:
-                break
-        date = []
-        price = []
-        for key, value in data.items():
-            date.append(key.strftime("%d-%b-%Y"))
-            price.append(float(value))
-        print('aaa')
+        # get data for plot
+		# 2016-01-04 : id = 3110, 2017-01-03 : 3354
+		if (request.POST['initial_transaction_date'] == '2016-01-04'):
+			stockData = Stock.objects.filter(id__lte = 3110).order_by('-id')[0:30]
+		elif (request.POST['initial_transaction_date'] == '2017-01-03'):
+			stockData = Stock.objects.filter(id__lte = 3354).order_by('-id')[0:30]
+		
+		data = {}
+		for v in stockData:
+			data[v.date] = v.closing_price
+		date = []
+		price = []
+		for key, value in data.items():
+			date.append(key.strftime("%d-%b-%Y"))
+			price.append(float(value))
+		# reverse() >> re-order the series (long term to short term)
+		date.reverse()
+		price.reverse()
 
-        return render(request, 'playing.html', {'stock': stock, 'setup': setup, 'history': history, 
-                'date': date, 'price': price})
+		return render(request, 'playing.html', {'stock': stock, 'setup': setup, 'history': history, 
+		'date': date, 'price': price})
 
-    else:
-        return redirect('stockGame/setup') # 如果直接輸入遊玩頁面的網址，由於完成交易設定，系統將重新導向交易設定的頁面
+	else:
+		return redirect('stockGame/setup') # 如果直接輸入遊玩頁面的網址，由於完成交易設定，系統將重新導向交易設定的頁面
 
 def playing2(request):
     print('嗨嗨')
