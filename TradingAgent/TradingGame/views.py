@@ -43,6 +43,7 @@ def history(request):
     
     # now extract the inner `fields` dicts
     actual_data = [d['fields'] for d in history_list]
+
     # and now dump to JSON
     output = json.dumps(actual_data)
 
