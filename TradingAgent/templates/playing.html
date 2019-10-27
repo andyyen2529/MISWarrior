@@ -97,6 +97,7 @@ td {
 #div_transactionHistory-historyTable table{
   margin:0 auto;
 }
+/*
 #btn_closeTransactionHistory {
   background-color:rgba(0,0,0,0.5);
   border: 3px solid black;
@@ -104,6 +105,19 @@ td {
   height: 60px;
   width: 200px;
   font-size: 1.5rem;
+}
+*/
+.button1 {
+  background-color:rgba(0,0,0,0.5);
+  border: 3px solid black;
+  color:#fff;
+  height: 60px;
+  width: 200px;
+  font-size: 1.5rem;
+}
+
+.button1:hover {
+  background-color: rgba(0,0,0,1);
 }
 </style>
 {% endblock styles %}
@@ -291,10 +305,15 @@ td {
                 td.appendChild(document.createTextNode('暫無'));
               } 
 
+              // 挑整報酬率的顯示方式
+              else if (j == 5) {
+                td.appendChild(document.createTextNode((arr[i][columns[j]] * 100).toFixed(3).toString().concat('%')));
+              }
+
               // 如果數字型態的資料長度過長，則保留至三位
               else if (typeof(arr[i][columns[j]]) == 'number' && 
                 arr[i][columns[j]].toString().length > 10) {
-                td.appendChild(document.createTextNode(arr[i][columns[j]].toFixed(3)));
+                td.appendChild(document.createTextNode(arr[i][columns[j]].toFixed(4)));
               } 
 
               else {
@@ -564,12 +583,12 @@ td {
   <!-- 交易歷史的表單 -->
   <div id = 'div_transactionHistory'>
   <p style="text-align: center;font-size: 36;font-weight: bold;">歷史紀錄</p>
-  <a>備註：目前歷史紀錄欄位僅有玩家的部分，之後要導入機器學習模型的部分才能和玩家比較</a>
+  <a>備註：目前歷史紀錄欄位僅有玩家的部分，之後要導入「機器學習模型」的部分才能和玩家比較</a>
   <div id = 'div_transactionHistory-historyTable'> 
   </div>  
 
   <br>
-  <input type="button" id='btn_closeTransactionHistory' value="關閉歷史紀錄">    
+  <input type="button" class="button1" id='btn_closeTransactionHistory' value="關閉歷史紀錄">    
   <p></p>
   </div>
 

@@ -51,7 +51,9 @@ class History(models.Model):
 	# cash_held_before_action = models.FloatField(default = 0)  # 行動之前的現金
 	# number_of_shares_held_before_action = models.FloatField(default = 0) # 行動之前的股數
 
-	action = models.CharField(max_length = 1, choices = (('0', '等待or持有'), ('1', '買or賣'))) # 行動
+	action = models.CharField(max_length = 2, choices = (
+		('等待', '等待'), ('持有', '持有'), ('買入', '買入'), ('賣出', '賣出'))
+	) # 行動
 
 	position_after_action = models.CharField(max_length = 1, choices = (('現金','現金'), ('股票','股票'))) # 行動之後的資產持有狀態
 	last_trading_price_after_action = models.FloatField(null = True)  # 行動之後最後一筆的交易價格

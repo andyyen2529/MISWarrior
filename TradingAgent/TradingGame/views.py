@@ -38,7 +38,8 @@ def setup(request):
     return render(request, 'setup.html', {'form': form})
 
 def history(request):
-    historys = History.objects.all()
+    historys = History.objects.filter(setup__user = request.user) # 只取該用戶的交易歷史紀錄
+    historys = historys[1:]
     history_list = serializers.serialize('python', historys)
     
     # now extract the inner `fields` dicts
@@ -52,46 +53,46 @@ def history(request):
 
 #SECONDARY VIEW TO RETURN JSON DATA TO USER ****NEW PART****
 def playing(request):
-	if 'setup' in request.POST:
-		form = SetupForm(request.POST or None)
-		print(form)
+    if 'setup' in request.POST:
+        form = SetupForm(request.POST or None)
+        setup = form.save(commit=False)
+        setup.user = request.user
+        setup.save()
 
-		setup = form.save(commit=False)
-		setup.user = request.user
-		setup.save()
-		stock = Stock.objects.get(code = setup.stock_code, date = setup.initial_transaction_date)
-		history = History.objects.create(setup = setup, day = 0, action = 0,
-			position_after_action = '現金', rate_of_return_after_action = 0, 
-			cash_held_after_action = setup.principal, number_of_shares_held_after_action = 0)
-		history.day = 1
+        # 遊玩之前先把該玩家之前的交易歷史紀錄清除 (這裡示範如何取foreign key object中屬性的方法)
+        History.objects.filter(setup__user = request.user).delete() 
 
+        stock = Stock.objects.get(code = setup.stock_code, date = setup.initial_transaction_date)
+        history = History.objects.create(setup = setup, day = 0, action = 0,
+            position_after_action = '現金', rate_of_return_after_action = 0, 
+            cash_held_after_action = setup.principal, number_of_shares_held_after_action = 0)
+        history.day = 1
         # get data for plot
-		# 2016-01-04 : id = 3110, 2017-01-03 : 3354
-		if (request.POST['initial_transaction_date'] == '2016-01-04'):
-			stockData = Stock.objects.filter(id__lte = 3110).order_by('-id')[0:30] # lte : <=
-		elif (request.POST['initial_transaction_date'] == '2017-01-03'):
-			stockData = Stock.objects.filter(id__lte = 3354).order_by('-id')[0:30]
-		
-		data = {}
-		for v in stockData:
-			data[v.date] = v.closing_price
-		date = []
-		price = []
-		for key, value in data.items():
-			date.append(key.strftime("%d-%b-%Y"))
-			price.append(float(value))
-		# reverse() >> re-order the series (long term to short term)
-		date.reverse()
-		price.reverse()
+        # 2016-01-04 : id = 3110, 2017-01-03 : 3354
+        if (request.POST['initial_transaction_date'] == '2016-01-04'):
+            stockData = Stock.objects.filter(id__lte = 3110).order_by('-id')[0:30] # lte : <=
+        elif (request.POST['initial_transaction_date'] == '2017-01-03'):
+            stockData = Stock.objects.filter(id__lte = 3354).order_by('-id')[0:30]
 
-		return render(request, 'playing.html', {'stock': stock, 'setup': setup, 'history': history, 
-		'date': date, 'price': price})
+        data = {}
+        for v in stockData:
+            data[v.date] = v.closing_price
+        date = []
+        price = []
+        for key, value in data.items():
+            date.append(key.strftime("%d-%b-%Y"))
+            price.append(float(value))
+        # reverse() >> re-order the series (long term to short term)
+        date.reverse()
+        price.reverse()
 
-	else:
-		return redirect('stockGame/setup') # 如果直接輸入遊玩頁面的網址，由於完成交易設定，系統將重新導向交易設定的頁面
+        return render(request, 'playing.html', {'stock': stock, 'setup': setup, 'history': history, 
+        'date': date, 'price': price})
+
+    else:
+        return redirect('stockGame/setup') # 如果直接輸入遊玩頁面的網址，由於完成交易設定，系統將重新導向交易設定的頁面
 
 def playing2(request):
-    print('嗨嗨')
     return HttpResponse('coco')
 
 def intelligentInvestmentAdvise(request):
@@ -150,10 +151,12 @@ def addingHistory_waitOrHold(request):
     history_id = request.POST.get('historyId')
     history = History.objects.get(pk = history_id)
 
+    action = '等待' if history.position_after_action == '現金' else '持有'
+
     history_new = History.objects.create(
         setup = history.setup,
-        day = int(history.day) + 1, 
-        action = 0,
+        day = int(history.day) + 1,
+        action = action,
         position_after_action = history.position_after_action, 
         last_trading_price_after_action = history.last_trading_price_after_action,
         rate_of_return_after_action = history.rate_of_return_after_action, 
@@ -177,7 +180,7 @@ def addingHistory_buyOrSell(request):
         history_new = History.objects.create(
             setup = history.setup,
             day = int(history.day) + 1, 
-            action = 1,
+            action = '買入',
             position_after_action = '股票', 
             last_trading_price_after_action = tradingPrice,
             rate_of_return_after_action = history.rate_of_return_after_action, 
@@ -191,7 +194,7 @@ def addingHistory_buyOrSell(request):
         history_new = History.objects.create(
             setup = history.setup,
             day = int(history.day) + 1, 
-            action = 1,
+            action = '賣出',
             position_after_action = '現金', 
             last_trading_price_after_action = tradingPrice,
             rate_of_return_after_action = (
