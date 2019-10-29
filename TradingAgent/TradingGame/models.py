@@ -68,3 +68,14 @@ class AdviseSetup(models.Model):
 	stock_code = models.CharField(max_length = 4, choices = (('0050', '元大台灣50(0050)'), ('2430', '燦坤(2430)'))) # 股票代碼
 	principal = models.IntegerField() # 本金
 	initialStockHold = models.IntegerField() # 初始持有股數
+	
+### 排行榜歷史 ###
+class RankingHistory(models.Model):
+	setup = models.ForeignKey(Setup, on_delete = models.CASCADE) # 交易設定(外來鍵)
+	final_rate_of_return = models.FloatField() # 最終報酬率
+	
+	class Meta:
+		db_table = 'RankingHistory'
+		#ordering = ['-final_rate_of_return']
+
+	

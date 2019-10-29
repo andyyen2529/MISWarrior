@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http import JsonResponse
-from TradingGame.models import Stock, History
+from TradingGame.models import Stock, History, RankingHistory
 from django.core import serializers
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -166,6 +166,7 @@ def addingHistory_waitOrHold(request):
 
 def addingHistory_buyOrSell(request):
     history_id = request.POST.get('historyId')
+    print(history_id)
     history = History.objects.get(pk = history_id)
 
     history_list = ''
@@ -218,3 +219,25 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+def addingRankingHistory(request):
+	# 取得目前的交易歷史
+    history_id = request.POST.get('historyId')
+    #print(history_id)
+    history = History.objects.get(pk = history_id)
+	
+    ranking_history_new = RankingHistory.objects.create(
+        setup = history.setup,
+        final_rate_of_return = history.rate_of_return_after_action
+    )
+    ranking_history = RankingHistory.objects.filter(pk = ranking_history_new.id)
+    ranking_history_list = serializers.serialize('json', ranking_history)
+
+    return HttpResponse(ranking_history_list, content_type="text/json-comment-filtered")
+
+
+
+def ranking(request):
+	ranking_table = RankingHistory.objects.order_by('-final_rate_of_return')[:10]  # 取前10名
+	
+	return render(request, 'ranking.html',{'ranking_table' : ranking_table})

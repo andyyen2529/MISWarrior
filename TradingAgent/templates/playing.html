@@ -27,7 +27,7 @@
   float:right;
   width:30%;
 }
-#btn_waitOrHold, #btn_buyOrSell {
+#btn_waitOrHold, #btn_buyOrSell{
   background:#FC6;
   color:#966;
   width:100px;
@@ -36,6 +36,20 @@
   border-radius:12px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+#joinRank {
+  background:#FC;
+  color:#966;
+  width:130px;
+  height:70px;
+  font-size:20px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  text-align: center;
   margin-right:25px;
   margin-left:25px;
   margin-bottom: 10px;
@@ -161,12 +175,20 @@ td {
 
       <input type="button" id="btn_waitOrHold" value="等待">
       <input type="button" id="btn_buyOrSell" value="買入">
+	  <input type = "button" id="joinRank" value="加入排行榜">
 
-
+	  
       <input id="stockIdField" type="hidden" name="id" value="{{ stock.id }}">
       <input id="historyIdField" type="hidden" name="historyId" value="{{ history.id }}">
       <input id="closingPriceField" type="hidden" name="closingPrice" value="{{ stock.closing_price }}">
+	  
     </form>
+	<!-- 
+	<form id = "addRankingForm" type = 'post'>  // 之後預計和結算模擬投資成績寫在一起，暫時先獨立出一個按鈕 
+	  {% csrf_token %}
+	  
+	  <input id="historyIdField" type="hidden" name="historyId" value="{{ history.id }}">
+	</form> -->
 
     <form type="post">
       {% csrf_token %}
@@ -178,7 +200,7 @@ td {
     </form> 
 
   </div>
-  <p>&nbsp;</p>
+  <p>&nbsp;</p> 
 
   <div id = 'tbl'>
     <table width=100% border="1" style="table-layout:fixed">
@@ -474,6 +496,24 @@ document.body.appendChild(buildHtmlTable(json));
 
           },
             error: function() {
+            $('.testing').text('失敗');
+          },
+        });
+      });
+	  
+	  // 按下「加入排行榜」按鈕之後的後端數據處理
+      $("#joinRank").click(function(){
+        $.ajax({
+          url : "ajax/addingRankingHistory/", // the endpoint
+          type : "POST", // http method
+          data : $('#actionForm').serialize(),
+
+          // handle a successful response
+          success : function(json) {
+            console.log("success"); // another sanity check
+			alert('已成功將本次模擬結果加入排行榜！')
+          },
+          error: function() {
             $('.testing').text('失敗');
           },
         });
