@@ -80,6 +80,59 @@ td {
   font-family: Times New Roman;
   font-size: 18px;
 }
+
+#btn_openTransactionHistory {
+  background:#3CF;
+  color:#006;
+  width:100px;
+  height:50px;
+  font-size:20px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+#div_transactionHistory {
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  width: 60%;
+  left: 20%;
+  top: 10%;
+  height: 80%;
+  display: none;
+  float:left;
+  text-align: center;
+  color: white;
+  overflow: scroll;
+}
+#div_transactionHistory-historyTable table{
+  margin:0 auto;
+}
+/*
+#btn_closeTransactionHistory {
+  background-color:rgba(0,0,0,0.5);
+  border: 3px solid black;
+  color:#fff;
+  height: 60px;
+  width: 200px;
+  font-size: 1.5rem;
+}
+*/
+.button1 {
+  background-color:rgba(0,0,0,0.5);
+  border: 3px solid black;
+  color:#fff;
+  height: 60px;
+  width: 200px;
+  font-size: 1.5rem;
+}
+
+.button1:hover {
+  background-color: rgba(0,0,0,1);
+}
 </style>
 {% endblock styles %}
 
@@ -190,12 +243,11 @@ td {
 	  <input id="historyIdField" type="hidden" name="historyId" value="{{ history.id }}">
 	</form> -->
 
-    <form type="post">
-      {% csrf_token %}
-      <input type="button" id='btn_history' value="歷史紀錄" name='getHistory'>
-    </form>
+
 
     <form id="infoForm" method="post" action="">
+        {% csrf_token %}
+        <input type="button" id='btn_openTransactionHistory' value="歷史紀錄" name='getHistory'>
         <input type="button" id='setBtn' value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame/setup'">
     </form> 
 
@@ -237,11 +289,14 @@ td {
   <div id = 'decision'>
 
     <script>
-      // 獲取歷史紀錄
+     
 	  
 	  // 保留股價資訊用來畫圖，持續更新
 	  var pseries = {{price}};
-      $('#btn_history').click(function(){
+
+     // 獲取歷史紀錄
+      $('#btn_openTransactionHistory').click(function(){
+        $("#div_transactionHistory").show();
         $.ajax({
           url : "/ajax/history/", // the endpoint
           type : "POST", // http method
@@ -253,59 +308,102 @@ td {
             var myJSON = JSON.stringify(json);
             $("#historyField").text(myJSON);
 
-var _table_ = document.createElement('table'),
-    _tr_ = document.createElement('tr'),
-    _th_ = document.createElement('th'),
-    _td_ = document.createElement('td');
-
-// Builds the HTML Table out of myList json data from Ivy restful service.
- function buildHtmlTable(arr) {
-     var table = _table_.cloneNode(false),
-         columns = addAllColumnHeaders(arr, table);
-     for (var i=0, maxi=arr.length; i < maxi; ++i) {
-         var tr = _tr_.cloneNode(false);
-         for (var j=0, maxj=columns.length; j < maxj ; ++j) {
-             var td = _td_.cloneNode(false);
-                 cellValue = arr[i][columns[j]];
-             td.appendChild(document.createTextNode(arr[i][columns[j]] || ''));
-             tr.appendChild(td);
-         }
-         table.appendChild(tr);
-     }
-     return table;
- }
- 
- // Adds a header row to the table and returns the set of columns.
- // Need to do union of keys from all records as some records may not contain
- // all records
- function addAllColumnHeaders(arr, table)
- {
-     var columnSet = [],
-         tr = _tr_.cloneNode(false);
-     for (var i=0, l=arr.length; i < l; i++) {
-         for (var key in arr[i]) {
-             if (arr[i].hasOwnProperty(key) && columnSet.indexOf(key)===-1) {
-                 columnSet.push(key);
-                 var th = _th_.cloneNode(false);
-                 th.appendChild(document.createTextNode(key));
-                 tr.appendChild(th);
-             }
-         }
-     }
-     table.appendChild(tr);
-     return columnSet;
- }
+    var _table_ = document.createElement('table'),
+        _tr_ = document.createElement('tr'),
+        _th_ = document.createElement('th'),
+        _td_ = document.createElement('td');
 
 
-document.body.appendChild(buildHtmlTable(json));
+    // Builds the HTML Table out of myList json data from Ivy restful service.
+    function buildHtmlTable(arr) {
+       var table = _table_.cloneNode(false),
+           columns = addAllColumnHeaders(arr, table);
+       for (var i=0, maxi=arr.length; i < maxi; ++i) {
+           var tr = _tr_.cloneNode(false);
+           for (var j=1, maxj=columns.length; j < maxj ; ++j) {
+              var td = _td_.cloneNode(false);
+
+              if (arr[i][columns[j]] == null) {
+                td.appendChild(document.createTextNode('暫無'));
+              } 
+
+              // 挑整報酬率的顯示方式
+              else if (j == 5) {
+                td.appendChild(document.createTextNode((arr[i][columns[j]] * 100).toFixed(3).toString().concat('%')));
+              }
+
+              // 如果數字型態的資料長度過長，則保留至三位
+              else if (typeof(arr[i][columns[j]]) == 'number' && 
+                arr[i][columns[j]].toString().length > 10) {
+                td.appendChild(document.createTextNode(arr[i][columns[j]].toFixed(4)));
+              } 
+
+              else {
+                td.appendChild(document.createTextNode(arr[i][columns[j]]));
+              }
+              tr.appendChild(td);
+           }
+           table.appendChild(tr);
+       }
+       return table;
+   }
+   
+   // Adds a header row to the table and returns the set of columns.
+   // Need to do union of keys from all records as some records may not contain
+   // all records
+   function addAllColumnHeaders(arr, table)
+   {
+       var columnSet = [],
+           tr = _tr_.cloneNode(false);
+       for (var i=0, l=arr.length; i < l; i++) {
+           for (var key in arr[i]) {
+               if (arr[i].hasOwnProperty(key) && columnSet.indexOf(key)===-1) {
+                   columnSet.push(key);
+               }
+           }
+       }
+
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('第幾天'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動後持有資產種類'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動後最後交易價格'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動後報酬率'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動後持有現金量'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動後持有股數'));
+       tr.appendChild(th);
+       table.appendChild(tr)
+      
 
 
-          },
-          error: function() {
-            $('.testing').text('失敗');
-          },
+       return columnSet;
+   }
+
+  const myNode = document.getElementById("div_transactionHistory-historyTable");
+  while (myNode.firstChild) {
+    myNode.removeChild(myNode.firstChild);
+  }
+  document.getElementById('div_transactionHistory-historyTable').appendChild(buildHtmlTable(json));
+
+
+            },
+            error: function() {
+              $('.testing').text('失敗');
+            },
+          });
         });
-      });
 
       // 獲取股票資料
       $('#actionForm').click(function(){
@@ -521,6 +619,32 @@ document.body.appendChild(buildHtmlTable(json));
 
     </script>
   </div>
+
+  <!-- 交易歷史的表單 -->
+  <div id = 'div_transactionHistory'>
+  <p style="text-align: center;font-size: 36;font-weight: bold;">歷史紀錄</p>
+  <a>備註：目前歷史紀錄欄位僅有玩家的部分，之後要導入「機器學習模型」的部分才能和玩家比較</a>
+  <div id = 'div_transactionHistory-historyTable'> 
+  </div>  
+
+  <br>
+  <input type="button" class="button1" id='btn_closeTransactionHistory' value="關閉歷史紀錄">    
+  <p></p>
+  </div>
+
+
+  <script type="text/javascript">
+
+    // 關閉歷史資料的相關處理
+    $('#btn_closeTransactionHistory').click(function(){
+      const myNode = document.getElementById("div_transactionHistory-historyTable");
+      while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+      }
+      $("#div_transactionHistory").hide();
+    });
+  </script>
+
 
 {% else %}
 <div id = 'signUpNotificationDiv'>
