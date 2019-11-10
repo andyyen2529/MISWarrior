@@ -133,6 +133,17 @@ td {
 .button1:hover {
   background-color: rgba(0,0,0,1);
 }
+th {
+  font-family: '微軟正黑體';
+  background-color: #417690;
+  color:#fff;
+  font-size: 18px;
+}
+td {
+  background-color: #fff;
+  font-family: Times New Roman;
+  font-size: 18px;
+}
 </style>
 {% endblock styles %}
 
@@ -512,36 +523,33 @@ td {
 
             if ((json[0].fields.day + 1) > parseInt($("#playingDuration").text())) {
               alert('本次投資模擬結束，之後將結算成績！')
-              document.location.href = "http://127.0.0.1:8000/";
+              window.location = "http://127.0.0.1:8000/stockGame/result";
               return;
-            }
-
-            $("#historyIdField").val(json[0].pk);
-            $("#day").text(json[0].fields.day + 1);
-            $("#position").text(json[0].fields.position_after_action);
-            $("#return").text((json[0].fields.rate_of_return_after_action * 100).toFixed(3).toString().concat('%'));
-
-            if (json[0].fields.last_trading_price_after_action == null){
-              $("#lastTradingPrice").text('暫無');
             } else {
-              $("#lastTradingPrice").text(json[0].fields.last_trading_price_after_action);
-            }
-            
-            $("#cash").text(json[0].fields.cash_held_after_action);
-            $("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
 
-            if ((json[0].fields.day + 1) > parseInt($("#playingDuration").text())) {
-              alert('本次投資模擬結束，之後將結算成績！')
-            }
+              $("#historyIdField").val(json[0].pk);
+              $("#day").text(json[0].fields.day + 1);
+              $("#position").text(json[0].fields.position_after_action);
+              $("#return").text((json[0].fields.rate_of_return_after_action * 100).toFixed(3).toString().concat('%'));
 
-            if (json[0].fields.position_after_action == '現金') {
-              document.getElementById("btn_waitOrHold").value = '等待'
-              document.getElementById("btn_buyOrSell").value = '買入'
-              $("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
-            } else { 
-              document.getElementById("btn_waitOrHold").value = '持有'
-              document.getElementById("btn_buyOrSell").value = '賣出'
-              $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
+              if (json[0].fields.last_trading_price_after_action == null){
+                $("#lastTradingPrice").text('暫無');
+              } else {
+                $("#lastTradingPrice").text(json[0].fields.last_trading_price_after_action);
+              }
+              
+              $("#cash").text(json[0].fields.cash_held_after_action);
+              $("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
+
+              if (json[0].fields.position_after_action == '現金') {
+                document.getElementById("btn_waitOrHold").value = '等待'
+                document.getElementById("btn_buyOrSell").value = '買入'
+                $("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
+              } else { 
+                document.getElementById("btn_waitOrHold").value = '持有'
+                document.getElementById("btn_buyOrSell").value = '賣出'
+                $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
+              }
             }
 
           },
@@ -564,32 +572,33 @@ td {
 
             if ((json[0].fields.day + 1) > parseInt($("#playingDuration").text())) {
               alert('本次投資模擬結束，之後將結算成績！')
-              document.location.href = "http://127.0.0.1:8000/";
-              return;
-            }
-
-            $("#historyIdField").val(json[0].pk);
-            $("#day").text(json[0].fields.day + 1);
-            $("#position").text(json[0].fields.position_after_action);
-            $("#return").text((json[0].fields.rate_of_return_after_action * 100).toFixed(3).toString().concat('%'));
-
-            if (json[0].fields.last_trading_price_after_action == null){
-              $("#lastTradingPrice").text('暫無');
+              window.location = "http://127.0.0.1:8000/stockGame/result";
             } else {
-              $("#lastTradingPrice").text(json[0].fields.last_trading_price_after_action);
-            }
 
-            $("#cash").text(json[0].fields.cash_held_after_action);
-            $("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
+              $("#historyIdField").val(json[0].pk);
+              $("#day").text(json[0].fields.day + 1);
+              $("#position").text(json[0].fields.position_after_action);
+              $("#return").text((json[0].fields.rate_of_return_after_action * 100).toFixed(3).toString().concat('%'));
 
-            if (json[0].fields.position_after_action == '現金') {
-              document.getElementById("btn_waitOrHold").value = '等待'
-              document.getElementById("btn_buyOrSell").value = '買入'
-              $("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
-            } else { 
-              document.getElementById("btn_waitOrHold").value = '持有'
-              document.getElementById("btn_buyOrSell").value = '賣出'
-              $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
+              if (json[0].fields.last_trading_price_after_action == null){
+                $("#lastTradingPrice").text('暫無');
+              } else {
+                $("#lastTradingPrice").text(json[0].fields.last_trading_price_after_action);
+              }
+
+              $("#cash").text(json[0].fields.cash_held_after_action);
+              $("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
+
+              if (json[0].fields.position_after_action == '現金') {
+                document.getElementById("btn_waitOrHold").value = '等待'
+                document.getElementById("btn_buyOrSell").value = '買入'
+                $("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
+              } else { 
+                document.getElementById("btn_waitOrHold").value = '持有'
+                document.getElementById("btn_buyOrSell").value = '賣出'
+                $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
+              }
+
             }
 
           },

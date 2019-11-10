@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+{% block styles %}
+<style>
+#div_result {
+  position: absolute;
+  width: 60%;
+  height: 75%;
+  top: 15%;
+  left: 20%;
+  background-color: rgb(255,255,255,0.5);
+}
+#div_result-setupInfo {
+  position: absolute;
+  width: 30%;
+  height: 60%;
+  top: 20%;
+  left: 2.5%;
+  background-color: rgb(255,255,255,0.5);
+}
+#div_result-userInfo {
+  position: absolute;
+  width: 30%;
+  height: 60%;
+  top: 20%;
+  left: 35%;
+  background-color: rgb(255,255,255,0.5);
+}
+#div_result-AIInfo {
+  position: absolute;
+  width: 30%;
+  height: 60%;
+  top: 20%;
+  left: 67.5%;
+  background-color: rgb(255,255,255,0.5);
+}
+#div_result-actionForm {
+  position: absolute;
+  width: 60%;
+  height: 15%;
+  top: 85%;
+  left: 40%;
+}
+input {
+  background:#FC;
+  color:#966;
+  width:120px;
+  height:60px;
+  font-size:20px;
+  border-radius:12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  text-align: center;
+  margin-right:25px;
+  margin-left:25px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+#div_transactionHistory {
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  width: 60%;
+  left: 20%;
+  top: 10%;
+  height: 80%;
+  display: none;
+  float:left;
+  text-align: center;
+  color: white;
+  overflow: scroll;
+}
+#div_transactionHistory-historyTable table{
+  margin:0 auto;
+}
+.button1 {
+  background-color:rgba(0,0,0,0.5);
+  border: 3px solid black;
+  color:#fff;
+  height: 60px;
+  width: 200px;
+  font-size: 1.5rem;
+}
+.button1:hover {
+  background-color: rgba(0,0,0,1);
+}
+th {
+  font-family: '微軟正黑體';
+  background-color: #417690;
+  color:#fff;
+  font-size: 18px;
+}
+td {
+  background-color: #fff;
+  font-family: Times New Roman;
+  font-size: 18px;
+}
+</style>
+{% endblock styles %}
+
+{% block content %}
+
+<div id = 'div_result'>
+<p style="text-align: center;font-size: 36;font-weight: bold;">成績結算</p>
+
+<div id = 'div_result-setupInfo'>
+<p style="text-align: center;font-size: 24;font-weight: bold;">交易設定</p>
+<p> 投資的股票代碼： {{ setup_newest.stock_code }} </p>
+<p> 交易起始日： {{ setup_newest.initial_transaction_date | date:"Y/m/d" }} </p>
+<p> 遊玩天數： {{ setup_newest.playing_duration }} </p>
+<p> 本金： {{ setup_newest.principal }} </p>
+<p> 交易成本： {{ setup_newest.transaction_cost_rate | floatformat:3}} % </p>
+</div>
+
+<div id = 'div_result-userInfo'>
+<p style="text-align: center;font-size: 24;font-weight: bold;">玩家</p>
+<p> 最終持有的現金： {{ history_lastDay.cash_held_after_action | floatformat:4}} </p>
+<p> 最終持有的股數： {{ history_lastDay.number_of_shares_held_after_action | floatformat:4}} </p>
+<p> 最終報酬率： {{ history_lastDay.rate_of_return_after_action | floatformat:3}} % </p>
+</div>
+
+<div id = 'div_result-AIInfo'>
+<p style="text-align: center;font-size: 24;font-weight: bold;">電腦</p>
+<p> 最終持有的現金：暫無  </p>
+<p> 最終持有的股數：暫無  </p>
+<p> 最終報酬率：暫無  </p>
+</div>
+
+<form id="div_result-actionForm" type='post'>
+  {% csrf_token %}
+  <input type="button" id="btn_openTransactionHistory" value="歷史紀錄">
+  <input type="button" value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame/setup'">
+  <input type="button" id="joinRank" value="加入排行榜">
+  <input id="historyIdField" type="hidden" name="historyId" value="{{ history_lastDay.id }}">
+</form>
+
+</div>
+
+
+<!-- 交易歷史的表單 -->
+<div id = 'div_transactionHistory'>
+<p style="text-align: center;font-size: 36;font-weight: bold;">歷史紀錄</p>
+<a>備註：目前歷史紀錄欄位僅有玩家的部分，之後要導入「機器學習模型」的部分才能和玩家比較</a>
+<div id = 'div_transactionHistory-historyTable'> 
+</div>  
+
+<br>
+<input type="button" class="button1" id='btn_closeTransactionHistory' value="關閉歷史紀錄">    
+<p></p>
+</div>
+
+
+<script type="text/javascript">
+// 獲取歷史紀錄
+      $('#btn_openTransactionHistory').click(function(){
+        $("#div_transactionHistory").show();
+        $.ajax({
+          url : "/ajax/history/", // the endpoint
+          type : "POST", // http method
+          data: {csrfmiddlewaretoken: "{{ csrf_token }}"}, 
+
+          // handle a successful response
+          success : function(json) {
+            console.log("success"); // another sanity check
+            var myJSON = JSON.stringify(json);
+            $("#historyField").text(myJSON);
+
+    var _table_ = document.createElement('table'),
+        _tr_ = document.createElement('tr'),
+        _th_ = document.createElement('th'),
+        _td_ = document.createElement('td');
+
+
+    // Builds the HTML Table out of myList json data from Ivy restful service.
+    function buildHtmlTable(arr) {
+       var table = _table_.cloneNode(false),
+           columns = addAllColumnHeaders(arr, table);
+       for (var i=0, maxi=arr.length; i < maxi; ++i) {
+           var tr = _tr_.cloneNode(false);
+           for (var j=1, maxj=columns.length; j < maxj ; ++j) {
+              var td = _td_.cloneNode(false);
+
+              if (arr[i][columns[j]] == null) {
+                td.appendChild(document.createTextNode('暫無'));
+              } 
+
+              // 挑整報酬率的顯示方式
+              else if (j == 5) {
+                td.appendChild(document.createTextNode((arr[i][columns[j]] * 100).toFixed(3).toString().concat('%')));
+              }
+
+              // 如果數字型態的資料長度過長，則保留至三位
+              else if (typeof(arr[i][columns[j]]) == 'number' && 
+                arr[i][columns[j]].toString().length > 10) {
+                td.appendChild(document.createTextNode(arr[i][columns[j]].toFixed(4)));
+              } 
+
+              else {
+                td.appendChild(document.createTextNode(arr[i][columns[j]]));
+              }
+              tr.appendChild(td);
+           }
+           table.appendChild(tr);
+       }
+       return table;
+   }
+   
+   // Adds a header row to the table and returns the set of columns.
+   // Need to do union of keys from all records as some records may not contain
+   // all records
+   function addAllColumnHeaders(arr, table)
+   {
+       var columnSet = [],
+           tr = _tr_.cloneNode(false);
+       for (var i=0, l=arr.length; i < l; i++) {
+           for (var key in arr[i]) {
+               if (arr[i].hasOwnProperty(key) && columnSet.indexOf(key)===-1) {
+                   columnSet.push(key);
+               }
+           }
+       }
+
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('第幾天'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動後持有資產種類'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動後最後交易價格'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動後報酬率'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動後持有現金量'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動後持有股數'));
+       tr.appendChild(th);
+       table.appendChild(tr)
+    
+       return columnSet;
+   }
+
+  const myNode = document.getElementById("div_transactionHistory-historyTable");
+  while (myNode.firstChild) {
+    myNode.removeChild(myNode.firstChild);
+  }
+  document.getElementById('div_transactionHistory-historyTable').appendChild(buildHtmlTable(json));
+
+
+    },
+    error: function() {
+      $('.testing').text('失敗');
+    },
+  });
+});
+
+
+
+// 關閉歷史資料的相關處理
+$('#btn_closeTransactionHistory').click(function(){
+  const myNode = document.getElementById("div_transactionHistory-historyTable");
+  while (myNode.firstChild) {
+    myNode.removeChild(myNode.firstChild);
+  }
+  $("#div_transactionHistory").hide();
+});
+
+
+
+// 按下「加入排行榜」按鈕之後的後端數據處理
+$("#joinRank").click(function(){
+  $.ajax({
+    url : "ajax/addingRankingHistory/", // the endpoint
+    type : "POST", // http method
+    data : $('#div_result-actionForm').serialize(),
+
+    // handle a successful response
+    success : function(json) {
+      console.log("success"); // another sanity check
+
+    alert('已成功將本次模擬結果加入排行榜！')
+    },
+    error: function() {
+      $('.testing').text('失敗');
+    },
+  });
+});
+
+</script>
+{% endblock %}

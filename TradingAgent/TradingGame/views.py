@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http import JsonResponse
-from TradingGame.models import Stock, History, RankingHistory
+from TradingGame.models import Stock, Setup, History, RankingHistory
 from django.core import serializers
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -98,6 +98,20 @@ def history(request):
     output = json.dumps(actual_data)
 
     return HttpResponse(output, content_type="text/json-comment-filtered")
+
+def result(request):
+    setup_newest = Setup.objects.filter(user = request.user).order_by('-id')[0]
+
+    history_lastDay = History.objects.filter(setup__user = request.user).order_by('-id')[0]
+    history_lastDay.rate_of_return_after_action = history_lastDay.rate_of_return_after_action * 100    
+    return render(request, 'result.html', {'history_lastDay': history_lastDay, 'setup_newest': setup_newest})
+
+
+
+    # else:
+    #     return redirect('stockGame/setup') # 如果直接輸入遊玩頁面的網址，由於完成交易設定，系統將重新導向交易設定的頁面
+
+
 
 def intelligentInvestmentAdvise(request):
 	# Django QuerySet
