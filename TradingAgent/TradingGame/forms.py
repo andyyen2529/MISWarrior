@@ -2,9 +2,13 @@ from django.forms import ModelForm
 from TradingGame.models import Setup, AdviseSetup
 from django import forms
 from django.forms.widgets import TextInput
+from django.contrib.admin.widgets import AdminDateWidget
 
 class NumberInput(TextInput):
     input_type = 'number'
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 # Create the form class.
 class SetupForm(ModelForm):
@@ -22,8 +26,10 @@ class SetupForm(ModelForm):
         }
 
         widgets = {
+            'initial_transaction_date': DateInput(
+                attrs = {'min': '2005-01-01', 'max': "2018-12-31"}),
             'principal': NumberInput(
-                attrs={'min': '0', 'max': '1000000', 'step': '10000', 'value': '100000', 'onkeydown':"return false"}),
+                attrs = {'min': '0', 'max': '1000000', 'step': '10000', 'value': '100000', 'onkeydown':"return false"}),
         }
 
 class AdviseSetupForm(ModelForm):
