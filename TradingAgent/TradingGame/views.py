@@ -53,13 +53,16 @@ def playing(request):
         # 其中交易起始日如果不是股市的交易日，系統會自動挑選「未來最近的交易日」作為交易起始日
         # 例如2016/01/09不是股市的交易日，系統會自動選取未來最近的交易日，即2016/01/11的股市資料
         stock_firstTradingDay = Stock.objects.filter(
-            code = setup.stock_code,
+            code = setup.stock_code.code,
             date__range = [setup.initial_transaction_date, setup.initial_transaction_date + datetime.timedelta(days = 10)]
         ).order_by('date')[0]
 
         # 將正確的交易起始日更新至交易設定後，保存至資料庫中
         setup.initial_transaction_date = stock_firstTradingDay.date
         setup.save()
+
+        # 把交易成本比率乘上100，之後在網頁改用百分比呈現
+        transaction_cost_rate = setup.transaction_cost_rate * 100
 
         # 創建第一筆歷史資料
         history = History.objects.create(setup = setup, day = 0, action = 0,
@@ -81,7 +84,7 @@ def playing(request):
         price.reverse()
 
         return render(request, 'playing.html', {'stock': stock_firstTradingDay, 'setup': setup, 'history': history, 
-        'date': date, 'price': price})
+        'date': date, 'price': price, 'transaction_cost_rate': transaction_cost_rate})
 
     else:
         return redirect('stockGame/setup') # 如果直接輸入遊玩頁面的網址，由於完成交易設定，系統將重新導向交易設定的頁面
@@ -101,6 +104,7 @@ def history(request):
 
 def result(request):
     setup_newest = Setup.objects.filter(user = request.user).order_by('-id')[0]
+    setup_newest.transaction_cost_rate = setup_newest.transaction_cost_rate * 100
 
     history_lastDay = History.objects.filter(setup__user = request.user).order_by('-id')[0]
     history_lastDay.rate_of_return_after_action = history_lastDay.rate_of_return_after_action * 100    
@@ -202,9 +206,11 @@ def addingHistory_buyOrSell(request):
             action = '買入',
             position_after_action = '股票', 
             last_trading_price_after_action = tradingPrice,
-            rate_of_return_after_action = history.rate_of_return_after_action, 
+            rate_of_return_after_action = 
+                (1 + history.rate_of_return_after_action) * (1 - history.setup.transaction_cost_rate) - 1, 
             cash_held_after_action = 0,
-            number_of_shares_held_after_action = history.cash_held_after_action / tradingPrice
+            number_of_shares_held_after_action = 
+                history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate))
         )
         history = History.objects.filter(pk = history_new.id)
         history_list = serializers.serialize('json', history)
@@ -217,9 +223,11 @@ def addingHistory_buyOrSell(request):
             position_after_action = '現金', 
             last_trading_price_after_action = tradingPrice,
             rate_of_return_after_action = (
-                (1 + history.rate_of_return_after_action) * (tradingPrice / history.last_trading_price_after_action) - 1
+                (1 + history.rate_of_return_after_action) * (tradingPrice * (1 - history.setup.transaction_cost_rate)
+                     / history.last_trading_price_after_action) - 1
             ), 
-            cash_held_after_action = history.number_of_shares_held_after_action * tradingPrice,
+            cash_held_after_action = 
+                history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate),
             number_of_shares_held_after_action = 0
         )
         history = History.objects.filter(pk = history_new.id)

@@ -232,7 +232,7 @@ td {
       <p style="margin-left:25px">您目前持有的資產：<a id="asset">現金{{ setup.principal }}元</a></p>
       <p style="margin-left:25px">您最後一次的交易價格(收盤價)： <a id="lastTradingPrice">暫無</a></p> 
       <p style="margin-left:25px">您截至目前的報酬率： <a id="return">0.000%</a></p>
-    <p>&nbsp;</p>
+      <p style="margin-left:25px">交易成本比率： {{transaction_cost_rate | floatformat:4}} %</a></p>
 
     <form id="actionForm" type='post'>
       {% csrf_token %}
@@ -625,6 +625,25 @@ td {
           },
         });
       });
+
+    // 禁止快速連續點擊按鈕設定
+    $("input").click(function(){
+      document.getElementById("btn_waitOrHold").disabled = true;
+      document.getElementById("btn_waitOrHold").style.background = "gray";
+      document.getElementById("btn_buyOrSell").disabled = true;
+      document.getElementById("btn_buyOrSell").style.background = "gray";
+      //document.getElementById("joinRank").disabled = true;
+      //document.getElementById("joinRank").style.background = "gray";
+      var myVar = setTimeout(myTimer, 1000);
+      function myTimer() {
+        document.getElementById("btn_waitOrHold").disabled = false;
+        document.getElementById("btn_waitOrHold").style.background = "#FC6";
+        document.getElementById("btn_buyOrSell").disabled = false;
+        document.getElementById("btn_buyOrSell").style.background = "#FC6";
+        //document.getElementById("joinRank").disabled = false;        
+        //document.getElementById("joinRank").style.background = "rgb(230, 230, 230)";
+      }
+    });
 
     </script>
   </div>

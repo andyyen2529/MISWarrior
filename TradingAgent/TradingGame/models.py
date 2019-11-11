@@ -20,11 +20,22 @@ class Stock(models.Model):
 	def __str__(self):
 		return '股票代碼：' + str(self.code) + '；日期：' + str(self.date)
 
+### 股票代碼資料 ###
+class StockCode(models.Model):
+	code = models.CharField(max_length = 30) # 股票代碼
+	name = models.CharField(max_length = 30) # 股票名稱
+
+	class Meta:
+		db_table = 'stockCode'
+
+	def __str__(self):
+		return str(self.code) + " " + str(self.name)
+
 from datetime import datetime 
 ### 交易設定 ###
 class Setup(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE) # 用戶編號(外來鍵)
-	stock_code = models.CharField(max_length = 4, choices = (('0050', '元大台灣50(0050)'), ('2430', '燦坤(2430)'))) # 股票代碼
+	stock_code = models.ForeignKey(StockCode, on_delete = models.CASCADE) # 股票代碼
 	initial_transaction_date = models.DateField() # 起始交易日
 	playing_duration = models.IntegerField(choices = ((60, '60個交易日(三個月)'), (240, '240個交易日(一年)'))) 
 		# 遊玩天數(只計股市交易日)
