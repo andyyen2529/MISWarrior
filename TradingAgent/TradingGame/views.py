@@ -71,7 +71,10 @@ def playing(request):
         history.day = 1
 
         # 根據第一個交易日，取過去前三十個交易日(含第一個交易日)的股市資料，作為一開始畫圖的時候所用
-        stockData = Stock.objects.filter(date__lte = stock_firstTradingDay.date).order_by('-date')[0:30] # lte : <=
+        stockData = Stock.objects.filter(
+            code = setup.stock_code.code,
+            date__lte = stock_firstTradingDay.date
+        ).order_by('-date')[0:30] # lte : <=
 
         date = []
         price = []
