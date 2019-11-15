@@ -90,8 +90,41 @@ td {
   
   <div id = 'initialCondition4Advice'>
 	<form action="" method="post">
-      {% csrf_token %}
+    <p>
+	<tr>
+	<th><label>資產部位</label></th>
+		<td>
+		<select id="position" onChange="enable()">
+			<option value="" selected>-----</option>
+			<option value="has_principle">本金</option>
+			<option value="has_stock">持有股數</option>
+		</select>
+		</td>
+	</tr>
+	</p>
+	  {% csrf_token %}
       {{ form.as_p }}
+	  <script>
+      function enable() {
+        var x = document.getElementById("position").value;
+        if(x == "has_principle"){
+          document.getElementById("id_principle").disabled = false;
+          document.getElementById("id_initialStockHold").disabled = true;
+          document.getElementById("id_principle").value = "0";
+          document.getElementById("id_initialStockHold").value = "0";
+        }else if(x == "has_stock"){
+          document.getElementById("id_principle").disabled = true;
+          document.getElementById("id_initialStockHold").disabled = false;
+          document.getElementById("id_principle").value = "0";
+          document.getElementById("id_initialStockHold").value = "0";
+        }else{
+          document.getElementById("id_principle").disabled = true;
+          document.getElementById("id_initialStockHold").disabled = true;
+          document.getElementById("id_principle").value = "0";
+          document.getElementById("id_initialStockHold").value = "0";
+        }
+      }
+      </script>
       <input type="submit" value="保存設定並開始操盤" onClick="location.href = '/advising'"/>
 	</form>
   </div>

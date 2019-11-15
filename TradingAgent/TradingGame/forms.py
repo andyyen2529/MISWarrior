@@ -46,7 +46,7 @@ class AdviseSetupForm(ModelForm):
 
         widgets = {
             'principal': NumberInput(
-                attrs={'min': '0', 'max': '1000000', 'step': '10000', 'value': '100000', 'onkeydown':"return false"}),
+                attrs={'id': 'id_principle', 'min': '0', 'max': '1000000', 'step': '10000', 'value': '100000', 'onkeydown':"return false"}),
 			'initialStockHold': NumberInput(
-                attrs={'min': '0', 'max': '1000000', 'step': '10000', 'value': '0', 'onkeydown':"return false"}),
+                attrs={'id': 'id_initialStockHold', 'min': '0', 'max': '1000000', 'step': '10000', 'value': '0', 'onkeydown':"return false"}),
         }

@@ -125,7 +125,7 @@ def intelligentInvestmentAdvise(request):
 	# solution for negative index
 	# today's data (the newest data)
 	stock = Stock.objects.order_by('-id')[0]
-    
+	
 	form = AdviseSetupForm(request.POST or None)
 	if form.is_valid():
 		setup = form.save(commit=False)
@@ -159,6 +159,8 @@ def intelligentInvestmentAdvise(request):
 	
 		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 'date': date, 'price': price, 'decision': decision})
 	
+	if(request.POST!={}):
+		print(request.POST['principal'])
 	return render(request, 'intelligentInvestmentAdvise.html', {'form': form})
 
 def stockDay(request):
