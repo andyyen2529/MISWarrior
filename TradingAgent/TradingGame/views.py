@@ -159,8 +159,6 @@ def intelligentInvestmentAdvise(request):
 	
 		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 'date': date, 'price': price, 'decision': decision})
 	
-	if(request.POST!={}):
-		print(request.POST['principal'])
 	return render(request, 'intelligentInvestmentAdvise.html', {'form': form})
 
 def stockDay(request):
