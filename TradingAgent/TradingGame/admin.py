@@ -8,7 +8,7 @@ class StockAdmin(ImportExportModelAdmin):
 		'high', 'low', 'closing_price', 'spread', 'transaction_number')
 
 class StockCodeAdmin(ImportExportModelAdmin):
-	list_display = ('id', 'code', 'name')
+	list_display = ('id', 'code')
 
 class HistoryAdmin(ImportExportModelAdmin):
 	list_display = [f.name for f in History._meta.fields]

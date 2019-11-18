@@ -111,13 +111,12 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = False
 
-USE_L10N = True
-
 USE_L10N = False
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 DATE_FORMAT = 'Y-m-d'
+DATE_INPUT_FORMATS = ['%Y-%m-%d']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/

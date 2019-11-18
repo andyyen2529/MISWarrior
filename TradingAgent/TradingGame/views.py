@@ -54,7 +54,7 @@ def playing(request):
         # 例如2016/01/09不是股市的交易日，系統會自動選取未來最近的交易日，即2016/01/11的股市資料
         stock_firstTradingDay = Stock.objects.filter(
             code = setup.stock_code.code,
-            date__range = [setup.initial_transaction_date, setup.initial_transaction_date + datetime.timedelta(days = 10)]
+            date__range = [setup.initial_transaction_date, setup.initial_transaction_date + datetime.timedelta(days = 2000)]
         ).order_by('date')[0]
 
         # 將正確的交易起始日更新至交易設定後，保存至資料庫中

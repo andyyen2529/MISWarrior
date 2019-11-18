@@ -5,13 +5,13 @@ from django.contrib.auth.models import User
 class Stock(models.Model):
 	code = models.CharField(max_length = 30) # 股票代碼
 	date = models.DateField() # 日期
-	volumn = models.IntegerField() # 成交股數
-	turnover = models.IntegerField() # 成交金額
+	volumn = models.IntegerField() # 成交量(千股)
+	turnover = models.IntegerField() # 成交值(千元)
 	opening_price = models.FloatField() # 開盤價
 	high = models.FloatField() # 最高價
 	low = models.FloatField() # 最低價
 	closing_price = models.FloatField() # 收盤價
-	spread = models.FloatField() # 漲跌價差
+	spread = models.FloatField() # 股價漲跌
 	transaction_number = models.IntegerField() # 成交筆數
 
 	class Meta:
@@ -23,13 +23,12 @@ class Stock(models.Model):
 ### 股票代碼資料 ###
 class StockCode(models.Model):
 	code = models.CharField(max_length = 30) # 股票代碼
-	name = models.CharField(max_length = 30) # 股票名稱
 
 	class Meta:
 		db_table = 'stockCode'
 
 	def __str__(self):
-		return str(self.code) + " " + str(self.name)
+		return str(self.code)
 
 from datetime import datetime 
 ### 交易設定 ###
