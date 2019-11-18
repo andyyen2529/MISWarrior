@@ -67,7 +67,9 @@ def playing(request):
         # 創建第一筆歷史資料
         history = History.objects.create(setup = setup, day = 0, action = 0,
             position_after_action = '現金', rate_of_return_after_action = 0, 
-            cash_held_after_action = setup.principal, number_of_shares_held_after_action = 0)
+            cash_held_after_action = setup.principal, number_of_shares_held_after_action = 0,
+            position_after_action_robot = '現金', rate_of_return_after_action_robot = 0,
+            cash_held_after_action_robot = setup.principal, number_of_shares_held_after_action_robot = 0)
         history.day = 1
 
         # 根據第一個交易日，取過去前三十個交易日(含第一個交易日)的股市資料，作為一開始畫圖的時候所用
@@ -165,11 +167,6 @@ def stockDay(request):
     stockId = request.POST.get('id')
     stock = Stock.objects.filter(pk = int(stockId)+1)
     stock_list = serializers.serialize('json', stock)
-
-    # 神經網路
-    # 讀神經網路的參數
-    #...
-    #神經網路當天的決定
     return HttpResponse(stock_list, content_type="text/json-comment-filtered")
 
 def addingHistory_waitOrHold(request):
@@ -178,6 +175,61 @@ def addingHistory_waitOrHold(request):
 
     action = '等待' if history.position_after_action == '現金' else '持有'
 
+    # 電腦模擬投資行動和其相關數據處理
+    stockId = request.POST.get('id')
+    stock = Stock.objects.get(pk = int(stockId)+1)
+
+    tradingPrice = float(request.POST.get('closingPrice'))
+    
+    ratio = 1 # 成對交易的比例
+
+    if history.position_after_action_robot == '現金':
+        position = 0
+    else:
+        position = 1
+    state = [ratio, stock.volumn, stock.turnover, stock.opening_price, 
+        stock.high, stock.low, stock.closing_price, position]
+
+    print(position, adviseAction(state))
+    action_robot = makeDecision(position, adviseAction(state))
+    print(action_robot)
+
+
+    if action_robot == '買入':
+        position_after_action_robot = '股票'
+        last_trading_price_after_action_robot = float(request.POST.get('closingPrice'))
+        rate_of_return_after_action_robot = (
+            (1 + history.rate_of_return_after_action_robot) * (1 - history.setup.transaction_cost_rate) - 1
+        ) 
+        cash_held_after_action_robot = 0
+        number_of_shares_held_after_action_robot = (
+            history.cash_held_after_action_robot / (tradingPrice * (1 + history.setup.transaction_cost_rate))
+        )
+
+    elif action_robot == '賣出':
+        position_after_action_robot = '現金'
+        last_trading_price_after_action_robot = tradingPrice 
+        rate_of_return_after_action_robot = (
+            (1 + history.rate_of_return_after_action_robot) * (tradingPrice * (1 - history.setup.transaction_cost_rate) 
+                / history.last_trading_price_after_action_robot) - 1
+        )
+        cash_held_after_action_robot = (
+            history.number_of_shares_held_after_action_robot * tradingPrice * (1 - history.setup.transaction_cost_rate)
+        )
+        number_of_shares_held_after_action_robot = 0
+
+    else:
+        if action_robot == '等待':
+            position_after_action_robot = '現金'
+        elif action_robot == '持有':
+            position_after_action_robot = '股票'
+        last_trading_price_after_action_robot = history.last_trading_price_after_action_robot
+        rate_of_return_after_action_robot = history.rate_of_return_after_action_robot 
+        cash_held_after_action_robot = history.cash_held_after_action_robot
+        number_of_shares_held_after_action_robot = history.number_of_shares_held_after_action_robot
+
+
+    # 新增歷史紀錄
     history_new = History.objects.create(
         setup = history.setup,
         day = int(history.day) + 1,
@@ -186,8 +238,15 @@ def addingHistory_waitOrHold(request):
         last_trading_price_after_action = history.last_trading_price_after_action,
         rate_of_return_after_action = history.rate_of_return_after_action, 
         cash_held_after_action = history.cash_held_after_action,
-        number_of_shares_held_after_action = history.number_of_shares_held_after_action
+        number_of_shares_held_after_action = history.number_of_shares_held_after_action,
+        action_robot = action_robot,
+        position_after_action_robot = history.position_after_action_robot, 
+        last_trading_price_after_action_robot = history.last_trading_price_after_action_robot,
+        rate_of_return_after_action_robot = history.rate_of_return_after_action_robot, 
+        cash_held_after_action_robot = history.cash_held_after_action_robot,
+        number_of_shares_held_after_action_robot = history.number_of_shares_held_after_action_robot
     )
+
     history = History.objects.filter(pk = history_new.id)
     history_list = serializers.serialize('json', history)
 
@@ -195,12 +254,62 @@ def addingHistory_waitOrHold(request):
 
 def addingHistory_buyOrSell(request):
     history_id = request.POST.get('historyId')
-    print(history_id)
     history = History.objects.get(pk = history_id)
 
     history_list = ''
 
+    # 電腦模擬投資行動和其相關數據處理
+    stockId = request.POST.get('id')
+    stock = Stock.objects.get(pk = int(stockId)+1)
+
     tradingPrice = float(request.POST.get('closingPrice'))
+    
+    ratio = 1 # 成對交易的比例
+
+    if history.position_after_action_robot == '現金':
+        position = 0
+    else:
+        position = 1
+    state = [ratio, stock.volumn, stock.turnover, stock.opening_price, 
+        stock.high, stock.low, stock.closing_price, position]
+
+    print(position, adviseAction(state))
+    action_robot = makeDecision(position, adviseAction(state))
+    print(action_robot)
+
+    if action_robot == '買入':
+        position_after_action_robot = '股票'
+        last_trading_price_after_action_robot = float(request.POST.get('closingPrice'))
+        rate_of_return_after_action_robot = (
+            (1 + history.rate_of_return_after_action_robot) * (1 - history.setup.transaction_cost_rate) - 1
+        ) 
+        cash_held_after_action_robot = 0
+        number_of_shares_held_after_action_robot = (
+            history.cash_held_after_action_robot / (tradingPrice * (1 + history.setup.transaction_cost_rate))
+        )
+
+    elif action_robot == '賣出':
+        position_after_action_robot = '現金'
+        last_trading_price_after_action_robot = tradingPrice 
+        rate_of_return_after_action_robot = (
+            (1 + history.rate_of_return_after_action_robot) * (tradingPrice * (1 - history.setup.transaction_cost_rate) 
+                / history.last_trading_price_after_action_robot) - 1
+        )
+        cash_held_after_action_robot = (
+            history.number_of_shares_held_after_action_robot * tradingPrice * (1 - history.setup.transaction_cost_rate)
+        )
+        number_of_shares_held_after_action_robot = 0
+
+    else:
+        if action_robot == '等待':
+            position_after_action_robot = '現金'
+        elif action_robot == '持有':
+            position_after_action_robot = '股票'
+        last_trading_price_after_action_robot = history.last_trading_price_after_action_robot
+        rate_of_return_after_action_robot = history.rate_of_return_after_action_robot 
+        cash_held_after_action_robot = history.cash_held_after_action_robot
+        number_of_shares_held_after_action_robot = history.number_of_shares_held_after_action_robot
+
 
     if history.position_after_action == '現金':
         history_new = History.objects.create(
@@ -213,7 +322,13 @@ def addingHistory_buyOrSell(request):
                 (1 + history.rate_of_return_after_action) * (1 - history.setup.transaction_cost_rate) - 1, 
             cash_held_after_action = 0,
             number_of_shares_held_after_action = 
-                history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate))
+                history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate)),
+            action_robot = action_robot,
+            position_after_action_robot = history.position_after_action_robot, 
+            last_trading_price_after_action_robot = history.last_trading_price_after_action_robot,
+            rate_of_return_after_action_robot = history.rate_of_return_after_action_robot, 
+            cash_held_after_action_robot = history.cash_held_after_action_robot,
+            number_of_shares_held_after_action_robot = history.number_of_shares_held_after_action_robot
         )
         history = History.objects.filter(pk = history_new.id)
         history_list = serializers.serialize('json', history)
@@ -231,7 +346,13 @@ def addingHistory_buyOrSell(request):
             ), 
             cash_held_after_action = 
                 history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate),
-            number_of_shares_held_after_action = 0
+            number_of_shares_held_after_action = 0,
+            action_robot = action_robot,
+            position_after_action_robot = history.position_after_action_robot, 
+            last_trading_price_after_action_robot = history.last_trading_price_after_action_robot,
+            rate_of_return_after_action_robot = history.rate_of_return_after_action_robot, 
+            cash_held_after_action_robot = history.cash_held_after_action_robot,
+            number_of_shares_held_after_action_robot = history.number_of_shares_held_after_action_robot
         )
         history = History.objects.filter(pk = history_new.id)
         history_list = serializers.serialize('json', history)
@@ -256,7 +377,6 @@ def signup(request):
 def addingRankingHistory(request):
 	# 取得目前的交易歷史
     history_id = request.POST.get('historyId')
-    #print(history_id)
     history = History.objects.get(pk = history_id)
 	
     ranking_history_new = RankingHistory.objects.create(

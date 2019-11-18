@@ -8,16 +8,28 @@
   float:left;
   width:60%;
 }
+
 #status {
   float:right;
-  width:40%;
+  width:45%;
   background:#FFC;
   border-radius:25px;
   font-size: 20px;
 }
+
+/*
+#div_status-playerStatusDiv {
+  float:left;
+  width:50%;
+}
+#div_status-robotStatusDiv {
+  float:right;
+  width:50%;
+}*/
+
 #tbl {
   float:left;
-  width:60%;
+  width:50%;
 }
 #historyField {
   float:left;
@@ -98,8 +110,8 @@ td {
 #div_transactionHistory {
   background-color: rgba(0,0,0,0.5);
   position: absolute;
-  width: 60%;
-  left: 20%;
+  width: 90%;
+  left: 5%;
   top: 10%;
   height: 80%;
   display: none;
@@ -111,16 +123,6 @@ td {
 #div_transactionHistory-historyTable table{
   margin:0 auto;
 }
-/*
-#btn_closeTransactionHistory {
-  background-color:rgba(0,0,0,0.5);
-  border: 3px solid black;
-  color:#fff;
-  height: 60px;
-  width: 200px;
-  font-size: 1.5rem;
-}
-*/
 .button1 {
   background-color:rgba(0,0,0,0.5);
   border: 3px solid black;
@@ -227,13 +229,40 @@ td {
 
 
   <div id = 'status'>
-      <p style="margin-left:25px">現在是第 <a id="day">1</a> 天 
-        (第 <a id="playingDuration">{{setup.playing_duration}}</a> 天結束)</p>
-      <p style="margin-left:25px">您目前持有的資產：<a id="asset">現金{{ setup.principal }}元</a></p>
-      <p style="margin-left:25px">您最後一次的交易價格(收盤價)： <a id="lastTradingPrice">暫無</a></p> 
-      <p style="margin-left:25px">您截至目前的報酬率： <a id="return">0.000%</a></p>
-      <p style="margin-left:25px">交易成本比率： {{transaction_cost_rate | floatformat:4}} %</a></p>
 
+    <p style="margin-left:25px">現在是第 <a id="day">1</a> 天 
+      (第 <a id="playingDuration">{{setup.playing_duration}}</a> 天結束)</p>
+    <p style="margin-left:25px">交易成本比率： {{transaction_cost_rate | floatformat:4}} %</a></p>
+
+    <table style="width:100%; table-layout:fixed">
+      <tr>
+        <th></th>
+        <th>玩家</th> 
+        <th>電腦</th>
+      </tr>
+      <tr>
+        <th>目前持有的資產</th>
+        <td><a id="asset">現金{{ setup.principal }}元</a></td>
+        <td><a id="asset_robot">現金{{ setup.principal }}元</a></td>
+      </tr>
+      <tr>
+        <th>最後一次交易價格(收盤價)</th>
+        <td><a id="lastTradingPrice">暫無</a></td>
+        <td><a id="lastTradingPrice_robot">暫無</a></td>
+      </tr>
+      <tr>
+        <th>前一次的行動</th>
+        <td><a id="action">暫無</a></td>
+        <td><a id="action_robot">暫無</a></td>
+      </tr>
+      <tr>
+        <th>目前的報酬率</th>
+        <td><a id="return">0.000%</a></td>
+        <td><a id="return_robot">0.000%</a></td>
+      </tr>
+    </table>
+
+    <br>
     <form id="actionForm" type='post'>
       {% csrf_token %}
 
@@ -247,18 +276,10 @@ td {
       <input id="closingPriceField" type="hidden" name="closingPrice" value="{{ stock.closing_price }}">
 	  
     </form>
-	<!-- 
-	<form id = "addRankingForm" type = 'post'>  // 之後預計和結算模擬投資成績寫在一起，暫時先獨立出一個按鈕 
-	  {% csrf_token %}
-	  
-	  <input id="historyIdField" type="hidden" name="historyId" value="{{ history.id }}">
-	</form> -->
-
-
 
     <form id="infoForm" method="post" action="">
         {% csrf_token %}
-        <input type="button" id='btn_openTransactionHistory' value="歷史紀錄" name='getHistory'>
+        <input type="button" id='btn_openTransactionHistory' value="交易歷史" name='getHistory'>
         <input type="button" id='setBtn' value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame/setup'">
     </form> 
 
@@ -381,23 +402,39 @@ td {
        th.appendChild(document.createTextNode('行動'));
        tr.appendChild(th);
        var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('行動後持有資產種類'));
+       th.appendChild(document.createTextNode('持有資產種類'));
        tr.appendChild(th);
        var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('行動後最後交易價格'));
+       th.appendChild(document.createTextNode('最後交易價格'));
        tr.appendChild(th);
        var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('行動後報酬率'));
+       th.appendChild(document.createTextNode('報酬率'));
        tr.appendChild(th);
        var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('行動後持有現金量'));
+       th.appendChild(document.createTextNode('持有現金量'));
        tr.appendChild(th);
        var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('行動後持有股數'));
+       th.appendChild(document.createTextNode('持有股數'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('行動(電腦)'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('持有資產種類(電腦)'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('最後交易價格(電腦)'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('報酬率(電腦)'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('持有現金量(電腦)'));
+       tr.appendChild(th);
+       var th = _th_.cloneNode(false);
+       th.appendChild(document.createTextNode('持有股數(電腦)'));
        tr.appendChild(th);
        table.appendChild(tr)
-      
-
 
        return columnSet;
    }
@@ -530,13 +567,23 @@ td {
               $("#historyIdField").val(json[0].pk);
               $("#day").text(json[0].fields.day + 1);
               $("#position").text(json[0].fields.position_after_action);
+
               $("#return").text((json[0].fields.rate_of_return_after_action * 100).toFixed(3).toString().concat('%'));
+              $("#return_robot").text((json[0].fields.rate_of_return_after_action_robot * 100).toFixed(3).toString().concat('%'));
 
               if (json[0].fields.last_trading_price_after_action == null){
                 $("#lastTradingPrice").text('暫無');
               } else {
                 $("#lastTradingPrice").text(json[0].fields.last_trading_price_after_action);
               }
+              if (json[0].fields.last_trading_price_after_action_robot == null){
+                $("#lastTradingPrice_robot").text('暫無');
+              } else {
+                $("#lastTradingPrice_robot").text(json[0].fields.last_trading_price_after_action_robot);
+              }
+
+              $("#action").text(json[0].fields.action);
+              $("#action_robot").text(json[0].fields.action_robot);
               
               $("#cash").text(json[0].fields.cash_held_after_action);
               $("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
@@ -549,6 +596,11 @@ td {
                 document.getElementById("btn_waitOrHold").value = '持有'
                 document.getElementById("btn_buyOrSell").value = '賣出'
                 $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
+              }
+              if (json[0].fields.position_after_action_robot == '現金') {
+                $("#asset_robot").text('現金' + json[0].fields.cash_held_after_action_robot.toFixed(4) + '元');
+              } else { 
+                $("#asset_robot").text('股票' + json[0].fields.number_of_shares_held_after_action_robot.toFixed(4) + '股');
               }
             }
 
@@ -578,14 +630,24 @@ td {
               $("#historyIdField").val(json[0].pk);
               $("#day").text(json[0].fields.day + 1);
               $("#position").text(json[0].fields.position_after_action);
+
               $("#return").text((json[0].fields.rate_of_return_after_action * 100).toFixed(3).toString().concat('%'));
+              $("#return_robot").text((json[0].fields.rate_of_return_after_action_robot * 100).toFixed(3).toString().concat('%'));
 
               if (json[0].fields.last_trading_price_after_action == null){
                 $("#lastTradingPrice").text('暫無');
               } else {
                 $("#lastTradingPrice").text(json[0].fields.last_trading_price_after_action);
               }
+              if (json[0].fields.last_trading_price_after_action_robot == null){
+                $("#lastTradingPrice_robot").text('暫無');
+              } else {
+                $("#lastTradingPrice_robot").text(json[0].fields.last_trading_price_after_action_robot);
+              }
 
+              $("#action").text(json[0].fields.action);
+              $("#action_robot").text(json[0].fields.action_robot);
+              
               $("#cash").text(json[0].fields.cash_held_after_action);
               $("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
 
@@ -597,6 +659,11 @@ td {
                 document.getElementById("btn_waitOrHold").value = '持有'
                 document.getElementById("btn_buyOrSell").value = '賣出'
                 $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
+              }
+              if (json[0].fields.position_after_action_robot == '現金') {
+                $("#asset_robot").text('現金' + json[0].fields.cash_held_after_action_robot.toFixed(4) + '元');
+              } else { 
+                $("#asset_robot").text('股票' + json[0].fields.number_of_shares_held_after_action_robot.toFixed(4) + '股');
               }
 
             }
@@ -650,13 +717,13 @@ td {
 
   <!-- 交易歷史的表單 -->
   <div id = 'div_transactionHistory'>
-  <p style="text-align: center;font-size: 36;font-weight: bold;">歷史紀錄</p>
-  <a>備註：目前歷史紀錄欄位僅有玩家的部分，之後要導入「機器學習模型」的部分才能和玩家比較</a>
+  <p style="text-align: center;font-size: 36;font-weight: bold;">交易歷史</p>
+  <a>備註：每一筆交易歷史被系統記錄的時間點是在玩家和電腦做出行動之後</a>
   <div id = 'div_transactionHistory-historyTable'> 
   </div>  
 
   <br>
-  <input type="button" class="button1" id='btn_closeTransactionHistory' value="關閉歷史紀錄">    
+  <input type="button" class="button1" id='btn_closeTransactionHistory' value="關閉交易歷史">    
   <p></p>
   </div>
 

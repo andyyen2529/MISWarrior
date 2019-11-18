@@ -70,7 +70,7 @@ def makeDecision(position, action):
 			decision = '買入'
 	else:
 		if action == 0:
-			decision = '繼續持有'
+			decision = '持有'
 		else:
 			decision = '賣出'
 	return decision
