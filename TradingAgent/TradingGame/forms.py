@@ -27,7 +27,7 @@ class SetupForm(ModelForm):
 
         widgets = {
             'initial_transaction_date': DateInput(
-                attrs = {'min': '2015-01-01', 'max': "2015-12-31"}),
+                attrs = {'min': '2016-01-01', 'max': "2018-12-31"}),
             'principal': NumberInput(
                 attrs = {'min': '0', 'max': '1000000', 'step': '10000', 'value': '100000', 'onkeydown':"return false"}),
         }
