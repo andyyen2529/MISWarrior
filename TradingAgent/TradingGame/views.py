@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http import JsonResponse
-from TradingGame.models import Stock, Setup, History, RankingHistory
+from TradingGame.models import *
 from django.core import serializers
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -42,24 +42,46 @@ def setup(request):
 #SECONDARY VIEW TO RETURN JSON DATA TO USER ****NEW PART****
 def playing(request):
     if 'setup' in request.POST:
-        form = SetupForm(request.POST or None)
-        setup = form.save(commit=False)
-        setup.user = request.user
 
         # 遊玩之前先把該玩家之前的交易歷史紀錄清除 (這裡示範如何取foreign key object中屬性的方法)
         History.objects.filter(setup__user = request.user).delete() 
 
-        # 根據使用者輸入的股票名稱和交易起始日，找到第一個交易日的股市資料
-        # 其中交易起始日如果不是股市的交易日，系統會自動挑選「未來最近的交易日」作為交易起始日
-        # 例如2016/01/09不是股市的交易日，系統會自動選取未來最近的交易日，即2016/01/11的股市資料
-        stock_firstTradingDay = Stock.objects.filter(
-            code = setup.stock_code.code,
-            date__range = [setup.initial_transaction_date, setup.initial_transaction_date + datetime.timedelta(days = 2000)]
-        ).order_by('date')[0]
+        # 根據「交易設定介面」的交易設定建立交易設定的資料
+        if 'setup_fromRanking' not in request.POST:
+            form = SetupForm(request.POST or None)
+            setup = form.save(commit=False)
+            setup.user = request.user
 
-        # 將正確的交易起始日更新至交易設定後，保存至資料庫中
-        setup.initial_transaction_date = stock_firstTradingDay.date
-        setup.save()
+            # 根據使用者輸入的股票名稱和交易起始日，找到第一個交易日的股市資料
+            # 其中交易起始日如果不是股市的交易日，系統會自動挑選「未來最近的交易日」作為交易起始日
+            # 例如2016/01/09不是股市的交易日，系統會自動選取未來最近的交易日，即2016/01/11的股市資料
+            stock_firstTradingDay = Stock.objects.filter(
+                code = setup.stock_code.code,
+                date__range = [setup.initial_transaction_date, setup.initial_transaction_date + datetime.timedelta(days = 2000)]
+            ).order_by('date')[0]
+
+            # 將正確的交易起始日更新至交易設定後，保存至資料庫中
+            setup.initial_transaction_date = stock_firstTradingDay.date
+            setup.save()
+
+        # 根據「股神排行榜」的交易設定建立交易設定的資料
+        else: 
+            setup = Setup.objects.create(
+                user = request.user,
+                stock_code = StockCode.objects.get(code = request.POST.get('setup.stock_code')),
+                initial_transaction_date = request.POST.get('setup.initial_transaction_date'),
+                playing_duration = request.POST.get('setup.playing_duration'),
+                principal = request.POST.get('setup.principal'),
+                transaction_cost_rate = float(request.POST.get('setup.transaction_cost_rate'))
+            )
+
+            stock_firstTradingDay = Stock.objects.get(
+                code = StockCode.objects.get(code = request.POST.get('setup.stock_code')),
+                date = request.POST.get('setup.initial_transaction_date')
+            )
+            print(stock_firstTradingDay)
+            setup.save()
+
 
         # 把交易成本比率乘上100，之後在網頁改用百分比呈現
         transaction_cost_rate = setup.transaction_cost_rate * 100
@@ -391,6 +413,10 @@ def addingRankingHistory(request):
 
 
 def ranking(request):
-	ranking_table = RankingHistory.objects.order_by('-final_rate_of_return')[:10]  # 取前10名
-	
-	return render(request, 'ranking.html',{'ranking_table' : ranking_table})
+    ranking_table = RankingHistory.objects.order_by('-final_rate_of_return')[:10]  # 取前10名
+
+    for i in range(0,len(ranking_table)):
+        ranking_table[i].setup.transaction_cost_rate *= 100
+        ranking_table[i].final_rate_of_return *= 100
+
+    return render(request, 'ranking.html',{'ranking_table' : ranking_table})

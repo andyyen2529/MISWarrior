@@ -33,6 +33,19 @@
 				justify-content: space-around;
 				text-align: center;
 			}
+			ul.flex-div li ul {
+				display: none;
+			} 
+			ul.flex-div li:hover > ul {
+				display: block;
+				position: absolute;
+				background-color: rgb(230, 230, 230);
+				color: black;
+				z-index: 9999;
+				list-style: none; 
+				margin: 0;
+				padding: 0;
+			} 
 			#input-style1{
 			    border:0;
 			      background-color:#003C9D;
@@ -69,9 +82,16 @@
                 <li><a href="http://127.0.0.1:8000/">首頁</a></li> 
                 <li><a href="http://127.0.0.1:8000/aboutMe/">關於股獲仔</a></li>
                 <li><a href="http://127.0.0.1:8000/developmentTeam/">開發團隊</a></li>
-                <li><a href="http://127.0.0.1:8000/stockGame/setup">個股投資模擬</a></li>
+
+
+                <li><a href="#">個股投資模擬</a>
+                	<ul>
+				    	<li><a href="http://127.0.0.1:8000/stockGame/setup">交易設定</a></li>
+				    	<li><a href="http://127.0.0.1:8000/stockGame/ranking">股神排行榜</a></li>
+				 	</ul>
+                </li>
+
                 <li><a href="http://127.0.0.1:8000/intelligentInvestmentAdvise">智能投資建議</a></li>
-				<li><a href="http://127.0.0.1:8000/stockGame/ranking">股神排行榜</a></li>
                 {% if not user.is_authenticated %}
                     <li><a href="http://127.0.0.1:8000/accounts/login/">註冊/登入</a></li>
                 {% else %}
