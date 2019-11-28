@@ -175,13 +175,16 @@ def intelligentInvestmentAdvise(request):
 		date = []
 		price = []
 		for key, value in data.items():
-			date.append(key.strftime("%d-%b-%Y"))
+			date.append(key.strftime("%Y-%m-%d"))
 			price.append(float(value))
 		# reverse() >> re-order the series (long term to short term)
 		date.reverse()
 		price.reverse()
+		dp = []
+		for i in range(len(date)):
+			dp.append([date[i], price[i]])
 	
-		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 'date': date, 'price': price, 'decision': decision})
+		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 'dp': dp, 'date': date, 'price': price, 'decision': decision})
 	
 	return render(request, 'intelligentInvestmentAdvise.html', {'form': form})
 
