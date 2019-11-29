@@ -76,7 +76,7 @@ class History(models.Model):
 ### 投資建議設定 ###		
 class AdviseSetup(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE) # 用戶編號(外來鍵)
-	stock_code = models.CharField(max_length = 4, choices = (('0050', '元大台灣50(0050)'), ('2430', '燦坤(2430)'))) # 股票代碼
+	stock_code = models.ForeignKey(StockCode, on_delete = models.CASCADE) # 股票代碼
 	principal = models.IntegerField() # 本金
 	initialStockHold = models.IntegerField() # 初始持有股數
 	

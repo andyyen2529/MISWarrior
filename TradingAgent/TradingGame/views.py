@@ -156,6 +156,12 @@ def intelligentInvestmentAdvise(request):
 		setup.user = request.user
 		#setup.save()
 		
+		# get selected stock data
+		stockData = Stock.objects.filter(
+			code = setup.stock_code.code,
+        ).order_by('-date')[0:31]
+		stock = stockData[0]
+		
 		# state variable
 		if int(request.POST['principal']) != 0:
 			position = 0
@@ -168,10 +174,10 @@ def intelligentInvestmentAdvise(request):
 		decision = makeDecision(position, action)
 		
 		# get data for plot
-		stockData = Stock.objects.order_by('-id')[0:31]
 		data = {}
 		for v in stockData:
 			data[v.date] = v.closing_price
+		
 		date = []
 		price = []
 		for key, value in data.items():
