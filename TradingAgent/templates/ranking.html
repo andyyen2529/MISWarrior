@@ -7,7 +7,7 @@
 	#ranking_div1 {
 		position: relative;
 		margin:100px auto; /* 讓該div置中 */
-		width: 85%;
+		width: 100%;
 		top: -10vh;
 		height: 60vh;
 	}
@@ -29,32 +29,78 @@
 		border-style:inset;
 		border-collapse:collapse;
 	}
+	input {
+	  background-color:rgba(0,0,0,0.5);
+	  border: 3px solid black;
+	  color:#fff;
+	  height: 60px;
+	  font-size: 1.5rem;
+	}
+	input:hover {
+	  background-color: rgba(0,0,0,1);
+	}
 </style>
 {% endblock styles %}
 
 {% block content %}
+{% if user.is_authenticated %}
 
 	<div id = 'ranking_div1'>
-		<p style="font-family:微軟正黑體;font-weight:bolder;font-size:280%;text-align: center;">股神排行榜 Top10</p>
-		<table width=50% border="5">
+		<p style="font-family:微軟正黑體;font-weight:bolder;font-size:280%;text-align: center;">
+			個股投資模擬 - 股神排行榜 Top10</p>
+		<table border="5" style="table-layout:fixed">
 
 		  　<tr>
 			  <th>排名</th>
 			　<th>玩家</th>
+			  <th>投資標的</th>
+			  <th>起始日期</th>
+			  <th>投資天數</th>
+			  <th>本金</th>
+			  <th>交易成本</th>
 			　<th>報酬率</th>
+			  <th></th>
 			</tr>
 			
 			{% for record in ranking_table %}
 				<tr>
 				    <td>{{ forloop.counter }}</td>
 			　		<td>{{ record.setup.user }}</td>
-			　		<td>{{ record.final_rate_of_return }}</td>
+					<td>{{ record.setup.stock_code }}</td>
+					<td>{{ record.setup.initial_transaction_date }}</td>
+					<td>{{ record.setup.playing_duration }}</td>
+					<td>{{ record.setup.principal }}</td>
+					<td>{{ record.setup.transaction_cost_rate | floatformat:4}} %</td>
+			　		<td>{{ record.final_rate_of_return | floatformat:3}} %</td>
+					<td>
+
+						<form action="{% url 'playing' %}" method="post">
+							{% csrf_token %}
+							<input type="hidden" value="{{ record.setup.user }}" name="setup.user">
+							<input type="hidden" value="{{ record.setup.stock_code }}" name="setup.stock_code">
+							<input type="hidden" value="{{ record.setup.initial_transaction_date }}" name="setup.initial_transaction_date">
+							<input type="hidden" value="{{ record.setup.playing_duration }}" name="setup.playing_duration">
+							<input type="hidden" value="{{ record.setup.principal }}" name="setup.principal">
+							<input type="hidden" value="{{ record.setup.transaction_cost_rate }}" name="setup.transaction_cost_rate">
+
+							<input type="hidden" name = 'setup_fromRanking'>
+						 	<input type="submit" value="按照該玩家的交易設定進行挑戰" name = 'setup'>
+						</form>
+
+					</td>
+
 				</tr>
 			{% endfor %}
 		  </table>
 		
 	</div>
 	
-	
+{% else %}
+<div id = 'signUpNotificationDiv'>
+  <p>想要使用「個股投資模擬」的功能嗎？</p>
+  <p>那就立刻加入股獲仔吧！</p>
+  <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" value="立即使用" />
+</div>
 
+{% endif %}
 {% endblock %}

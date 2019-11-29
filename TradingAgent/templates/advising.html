@@ -84,7 +84,6 @@ td {
   <script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
   
   <script type= "text/javascript">
-  
   $(document).ready(function() {
     var title = {
       text: '{{setup.stock_code}} 股價趨勢'
@@ -97,6 +96,16 @@ td {
       title: {
         text: '過去30天股價'
       },
+	  categories: {{date | safe}},
+	  labels: {
+		align: 'center',
+		formatter: function(){
+			return this.value;
+		},
+		rotation: 0,
+	  },
+	  tickInterval: 3,
+	  crosshair: true,
     };
     
     var yAxis = {
@@ -120,11 +129,16 @@ td {
       verticalAlign: 'middle',
       borderWidth: 0
     };
-
+	
     var series =  [
     {
       name: '{{setup.stock_code}}',
-      data: {{price}}
+      data: {{price}},
+	  colorByPoint: true,
+	  colors: ['#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
+	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', 
+	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
+	  '#ff0000']
     },
     
     ];
@@ -148,9 +162,10 @@ td {
 
   <div id = 'status'>
       <p style="margin-left:25px">{{stock.date}}</p>
+	  <p style="margin-left:25px">股票名稱 : {{stock.code}}</p>
       <p style="margin-left:25px">您目前持有的資產：<a id="asset">NTD {{ setup.principal }}</a></p>
       <p style="margin-left:25px">建議投資決策 : {{decision}}</p>
-	<p>&nbsp;</p>
+	
 
     <form id="infoForm" method="post" action="">
         <input type="button" id='setBtn' value="歷史紀錄" onclick="location.href='http://127.0.0.1:8000/history/'">
