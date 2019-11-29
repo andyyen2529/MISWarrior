@@ -5,14 +5,46 @@ from django.contrib.auth.models import User
 class Stock(models.Model):
 	code = models.CharField(max_length = 30) # 股票代碼
 	date = models.DateField() # 日期
-	volumn = models.IntegerField() # 成交量(千股)
-	turnover = models.IntegerField() # 成交值(千元)
+	volumn = models.IntegerField() # 成交量(股)
+	turnover = models.IntegerField() # 成交值(元)
 	opening_price = models.FloatField() # 開盤價
 	high = models.FloatField() # 最高價
 	low = models.FloatField() # 最低價
 	closing_price = models.FloatField() # 收盤價
 	spread = models.FloatField() # 股價漲跌
 	transaction_number = models.IntegerField() # 成交筆數
+
+	# 以下欄位和狀態變數有關
+	closing_price_MA5 = models.FloatField(null = True)
+	closing_price_MA10 = models.FloatField(null = True)
+	closing_price_MA20 = models.FloatField(null = True)	
+	closing_price_MA60 = models.FloatField(null = True)	
+	closing_price_MA120 = models.FloatField(null = True)	
+	closing_price_MA240 = models.FloatField(null = True)	
+	volumn_MA5 = models.FloatField(null = True)	
+	volumn_MA10 = models.FloatField(null = True)	
+	volumn_MA20 = models.FloatField(null = True)	
+	volumn_MA60 = models.FloatField(null = True)	
+	volumn_MA120 = models.FloatField(null = True)	
+	volumn_MA240 = models.FloatField(null = True)	
+	turnover_MA5 = models.FloatField(null = True)	
+	turnover_MA10 = models.FloatField(null = True)	
+	turnover_MA20 = models.FloatField(null = True)	
+	turnover_MA60 = models.FloatField(null = True)	
+	turnover_MA120 = models.FloatField(null = True)	
+	turnover_MA240 = models.FloatField(null = True)	
+	month_01 = models.IntegerField(default = 0)	
+	month_02 = models.IntegerField(default = 0)	
+	month_03 = models.IntegerField(default = 0)	
+	month_04 = models.IntegerField(default = 0)	
+	month_05 = models.IntegerField(default = 0)	
+	month_06 = models.IntegerField(default = 0)	
+	month_07 = models.IntegerField(default = 0)	
+	month_08 = models.IntegerField(default = 0)	
+	month_09 = models.IntegerField(default = 0)	
+	month_10 = models.IntegerField(default = 0)	
+	month_11 = models.IntegerField(default = 0)	
+	month_12 = models.IntegerField(default = 0)
 
 	class Meta:
 		db_table = 'stock'

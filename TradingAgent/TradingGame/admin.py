@@ -4,8 +4,7 @@ from TradingGame.models import Stock, StockCode, History, Setup, AdviseSetup, Ra
 
 # ModelAdmin class
 class StockAdmin(ImportExportModelAdmin):
-	list_display = ('id', 'code', 'date', 'volumn', 'turnover', 'opening_price', 
-		'high', 'low', 'closing_price', 'spread', 'transaction_number')
+	list_display = [f.name for f in Stock._meta.fields]
 
 class StockCodeAdmin(ImportExportModelAdmin):
 	list_display = ('id', 'code')

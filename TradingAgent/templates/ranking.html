@@ -41,6 +41,7 @@
 {% endblock styles %}
 
 {% block content %}
+{% if user.is_authenticated %}
 
 	<div id = 'ranking_div1'>
 		<p style="font-family:微軟正黑體;font-weight:bolder;font-size:280%;text-align: center;">
@@ -92,6 +93,12 @@
 		
 	</div>
 	
-	
+{% else %}
+<div id = 'signUpNotificationDiv'>
+  <p>想要使用「個股投資模擬」的功能嗎？</p>
+  <p>那就立刻加入股獲仔吧！</p>
+  <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" value="立即使用" />
+</div>
 
+{% endif %}
 {% endblock %}
