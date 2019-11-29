@@ -169,7 +169,7 @@ td {
   
   $(document).ready(function() {
     var title = {
-      text: '股價趨勢'
+      text: '{{setup.stock_code}} 股價趨勢'
     };
     var subtitle = {
       text: 'Source: 臺灣證券交易所'
@@ -187,7 +187,7 @@ td {
 		},
 		rotation: 0,
 	  },
-	  tickInterval: 3,
+	  tickInterval: 6,
 	  crosshair: true,
     };
     
@@ -216,7 +216,7 @@ td {
     var series =  [
     {
       name: '{{stock.code}}',
-      data: {{price}}
+      data: {{price}},
 	  colorByPoint: true,
 	  colors: ['#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
 	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', 
@@ -338,8 +338,9 @@ td {
     <script>
      
 	  
-	  // 保留股價資訊用來畫圖，持續更新
+	  // 保留股價、日期資訊用來畫圖，持續更新
 	  var pseries = {{price}};
+	  var dseries = {{date | safe}};
 
      // 獲取歷史紀錄
       $('#btn_openTransactionHistory').click(function(){
@@ -498,8 +499,15 @@ td {
             $('#stockIdField').val(json[0].pk);
 			
 			// plot
+			
+			// 更新股價、日期資料序列
+			pseries.shift();
+			pseries.push(json[0].fields.closing_price);
+			dseries.shift();
+			dseries.push(json[0].fields.date);
+			
 			var title = {
-				text: '股價趨勢'
+				text: '{{setup.stock_code}} 股價趨勢'
 			};
 			var subtitle = {
 				text: 'Source: 臺灣證券交易所'
@@ -509,6 +517,16 @@ td {
 				title: {
 					text: '過去30天股價'
 				},
+				categories: dseries,
+				labels: {
+						align: 'center',
+						formatter: function(){
+							return this.value;
+						},
+						rotation: 0,
+				},
+				tickInterval: 6,
+				crosshair: true,
 			};
     
 			var yAxis = {
@@ -533,13 +551,15 @@ td {
 				borderWidth: 0
 			};
 			
-			// 更新股價資料序列
-			pseries.shift();
-			pseries.push(json[0].fields.closing_price);
 			var series =  [
 			{
 				name: '{{stock.code}}',
-				data: pseries
+				data: pseries,
+				colorByPoint: true,
+				colors: ['#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
+						'#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', 
+						'#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
+						'#ff0000'],
 			},
 			];
 

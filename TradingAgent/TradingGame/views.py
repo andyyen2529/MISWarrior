@@ -100,15 +100,20 @@ def playing(request):
             date__lte = stock_firstTradingDay.date
         ).order_by('-date')[0:31] # lte : <=
 
+        # get data for plot
+        data = {}
+        for v in stockData:
+            data[v.date] = v.closing_price
+		
         date = []
         price = []
-
-        for v in stockData:
-            date.append(v.date)
-            price.append(v.closing_price)
-
+        for key, value in data.items():
+            date.append(key.strftime("%Y-%m-%d"))
+            price.append(value)
+		# reverse() >> re-order the series (long term to short term)
         date.reverse()
         price.reverse()
+		
 
         return render(request, 'playing.html', {'stock': stock_firstTradingDay, 'setup': setup, 'history': history, 
         'date': date, 'price': price, 'transaction_cost_rate': transaction_cost_rate})
@@ -148,13 +153,12 @@ def intelligentInvestmentAdvise(request):
 	# Django QuerySet
 	# solution for negative index
 	# today's data (the newest data)
-	stock = Stock.objects.order_by('-id')[0]
 	
 	form = AdviseSetupForm(request.POST or None)
 	if form.is_valid():
 		setup = form.save(commit=False)
 		setup.user = request.user
-		#setup.save()
+		setup.save()
 		
 		# get selected stock data
 		stockData = Stock.objects.filter(
@@ -182,7 +186,7 @@ def intelligentInvestmentAdvise(request):
 		price = []
 		for key, value in data.items():
 			date.append(key.strftime("%m/%d"))
-			price.append(float(value))
+			price.append(value)
 		# reverse() >> re-order the series (long term to short term)
 		date.reverse()
 		price.reverse()
