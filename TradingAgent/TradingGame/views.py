@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http import JsonResponse
-from TradingGame.models import Stock, History, RankingHistory
+from TradingGame.models import Stock, Setup, History, RankingHistory
 from django.core import serializers
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+
+import datetime
 
 from TradingGame.forms import SetupForm, AdviseSetupForm
 from django.shortcuts import render_to_response
@@ -37,6 +39,59 @@ def setup(request):
     form = SetupForm(request.POST or None)
     return render(request, 'setup.html', {'form': form})
 
+#SECONDARY VIEW TO RETURN JSON DATA TO USER ****NEW PART****
+def playing(request):
+    if 'setup' in request.POST:
+        form = SetupForm(request.POST or None)
+        setup = form.save(commit=False)
+        setup.user = request.user
+
+        # 遊玩之前先把該玩家之前的交易歷史紀錄清除 (這裡示範如何取foreign key object中屬性的方法)
+        History.objects.filter(setup__user = request.user).delete() 
+
+        # 根據使用者輸入的股票名稱和交易起始日，找到第一個交易日的股市資料
+        # 其中交易起始日如果不是股市的交易日，系統會自動挑選「未來最近的交易日」作為交易起始日
+        # 例如2016/01/09不是股市的交易日，系統會自動選取未來最近的交易日，即2016/01/11的股市資料
+        stock_firstTradingDay = Stock.objects.filter(
+            code = setup.stock_code.code,
+            date__range = [setup.initial_transaction_date, setup.initial_transaction_date + datetime.timedelta(days = 10)]
+        ).order_by('date')[0]
+
+        # 將正確的交易起始日更新至交易設定後，保存至資料庫中
+        setup.initial_transaction_date = stock_firstTradingDay.date
+        setup.save()
+
+        # 把交易成本比率乘上100，之後在網頁改用百分比呈現
+        transaction_cost_rate = setup.transaction_cost_rate * 100
+
+        # 創建第一筆歷史資料
+        history = History.objects.create(setup = setup, day = 0, action = 0,
+            position_after_action = '現金', rate_of_return_after_action = 0, 
+            cash_held_after_action = setup.principal, number_of_shares_held_after_action = 0)
+        history.day = 1
+
+        # 根據第一個交易日，取過去前三十個交易日(含第一個交易日)的股市資料，作為一開始畫圖的時候所用
+        stockData = Stock.objects.filter(
+            code = setup.stock_code.code,
+            date__lte = stock_firstTradingDay.date
+        ).order_by('-date')[0:30] # lte : <=
+
+        date = []
+        price = []
+
+        for v in stockData:
+            date.append(v.date)
+            price.append(v.closing_price)
+
+        date.reverse()
+        price.reverse()
+
+        return render(request, 'playing.html', {'stock': stock_firstTradingDay, 'setup': setup, 'history': history, 
+        'date': date, 'price': price, 'transaction_cost_rate': transaction_cost_rate})
+
+    else:
+        return redirect('stockGame/setup') # 如果直接輸入遊玩頁面的網址，由於完成交易設定，系統將重新導向交易設定的頁面
+
 def history(request):
     historys = History.objects.filter(setup__user = request.user) # 只取該用戶的交易歷史紀錄
     historys = historys[1:]
@@ -50,57 +105,27 @@ def history(request):
 
     return HttpResponse(output, content_type="text/json-comment-filtered")
 
+def result(request):
+    setup_newest = Setup.objects.filter(user = request.user).order_by('-id')[0]
+    setup_newest.transaction_cost_rate = setup_newest.transaction_cost_rate * 100
 
-#SECONDARY VIEW TO RETURN JSON DATA TO USER ****NEW PART****
-def playing(request):
-    if 'setup' in request.POST:
-        form = SetupForm(request.POST or None)
-        setup = form.save(commit=False)
-        setup.user = request.user
-        setup.save()
+    history_lastDay = History.objects.filter(setup__user = request.user).order_by('-id')[0]
+    history_lastDay.rate_of_return_after_action = history_lastDay.rate_of_return_after_action * 100    
+    return render(request, 'result.html', {'history_lastDay': history_lastDay, 'setup_newest': setup_newest})
 
-        # 遊玩之前先把該玩家之前的交易歷史紀錄清除 (這裡示範如何取foreign key object中屬性的方法)
-        History.objects.filter(setup__user = request.user).delete() 
 
-        stock = Stock.objects.get(code = setup.stock_code, date = setup.initial_transaction_date)
-        history = History.objects.create(setup = setup, day = 0, action = 0,
-            position_after_action = '現金', rate_of_return_after_action = 0, 
-            cash_held_after_action = setup.principal, number_of_shares_held_after_action = 0)
-        history.day = 1
-        # get data for plot
-        # 2016-01-04 : id = 3110, 2017-01-03 : 3354
-        if (request.POST['initial_transaction_date'] == '2016-01-04'):
-            stockData = Stock.objects.filter(id__lte = 3110).order_by('-id')[0:30] # lte : <=
-        elif (request.POST['initial_transaction_date'] == '2017-01-03'):
-            stockData = Stock.objects.filter(id__lte = 3354).order_by('-id')[0:30]
 
-        data = {}
-        for v in stockData:
-            data[v.date] = v.closing_price
-        date = []
-        price = []
-        for key, value in data.items():
-            date.append(key.strftime("%d-%b-%Y"))
-            price.append(float(value))
-        # reverse() >> re-order the series (long term to short term)
-        date.reverse()
-        price.reverse()
+    # else:
+    #     return redirect('stockGame/setup') # 如果直接輸入遊玩頁面的網址，由於完成交易設定，系統將重新導向交易設定的頁面
 
-        return render(request, 'playing.html', {'stock': stock, 'setup': setup, 'history': history, 
-        'date': date, 'price': price})
 
-    else:
-        return redirect('stockGame/setup') # 如果直接輸入遊玩頁面的網址，由於完成交易設定，系統將重新導向交易設定的頁面
-
-def playing2(request):
-    return HttpResponse('coco')
 
 def intelligentInvestmentAdvise(request):
 	# Django QuerySet
 	# solution for negative index
 	# today's data (the newest data)
 	stock = Stock.objects.order_by('-id')[0]
-    
+	
 	form = AdviseSetupForm(request.POST or None)
 	if form.is_valid():
 		setup = form.save(commit=False)
@@ -134,6 +159,8 @@ def intelligentInvestmentAdvise(request):
 	
 		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 'date': date, 'price': price, 'decision': decision})
 	
+	if(request.POST!={}):
+		print(request.POST['principal'])
 	return render(request, 'intelligentInvestmentAdvise.html', {'form': form})
 
 def stockDay(request):
@@ -184,9 +211,11 @@ def addingHistory_buyOrSell(request):
             action = '買入',
             position_after_action = '股票', 
             last_trading_price_after_action = tradingPrice,
-            rate_of_return_after_action = history.rate_of_return_after_action, 
+            rate_of_return_after_action = 
+                (1 + history.rate_of_return_after_action) * (1 - history.setup.transaction_cost_rate) - 1, 
             cash_held_after_action = 0,
-            number_of_shares_held_after_action = history.cash_held_after_action / tradingPrice
+            number_of_shares_held_after_action = 
+                history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate))
         )
         history = History.objects.filter(pk = history_new.id)
         history_list = serializers.serialize('json', history)
@@ -199,9 +228,11 @@ def addingHistory_buyOrSell(request):
             position_after_action = '現金', 
             last_trading_price_after_action = tradingPrice,
             rate_of_return_after_action = (
-                (1 + history.rate_of_return_after_action) * (tradingPrice / history.last_trading_price_after_action) - 1
+                (1 + history.rate_of_return_after_action) * (tradingPrice * (1 - history.setup.transaction_cost_rate)
+                     / history.last_trading_price_after_action) - 1
             ), 
-            cash_held_after_action = history.number_of_shares_held_after_action * tradingPrice,
+            cash_held_after_action = 
+                history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate),
             number_of_shares_held_after_action = 0
         )
         history = History.objects.filter(pk = history_new.id)
