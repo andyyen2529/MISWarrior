@@ -84,8 +84,6 @@ td {
   <script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
   
   <script type= "text/javascript">
-  var yArr = {{price}};
-  var xArr = "{{date}}";
   $(document).ready(function() {
     var title = {
       text: '{{setup.stock_code}} 股價趨勢'
@@ -98,14 +96,16 @@ td {
       title: {
         text: '過去30天股價'
       },
+	  categories: {{date | safe}},
 	  labels: {
 		align: 'center',
 		formatter: function(){
 			return this.value;
 		},
-		rotation: 20,
+		rotation: 0,
 	  },
-	  tickInterval: 5,
+	  tickInterval: 3,
+	  crosshair: true,
     };
     
     var yAxis = {
@@ -133,11 +133,12 @@ td {
     var series =  [
     {
       name: '{{setup.stock_code}}',
-      data: yArr,
+      data: {{price}},
 	  colorByPoint: true,
 	  colors: ['#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
 	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', 
-	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#ff0000']
+	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
+	  '#ff0000']
     },
     
     ];

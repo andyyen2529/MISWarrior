@@ -179,6 +179,16 @@ td {
       title: {
         text: '過去30天股價'
       },
+	  categories: {{date | safe}},
+	  labels: {
+		align: 'center',
+		formatter: function(){
+			return this.value;
+		},
+		rotation: 0,
+	  },
+	  tickInterval: 3,
+	  crosshair: true,
     };
     
     var yAxis = {
@@ -210,7 +220,8 @@ td {
 	  colorByPoint: true,
 	  colors: ['#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
 	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', 
-	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#ff0000']
+	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
+	  '#ff0000']
     },
     
     ];

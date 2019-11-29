@@ -98,7 +98,7 @@ def playing(request):
         stockData = Stock.objects.filter(
             code = setup.stock_code.code,
             date__lte = stock_firstTradingDay.date
-        ).order_by('-date')[0:30] # lte : <=
+        ).order_by('-date')[0:31] # lte : <=
 
         date = []
         price = []
@@ -154,7 +154,7 @@ def intelligentInvestmentAdvise(request):
 	if form.is_valid():
 		setup = form.save(commit=False)
 		setup.user = request.user
-		setup.save()
+		#setup.save()
 		
 		# state variable
 		if int(request.POST['principal']) != 0:
@@ -168,23 +168,21 @@ def intelligentInvestmentAdvise(request):
 		decision = makeDecision(position, action)
 		
 		# get data for plot
-		stockData = Stock.objects.order_by('-id')[0:30]
+		stockData = Stock.objects.order_by('-id')[0:31]
 		data = {}
 		for v in stockData:
 			data[v.date] = v.closing_price
 		date = []
 		price = []
 		for key, value in data.items():
-			date.append(key.strftime("%Y-%m-%d"))
+			date.append(key.strftime("%m/%d"))
 			price.append(float(value))
 		# reverse() >> re-order the series (long term to short term)
 		date.reverse()
 		price.reverse()
-		dp = []
-		for i in range(len(date)):
-			dp.append([date[i], price[i]])
 	
-		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 'dp': dp, 'date': date, 'price': price, 'decision': decision})
+		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 
+			'date': date, 'price': price, 'decision': decision})
 	
 	return render(request, 'intelligentInvestmentAdvise.html', {'form': form})
 
