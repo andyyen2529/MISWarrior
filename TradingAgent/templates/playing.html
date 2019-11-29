@@ -165,76 +165,64 @@ td {
   <script src="https://code.highcharts.com.cn/highcharts/modules/oldie.js"></script>
   <script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
   
-  <script type= "text/javascript">
   
+  <script type= "text/javascript">
   $(document).ready(function() {
-    var title = {
-      text: '股價趨勢'
-    };
-    var subtitle = {
-      text: 'Source: 臺灣證券交易所'
-    };
+      // plot
+      var title = {
+        text: '{{setup.stock_code}} 股價趨勢'
+      };
+      var subtitle = {
+        text: 'Source: 臺灣證券交易所'
+      };
     
-    var xAxis = {
-      title: {
-        text: '過去30天股價'
+      var xAxis = {
+        title: {
+          text: '過去30天股價'
+        },
+      };
+    
+      var yAxis = {
+        title: {
+          text: 'Closing Price (NTD)'
+        },
+        plotLines: [{
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }]
+      };
+
+      var tooltip = {
+        valueSuffix: ' NTD'
+      }
+
+      var legend = {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle',
+        borderWidth: 0
+      };
+      
+      // 更新股價資料序列
+      pseries.shift();
+
+      var series =  [
+      {
+        name: '{{stock.code}}',
+        data: pseries,
       },
-	  categories: {{date | safe}},
-	  labels: {
-		align: 'center',
-		formatter: function(){
-			return this.value;
-		},
-		rotation: 0,
-	  },
-	  tickInterval: 3,
-	  crosshair: true,
-    };
-    
-    var yAxis = {
-      title: {
-        text: 'Closing Price (NTD)'
-      },
-      plotLines: [{
-        value: 0,
-        width: 1,
-        color: '#808080'
-      }]
-    };
+      ];
 
-    var tooltip = {
-      valueSuffix: ' NTD'
-    }
+      var jsonCharts = {};
 
-    var legend = {
-      layout: 'vertical',
-      align: 'right',
-      verticalAlign: 'middle',
-      borderWidth: 0
-    };
-
-    var series =  [
-    {
-      name: '{{stock.code}}',
-      data: {{price}}
-	  colorByPoint: true,
-	  colors: ['#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
-	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', 
-	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
-	  '#ff0000']
-    },
-    
-    ];
-
-    var jsonCharts = {};
-
-    jsonCharts.title = title;
-    jsonCharts.subtitle = subtitle;
-    jsonCharts.xAxis = xAxis;
-    jsonCharts.yAxis = yAxis;
-    jsonCharts.tooltip = tooltip;
-    jsonCharts.legend = legend;
-    jsonCharts.series = series;
+      jsonCharts.title = title;
+      jsonCharts.subtitle = subtitle;
+      jsonCharts.xAxis = xAxis;
+      jsonCharts.yAxis = yAxis;
+      jsonCharts.tooltip = tooltip;
+      jsonCharts.legend = legend;
+      jsonCharts.series = series;
 
     $('#trend').highcharts(jsonCharts);
   })
@@ -298,6 +286,9 @@ td {
         <input type="button" id='setBtn' value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame/setup'">
     </form> 
 
+    <p style="margin-left:25px; font-size:16px"> 
+      說明：圖表中的紅點代表當天玩家買入；粉紅點代表持有；綠點代表賣出；淺綠點代表等待 </p>
+
   </div>
   <p>&nbsp;</p> 
 
@@ -307,13 +298,11 @@ td {
     　<tr>
       　<th>股票代碼</td>
       　<th>日期</td>
-      　<th>成交股數</td>
-      　<th>成交金額</td>
+      　<th>成交金額(元)</td>
       </tr>
     　<tr>
       　<td id="code">{{stock.code}}</td>
       　<td id="date">{{stock.date |date:"Y-m-d"}} </td>
-      　<td id="volumn">{{stock.volumn}} </td>
       　<td id="turnover">{{stock.turnover}} </td>
       </tr>
 
@@ -321,13 +310,34 @@ td {
       　<th>開盤價</td>
       　<th>最高價</td>
       　<th>最低價</td>
-      　<th>收盤價</td>
       </tr>
       <tr>
       　<td id="opening_price">{{stock.opening_price}} </td>
       　<td id="high">{{stock.high}} </td>
       　<td id="low">{{stock.low}} </td>
-      　<td id="closing_price">{{stock.closing_price}} </td>
+      　
+    　</tr>
+
+    　<tr>
+        <th>收盤價</td>
+      　<th>收盤價MA5</td>
+      　<th>收盤價MA20</td>
+      </tr>
+      <tr>
+        <td id="closing_price">{{stock.closing_price}} </td>
+      　<td id="closing_price_MA5">{{stock.closing_price_MA5 | floatformat:2}} </td>
+      　<td id="closing_price_MA20">{{stock.closing_price_MA20 | floatformat:2}} </td>
+    　</tr>
+
+    　<tr>
+      　<th>成交股數(股)</td>
+      　<th>成交股數MA5</td>
+      　<th>成交股數MA20</td>
+      </tr>
+      <tr>
+      　<td id="volumn">{{stock.volumn}} </td>
+      　<td id="volumn_MA5">{{stock.volumn_MA5 | floatformat:0}} </td>
+      　<td id="volumn_MA20">{{stock.volumn_MA20 | floatformat:0}} </td>
     　</tr>
 
     </table>
@@ -468,6 +478,9 @@ td {
           });
         });
 
+
+      var newClosingPrice = 0;
+
       // 獲取股票資料
       $('#actionForm').click(function(){
         $.ajax({
@@ -493,67 +506,18 @@ td {
             $("#low").text(json[0].fields.low);                    
             $("#closing_price").text(json[0].fields.closing_price);
 
+            $("#closing_price_MA5").text(json[0].fields.closing_price_MA20.toFixed(2));
+            $("#closing_price_MA20").text(json[0].fields.closing_price_MA5.toFixed(2));
+            $("#volumn_MA5").text(json[0].fields.volumn_MA5);                    
+            $("#volumn_MA20").text(json[0].fields.volumn_MA20);
+
             $("#closingPriceField").val(json[0].fields.closing_price);
 
             $('#stockIdField').val(json[0].pk);
+
+            newClosingPrice = json[0].fields.closing_price
 			
-			// plot
-			var title = {
-				text: '股價趨勢'
-			};
-			var subtitle = {
-				text: 'Source: 臺灣證券交易所'
-			};
-    
-			var xAxis = {
-				title: {
-					text: '過去30天股價'
-				},
-			};
-    
-			var yAxis = {
-				title: {
-					text: 'Closing Price (NTD)'
-				},
-				plotLines: [{
-					value: 0,
-					width: 1,
-					color: '#808080'
-				}]
-			};
 
-			var tooltip = {
-				valueSuffix: ' NTD'
-			}
-
-			var legend = {
-				layout: 'vertical',
-				align: 'right',
-				verticalAlign: 'middle',
-				borderWidth: 0
-			};
-			
-			// 更新股價資料序列
-			pseries.shift();
-			pseries.push(json[0].fields.closing_price);
-			var series =  [
-			{
-				name: '{{stock.code}}',
-				data: pseries
-			},
-			];
-
-			var jsonCharts = {};
-
-			jsonCharts.title = title;
-			jsonCharts.subtitle = subtitle;
-			jsonCharts.xAxis = xAxis;
-			jsonCharts.yAxis = yAxis;
-			jsonCharts.tooltip = tooltip;
-			jsonCharts.legend = legend;
-			jsonCharts.series = series;
-
-			$('#trend').highcharts(jsonCharts);
           },
           error: function() {
             $('.testing').text('失敗');
@@ -561,6 +525,71 @@ td {
         });
       });
                  
+
+      function plot(color) {
+
+        // plot
+        var title = {
+          text: '{{setup.stock_code}} 股價趨勢'
+        };
+        var subtitle = {
+          text: 'Source: 臺灣證券交易所'
+        };
+      
+        var xAxis = {
+          title: {
+            text: '過去30天股價'
+          },
+        };
+      
+        var yAxis = {
+          title: {
+            text: 'Closing Price (NTD)'
+          },
+          plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+          }]
+        };
+
+        var tooltip = {
+          valueSuffix: ' NTD'
+        }
+
+        var legend = {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'middle',
+          borderWidth: 0
+        };
+        
+        // 更新股價資料序列
+        pseries.shift();
+        pseries.push(newClosingPrice);
+
+        pseries[28] = {y: pseries[28], color: color}
+
+        var series =  [
+        {
+          name: '{{stock.code}}',
+          data: pseries
+        },
+        ];
+
+        var jsonCharts = {};
+
+        jsonCharts.title = title;
+        jsonCharts.subtitle = subtitle;
+        jsonCharts.xAxis = xAxis;
+        jsonCharts.yAxis = yAxis;
+        jsonCharts.tooltip = tooltip;
+        jsonCharts.legend = legend;
+        jsonCharts.series = series;
+
+        $('#trend').highcharts(jsonCharts);
+
+      }
 
       // 按下「等待or持有」按鈕之後的後端數據處理
       $("#btn_waitOrHold").click(function(){
@@ -607,10 +636,12 @@ td {
                 document.getElementById("btn_waitOrHold").value = '等待'
                 document.getElementById("btn_buyOrSell").value = '買入'
                 $("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
+                plot('limegreen')
               } else { 
                 document.getElementById("btn_waitOrHold").value = '持有'
                 document.getElementById("btn_buyOrSell").value = '賣出'
                 $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
+                plot('hotpink')
               }
               if (json[0].fields.position_after_action_robot == '現金') {
                 $("#asset_robot").text('現金' + json[0].fields.cash_held_after_action_robot.toFixed(4) + '元');
@@ -670,10 +701,14 @@ td {
                 document.getElementById("btn_waitOrHold").value = '等待'
                 document.getElementById("btn_buyOrSell").value = '買入'
                 $("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
+                plot('green')
+
               } else { 
                 document.getElementById("btn_waitOrHold").value = '持有'
                 document.getElementById("btn_buyOrSell").value = '賣出'
                 $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
+                plot('red')
+
               }
               if (json[0].fields.position_after_action_robot == '現金') {
                 $("#asset_robot").text('現金' + json[0].fields.cash_held_after_action_robot.toFixed(4) + '元');
