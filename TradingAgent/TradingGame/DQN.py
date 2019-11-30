@@ -29,9 +29,9 @@ class Net(nn.Module):
 		def choose_action(self, x):
 				x = torch.unsqueeze(torch.FloatTensor(x), 0)
 				actions_value = self.forward(x)
-				print(actions_value)
+				#print(actions_value)
 				action = np.argmax(actions_value.detach().numpy())     # return the argmax
-				print(action)
+				#print(action)
 				
 				return action
 
@@ -228,7 +228,7 @@ def adviseAction(state, playDuration):
 	return action
 	
 def makeDecision(position, action):
-	print(position, action)
+	#print(position, action)
 	if position == 0:
 		if action == 0:
 			decision = '等待'
@@ -239,5 +239,5 @@ def makeDecision(position, action):
 			decision = '持有'
 		else:
 			decision = '賣出'
-	print(decision)
+	#print(decision)
 	return decision

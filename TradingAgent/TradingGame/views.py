@@ -134,7 +134,8 @@ def result(request):
 	setup_newest.transaction_cost_rate = setup_newest.transaction_cost_rate * 100
 
 	history_lastDay = History.objects.filter(setup__user = request.user).order_by('-id')[0]
-	history_lastDay.rate_of_return_after_action = history_lastDay.rate_of_return_after_action * 100    
+	history_lastDay.rate_of_return_after_action = history_lastDay.rate_of_return_after_action * 100
+	history_lastDay.rate_of_return_after_action_robot = history_lastDay.rate_of_return_after_action_robot * 100       
 	return render(request, 'result.html', {'history_lastDay': history_lastDay, 'setup_newest': setup_newest})
 
 
@@ -183,8 +184,8 @@ def intelligentInvestmentAdvise(request):
 			position
 		] # 一共37個狀態變數
 
-		action = adviseAction(state, 60)
-		decision = makeDecision(position, action)
+		action_robot = makeDecision(position, adviseAction(state, 60)) # 由於這裡沒有設定交易天數，暫時用「60天」的模型參數
+		decision = makeDecision(position, action_robot)
 
 		
 		""" 
@@ -255,9 +256,7 @@ def addingHistory_waitOrHold(request):
 		position
 	] # 一共37個狀態變數
 
-	#print(position, adviseAction(state))
-	action_robot = makeDecision(position, adviseAction(state, 60))
-	#print(action_robot)
+	action_robot = makeDecision(position, adviseAction(state, history.setup.playing_duration))
 
 	if action_robot == '買入':
 		position_after_action_robot = '股票'
@@ -349,7 +348,7 @@ def addingHistory_buyOrSell(request):
 	] # 一共37個狀態變數
 
 	#print(position, adviseAction(state))
-	action_robot = makeDecision(position, adviseAction(state, 60))
+	action_robot = makeDecision(position, adviseAction(state, history.setup.playing_duration))
 	#print(action_robot)
 
 	if action_robot == '買入':
@@ -423,11 +422,11 @@ def addingHistory_buyOrSell(request):
 				history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate),
 			number_of_shares_held_after_action = 0,
 			action_robot = action_robot,
-			position_after_action_robot = history.position_after_action_robot, 
-			last_trading_price_after_action_robot = history.last_trading_price_after_action_robot,
-			rate_of_return_after_action_robot = history.rate_of_return_after_action_robot, 
-			cash_held_after_action_robot = history.cash_held_after_action_robot,
-			number_of_shares_held_after_action_robot = history.number_of_shares_held_after_action_robot
+			position_after_action_robot = position_after_action_robot, 
+			last_trading_price_after_action_robot = last_trading_price_after_action_robot,
+			rate_of_return_after_action_robot = rate_of_return_after_action_robot, 
+			cash_held_after_action_robot = cash_held_after_action_robot,
+			number_of_shares_held_after_action_robot = number_of_shares_held_after_action_robot
 		)
 		history = History.objects.filter(pk = history_new.id)
 		history_list = serializers.serialize('json', history)
