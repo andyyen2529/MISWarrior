@@ -5,134 +5,134 @@
 {% block styles %}
 <style>
 #trend {
-  float:left;
-  width:60%;
+	float:left;
+	width:60%;
 }
 #status {
-  float:right;
-  width:45%;
-  background:#FFC;
-  border-radius:25px;
-  font-size: 20px;
+	float:right;
+	width:45%;
+	background:#FFC;
+	border-radius:25px;
+	font-size: 20px;
 }
 #tbl {
-  float:left;
-  width:50%;
+	float:left;
+	width:50%;
 }
 #historyField {
-  float:left;
-  width:60%;
+	float:left;
+	width:60%;
 }
 #decision {
-  float:right;
-  width:30%;
+	float:right;
+	width:30%;
 }
 #btn_waitOrHold, #btn_buyOrSell{
-  background:#FC6;
-  color:#966;
-  width:100px;
-  height:50px;
-  font-size:20px;
-  border-radius:12px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    text-align: center;
-  margin-right:25px;
-  margin-left:25px;
-  margin-bottom: 10px;
-  font-weight: bold;
+	background:#FC6;
+	color:#966;
+	width:100px;
+	height:50px;
+	font-size:20px;
+	border-radius:12px;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+		text-align: center;
+	margin-right:25px;
+	margin-left:25px;
+	margin-bottom: 10px;
+	font-weight: bold;
 }
 #joinRank {
-  background:#FC;
-  color:#966;
-  width:130px;
-  height:70px;
-  font-size:20px;
-  border-radius:12px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  text-align: center;
-  margin-right:25px;
-  margin-left:25px;
-  margin-bottom: 10px;
-  font-weight: bold;
+	background:#FC;
+	color:#966;
+	width:130px;
+	height:70px;
+	font-size:20px;
+	border-radius:12px;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	text-align: center;
+	margin-right:25px;
+	margin-left:25px;
+	margin-bottom: 10px;
+	font-weight: bold;
 }
 #setBtn {
-  background:#3CF;
-  color:#006;
-  width:100px;
-  height:50px;
-  font-size:20px;
-  border-radius:12px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    text-align: center;
-  margin-right:25px;
-  margin-left:25px;
-  margin-bottom: 10px;
-  font-weight: bold;
+	background:#3CF;
+	color:#006;
+	width:100px;
+	height:50px;
+	font-size:20px;
+	border-radius:12px;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+		text-align: center;
+	margin-right:25px;
+	margin-left:25px;
+	margin-bottom: 10px;
+	font-weight: bold;
 }
 th {
-  font-family: '微軟正黑體';
-  background-color: #417690;
-  color:#fff;
-  font-size: 18px;
+	font-family: '微軟正黑體';
+	background-color: #417690;
+	color:#fff;
+	font-size: 18px;
 }
 td {
-  background-color: #fff;
-  font-family: Times New Roman;
-  font-size: 18px;
+	background-color: #fff;
+	font-family: Times New Roman;
+	font-size: 18px;
 }
 
 #btn_openTransactionHistory {
-  background:#3CF;
-  color:#006;
-  width:100px;
-  height:50px;
-  font-size:20px;
-  border-radius:12px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  text-align: center;
-  margin-right:25px;
-  margin-left:25px;
-  margin-bottom: 10px;
-  font-weight: bold;
+	background:#3CF;
+	color:#006;
+	width:100px;
+	height:50px;
+	font-size:20px;
+	border-radius:12px;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	text-align: center;
+	margin-right:25px;
+	margin-left:25px;
+	margin-bottom: 10px;
+	font-weight: bold;
 }
 #div_transactionHistory {
-  background-color: rgba(0,0,0,0.5);
-  position: absolute;
-  width: 90%;
-  left: 5%;
-  top: 10%;
-  height: 80%;
-  display: none;
-  float:left;
-  text-align: center;
-  color: white;
-  overflow: scroll;
+	background-color: rgba(0,0,0,0.5);
+	position: absolute;
+	width: 90%;
+	left: 5%;
+	top: 10%;
+	height: 80%;
+	display: none;
+	float:left;
+	text-align: center;
+	color: white;
+	overflow: scroll;
 }
 #div_transactionHistory-historyTable table{
-  margin:0 auto;
+	margin:0 auto;
 }
 .button1 {
-  background-color:rgba(0,0,0,0.5);
-  border: 3px solid black;
-  color:#fff;
-  height: 60px;
-  width: 200px;
-  font-size: 1.5rem;
+	background-color:rgba(0,0,0,0.5);
+	border: 3px solid black;
+	color:#fff;
+	height: 60px;
+	width: 200px;
+	font-size: 1.5rem;
 }
 
 .button1:hover {
-  background-color: rgba(0,0,0,1);
+	background-color: rgba(0,0,0,1);
 }
 th {
-  font-family: '微軟正黑體';
-  background-color: #417690;
-  color:#fff;
-  font-size: 18px;
+	font-family: '微軟正黑體';
+	background-color: #417690;
+	color:#fff;
+	font-size: 18px;
 }
 td {
-  background-color: #fff;
-  font-family: Times New Roman;
-  font-size: 18px;
+	background-color: #fff;
+	font-family: Times New Roman;
+	font-size: 18px;
 }
 </style>
 {% endblock styles %}
@@ -141,694 +141,694 @@ td {
 {% block content %}
 {% if user.is_authenticated %}
 
-  <!--繪製股價走勢圖-->
-  <div id="trend" style="width: 50%; height: 400px; "></div>
-  {% block js %}
-  <!--引入 JQuery 與 Highchart 的程式庫-->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-  <!--<script src="http://code.highcharts.com/highcharts.js"></script>-->
-  
-  <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
-  <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
-  <script src="https://code.highcharts.com.cn/highcharts/modules/oldie.js"></script>
-  <script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
-  
-  
-  <script type= "text/javascript">
-  $(document).ready(function() {
-      // plot
-      var title = {
-        text: '{{setup.stock_code}} 股價趨勢'
-      };
-      var subtitle = {
-        text: 'Source: 臺灣證券交易所'
-      };
-    
-      var xAxis = {
-        title: {
-          text: '日期'
-        },
-      categories: {{date | safe}},
-      labels: {
-      align: 'center',
-      formatter: function(){
-        return this.value;
-      },
-      rotation: 0,
-      },
-      tickInterval: 3,
-      crosshair: true,
-      };
-    
-      var yAxis = {
-        title: {
-          text: '收盤價(NTD)'
-        },
-        plotLines: [{
-          value: 0,
-          width: 1,
-          color: '#808080'
-        }]
-      };
-
-      var tooltip = {
-        valueSuffix: ' NTD'
-      }
-
-      var legend = {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle',
-        borderWidth: 0
-      };
-
-      var series =  [
-      {
-        name: '{{stock.code}}',
-        data: pseries,
-      },
-      ];
-
-      var jsonCharts = {};
-
-      jsonCharts.title = title;
-      jsonCharts.subtitle = subtitle;
-      jsonCharts.xAxis = xAxis;
-      jsonCharts.yAxis = yAxis;
-      jsonCharts.tooltip = tooltip;
-      jsonCharts.series = series;
-
-    $('#trend').highcharts(jsonCharts);
-  })
-  
-  </script>
-  {% endblock %}
-
-
-  <div id = 'status'>
-
-    <p style="margin-left:25px">現在是第 <a id="day">1</a> 天 
-      (第 <a id="playingDuration">{{setup.playing_duration}}</a> 天結束)</p>
-    <p style="margin-left:25px">交易成本比率： {{transaction_cost_rate | floatformat:4}} %</a></p>
-
-    <table style="width:100%; table-layout:fixed">
-      <tr>
-        <th></th>
-        <th>玩家</th> 
-        <th>電腦</th>
-      </tr>
-      <tr>
-        <th>目前持有的資產</th>
-        <td><a id="asset">現金{{ setup.principal }}元</a></td>
-        <td><a id="asset_robot">現金{{ setup.principal }}元</a></td>
-      </tr>
-      <tr>
-        <th>最後一次交易價格(收盤價)</th>
-        <td><a id="lastTradingPrice">暫無</a></td>
-        <td><a id="lastTradingPrice_robot">暫無</a></td>
-      </tr>
-      <tr>
-        <th>前一次的行動</th>
-        <td><a id="action">暫無</a></td>
-        <td><a id="action_robot">暫無</a></td>
-      </tr>
-      <tr>
-        <th>目前的報酬率</th>
-        <td><a id="return">0.000%</a></td>
-        <td><a id="return_robot">0.000%</a></td>
-      </tr>
-    </table>
-
-    <br>
-    <form id="actionForm" type='post'>
-      {% csrf_token %}
-
-      <input type="button" id="btn_waitOrHold" value="等待">
-      <input type="button" id="btn_buyOrSell" value="買入">
-    <input type = "button" id="joinRank" value="加入排行榜">
-
-    
-      <input id="stockIdField" type="hidden" name="id" value="{{ stock.id }}">
-      <input id="historyIdField" type="hidden" name="historyId" value="{{ history.id }}">
-      <input id="closingPriceField" type="hidden" name="closingPrice" value="{{ stock.closing_price }}">
-    
-    </form>
-
-    <form id="infoForm" method="post" action="">
-        {% csrf_token %}
-        <input type="button" id='btn_openTransactionHistory' value="交易歷史" name='getHistory'>
-        <input type="button" id='setBtn' value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame/setup'">
-    </form> 
-
-    <p style="margin-left:25px; font-size:16px"> 
-      說明：圖表中的紅點代表當天玩家買入；粉紅點代表持有；綠點代表賣出；淺綠點代表等待 </p>
-
-  </div>
-  <p>&nbsp;</p> 
-
-  <div id = 'tbl'>
-    <table width=100% border="1" style="table-layout:fixed">
-
-    　<tr>
-      　<th>股票代碼</td>
-      　<th>日期</td>
-      　<th>成交金額(元)</td>
-      </tr>
-    　<tr>
-      　<td id="code">{{stock.code}}</td>
-      　<td id="date">{{stock.date |date:"Y-m-d"}} </td>
-      　<td id="turnover">{{stock.turnover}} </td>
-      </tr>
-
-    　<tr>
-      　<th>開盤價</td>
-      　<th>最高價</td>
-      　<th>最低價</td>
-      </tr>
-      <tr>
-      　<td id="opening_price">{{stock.opening_price}} </td>
-      　<td id="high">{{stock.high}} </td>
-      　<td id="low">{{stock.low}} </td>
-      　
-    　</tr>
-
-    　<tr>
-        <th>收盤價</td>
-      　<th>收盤價MA5</td>
-      　<th>收盤價MA20</td>
-      </tr>
-      <tr>
-        <td id="closing_price">{{stock.closing_price}} </td>
-      　<td id="closing_price_MA5">{{stock.closing_price_MA5 | floatformat:2}} </td>
-      　<td id="closing_price_MA20">{{stock.closing_price_MA20 | floatformat:2}} </td>
-    　</tr>
-
-    　<tr>
-      　<th>成交股數(股)</td>
-      　<th>成交股數MA5</td>
-      　<th>成交股數MA20</td>
-      </tr>
-      <tr>
-      　<td id="volumn">{{stock.volumn}} </td>
-      　<td id="volumn_MA5">{{stock.volumn_MA5 | floatformat:0}} </td>
-      　<td id="volumn_MA20">{{stock.volumn_MA20 | floatformat:0}} </td>
-    　</tr>
-
-    </table>
-  </div>
-
-  <div id = 'decision'>
-
-    <script>
-     
-    
-    // 保留股價資訊用來畫圖，持續更新
-    var pseries = {{price}};
-    var dseries = {{date|safe}};
-
-     // 獲取歷史紀錄
-      $('#btn_openTransactionHistory').click(function(){
-        $("#div_transactionHistory").show();
-        $.ajax({
-          url : "/ajax/history/", // the endpoint
-          type : "POST", // http method
-          data: {csrfmiddlewaretoken: "{{ csrf_token }}"}, 
-
-          // handle a successful response
-          success : function(json) {
-            console.log("success"); // another sanity check
-            var myJSON = JSON.stringify(json);
-            $("#historyField").text(myJSON);
-
-    var _table_ = document.createElement('table'),
-        _tr_ = document.createElement('tr'),
-        _th_ = document.createElement('th'),
-        _td_ = document.createElement('td');
-
-
-    // Builds the HTML Table out of myList json data from Ivy restful service.
-    function buildHtmlTable(arr) {
-       var table = _table_.cloneNode(false),
-           columns = addAllColumnHeaders(arr, table);
-       for (var i=0, maxi=arr.length; i < maxi; ++i) {
-           var tr = _tr_.cloneNode(false);
-           for (var j=1, maxj=columns.length; j < maxj ; ++j) {
-              var td = _td_.cloneNode(false);
-
-              if (arr[i][columns[j]] == null) {
-                td.appendChild(document.createTextNode('暫無'));
-              } 
-
-              // 挑整報酬率的顯示方式
-              else if (j == 5) {
-                td.appendChild(document.createTextNode((arr[i][columns[j]] * 100).toFixed(3).toString().concat('%')));
-              }
-
-              // 如果數字型態的資料長度過長，則保留至三位
-              else if (typeof(arr[i][columns[j]]) == 'number' && 
-                arr[i][columns[j]].toString().length > 10) {
-                td.appendChild(document.createTextNode(arr[i][columns[j]].toFixed(4)));
-              } 
-
-              else {
-                td.appendChild(document.createTextNode(arr[i][columns[j]]));
-              }
-              tr.appendChild(td);
-           }
-           table.appendChild(tr);
-       }
-       return table;
-   }
-   
-   // Adds a header row to the table and returns the set of columns.
-   // Need to do union of keys from all records as some records may not contain
-   // all records
-   function addAllColumnHeaders(arr, table)
-   {
-       var columnSet = [],
-           tr = _tr_.cloneNode(false);
-       for (var i=0, l=arr.length; i < l; i++) {
-           for (var key in arr[i]) {
-               if (arr[i].hasOwnProperty(key) && columnSet.indexOf(key)===-1) {
-                   columnSet.push(key);
-               }
-           }
-       }
-
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('第幾天'));
-       tr.appendChild(th);
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('行動'));
-       tr.appendChild(th);
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('持有資產種類'));
-       tr.appendChild(th);
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('最後交易價格'));
-       tr.appendChild(th);
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('報酬率'));
-       tr.appendChild(th);
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('持有現金量'));
-       tr.appendChild(th);
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('持有股數'));
-       tr.appendChild(th);
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('行動(電腦)'));
-       tr.appendChild(th);
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('持有資產種類(電腦)'));
-       tr.appendChild(th);
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('最後交易價格(電腦)'));
-       tr.appendChild(th);
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('報酬率(電腦)'));
-       tr.appendChild(th);
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('持有現金量(電腦)'));
-       tr.appendChild(th);
-       var th = _th_.cloneNode(false);
-       th.appendChild(document.createTextNode('持有股數(電腦)'));
-       tr.appendChild(th);
-       table.appendChild(tr)
-
-       return columnSet;
-   }
-
-  const myNode = document.getElementById("div_transactionHistory-historyTable");
-  while (myNode.firstChild) {
-    myNode.removeChild(myNode.firstChild);
-  }
-  document.getElementById('div_transactionHistory-historyTable').appendChild(buildHtmlTable(json));
-
-
-            },
-            error: function() {
-              $('.testing').text('失敗');
-            },
-          });
-        });
-
-
-      var newClosingPrice = 0;
-      var newDate;
-
-      // 獲取股票資料
-      $('#actionForm').click(function(){
-        $.ajax({
-          url : "/ajax/stockDay/", // the endpoint
-          type : "POST", // http method
-          data : $('#actionForm').serialize(), // data sent with the post request
-
-          // handle a successful response
-          success : function(json) {
-            console.log("success"); // another sanity check
-
-            if ((parseInt($("#day").text())) >= (parseInt($("#playingDuration").text()))) {
-              return;
-            }
-
-            $("#code").text(json[0].fields.code);
-            $("#date").text(json[0].fields.date);
-            $("#volumn").text(json[0].fields.volumn);                    
-            $("#turnover").text(json[0].fields.turnover);
-
-            $("#opening_price").text(json[0].fields.opening_price);
-            $("#high").text(json[0].fields.high);
-            $("#low").text(json[0].fields.low);                    
-            $("#closing_price").text(json[0].fields.closing_price);
-
-            $("#closing_price_MA5").text(json[0].fields.closing_price_MA20.toFixed(2));
-            $("#closing_price_MA20").text(json[0].fields.closing_price_MA5.toFixed(2));
-            $("#volumn_MA5").text(json[0].fields.volumn_MA5);                    
-            $("#volumn_MA20").text(json[0].fields.volumn_MA20);
-
-            $("#closingPriceField").val(json[0].fields.closing_price);
-
-            $('#stockIdField').val(json[0].pk);
-
-            newClosingPrice = json[0].fields.closing_price;
-            newDate = json[0].fields.date.substr(5).replace("-", "/");
-
-          },
-          error: function() {
-            $('.testing').text('失敗');
-          },
-        });
-      });
-                 
-
-      function plot(color) {
-
-        // 更新股價、日期資料序列
-        pseries.shift();
-        pseries.push(newClosingPrice);
-        dseries.shift();
-        dseries.push(newDate);
-
-        // plot
-        var title = {
-          text: '{{setup.stock_code}} 股價趨勢'
-        };
-        var subtitle = {
-          text: 'Source: 臺灣證券交易所'
-        };
-      
-        var xAxis = {
-          title: {
-            text: '日期'
-          },
-        categories: dseries,
-        labels: {
-        align: 'center',
-        formatter: function(){
-          return this.value;
-        },
-        rotation: 0,
-        },
-        tickInterval: 3,
-        crosshair: true,
-        };
-      
-        var yAxis = {
-          title: {
-            text: '收盤價(NTD)'
-          },
-          plotLines: [{
-            value: 0,
-            width: 1,
-            color: '#808080'
-          }]
-        };
-
-        var tooltip = {
-          valueSuffix: ' NTD'
-        }
-
-        var legend = {
-          layout: 'vertical',
-          align: 'right',
-          verticalAlign: 'middle',
-          borderWidth: 0
-        };
-
-        pseries[28] = {y: pseries[28], color: color}
-
-        var series =  [
-        {
-          name: '{{stock.code}}',
-          data: pseries
-        },
-        ];
-
-        var jsonCharts = {};
-
-        jsonCharts.title = title;
-        jsonCharts.subtitle = subtitle;
-        jsonCharts.xAxis = xAxis;
-        jsonCharts.yAxis = yAxis;
-        jsonCharts.tooltip = tooltip;
-        jsonCharts.series = series;
-
-        $('#trend').highcharts(jsonCharts);
-
-      }
-
-      // 按下「等待or持有」按鈕之後的後端數據處理
-      $("#btn_waitOrHold").click(function(){
-
-        setTimeout(myTimer, 100); // 防止畫圖資料傳送錯誤的延遲
-        function myTimer() {
-        $.ajax({
-          url : "/ajax/addingHistory_waitOrHold/", // the endpoint
-          type : "POST", // http method
-          data : $('#actionForm').serialize(),
-
-          // handle a successful response
-          success : function(json) {
-            console.log("success"); // another sanity check
-
-            if ((json[0].fields.day + 1) > parseInt($("#playingDuration").text())) {
-              alert('本次投資模擬結束，之後將結算成績！')
-              window.location = "http://127.0.0.1:8000/stockGame/result";
-              return;
-            } else {
-
-              $("#historyIdField").val(json[0].pk);
-              $("#day").text(json[0].fields.day + 1);
-              $("#position").text(json[0].fields.position_after_action);
-
-              $("#return").text((json[0].fields.rate_of_return_after_action * 100).toFixed(3).toString().concat('%'));
-              $("#return_robot").text((json[0].fields.rate_of_return_after_action_robot * 100).toFixed(3).toString().concat('%'));
-
-              if (json[0].fields.last_trading_price_after_action == null){
-                $("#lastTradingPrice").text('暫無');
-              } else {
-                $("#lastTradingPrice").text(json[0].fields.last_trading_price_after_action);
-              }
-              if (json[0].fields.last_trading_price_after_action_robot == null){
-                $("#lastTradingPrice_robot").text('暫無');
-              } else {
-                $("#lastTradingPrice_robot").text(json[0].fields.last_trading_price_after_action_robot);
-              }
-
-              $("#action").text(json[0].fields.action);
-              $("#action_robot").text(json[0].fields.action_robot);
-              
-              $("#cash").text(json[0].fields.cash_held_after_action);
-              $("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
-
-              if (json[0].fields.position_after_action == '現金') {
-                document.getElementById("btn_waitOrHold").value = '等待'
-                document.getElementById("btn_buyOrSell").value = '買入'
-                $("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
-                plot('limegreen')
-              } else { 
-                document.getElementById("btn_waitOrHold").value = '持有'
-                document.getElementById("btn_buyOrSell").value = '賣出'
-                $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
-                plot('hotpink')
-              }
-              if (json[0].fields.position_after_action_robot == '現金') {
-                $("#asset_robot").text('現金' + json[0].fields.cash_held_after_action_robot.toFixed(4) + '元');
-              } else { 
-                $("#asset_robot").text('股票' + json[0].fields.number_of_shares_held_after_action_robot.toFixed(4) + '股');
-              }
-            }
-
-          },
-            error: function() {
-            $('.testing').text('失敗');
-          },
-        });
-      }});
-
-      // 按下「買入or賣出」按鈕之後的後端數據處理
-      $("#btn_buyOrSell").click(function(){
-
-        setTimeout(myTimer, 100); // 防止畫圖資料傳送錯誤的延遲
-        function myTimer() {
-        $.ajax({
-          url : "/ajax/addingHistory_buyOrSell/", // the endpoint
-          type : "POST", // http method
-          data : $('#actionForm').serialize(),
-
-          // handle a successful response
-          success : function(json) {
-            console.log("success"); // another sanity check            
-
-            if ((json[0].fields.day + 1) > parseInt($("#playingDuration").text())) {
-              alert('本次投資模擬結束，之後將結算成績！')
-              window.location = "http://127.0.0.1:8000/stockGame/result";
-            } else {
-
-              $("#historyIdField").val(json[0].pk);
-              $("#day").text(json[0].fields.day + 1);
-              $("#position").text(json[0].fields.position_after_action);
-
-              $("#return").text((json[0].fields.rate_of_return_after_action * 100).toFixed(3).toString().concat('%'));
-              $("#return_robot").text((json[0].fields.rate_of_return_after_action_robot * 100).toFixed(3).toString().concat('%'));
-
-              if (json[0].fields.last_trading_price_after_action == null){
-                $("#lastTradingPrice").text('暫無');
-              } else {
-                $("#lastTradingPrice").text(json[0].fields.last_trading_price_after_action);
-              }
-              if (json[0].fields.last_trading_price_after_action_robot == null){
-                $("#lastTradingPrice_robot").text('暫無');
-              } else {
-                $("#lastTradingPrice_robot").text(json[0].fields.last_trading_price_after_action_robot);
-              }
-
-              $("#action").text(json[0].fields.action);
-              $("#action_robot").text(json[0].fields.action_robot);
-              
-              $("#cash").text(json[0].fields.cash_held_after_action);
-              $("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
-
-              if (json[0].fields.position_after_action == '現金') {
-                document.getElementById("btn_waitOrHold").value = '等待'
-                document.getElementById("btn_buyOrSell").value = '買入'
-                $("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
-                plot('green')
-
-              } else { 
-                document.getElementById("btn_waitOrHold").value = '持有'
-                document.getElementById("btn_buyOrSell").value = '賣出'
-                $("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
-                plot('red')
-
-              }
-              if (json[0].fields.position_after_action_robot == '現金') {
-                $("#asset_robot").text('現金' + json[0].fields.cash_held_after_action_robot.toFixed(4) + '元');
-              } else { 
-                $("#asset_robot").text('股票' + json[0].fields.number_of_shares_held_after_action_robot.toFixed(4) + '股');
-              }
-
-            }
-
-          },
-            error: function() {
-            $('.testing').text('失敗');
-          },
-        });
-      }});
-    
-    // 按下「加入排行榜」按鈕之後的後端數據處理
-      $("#joinRank").click(function(){
-        $.ajax({
-          url : "ajax/addingRankingHistory/", // the endpoint
-          type : "POST", // http method
-          data : $('#actionForm').serialize(),
-
-          // handle a successful response
-          success : function(json) {
-            console.log("success"); // another sanity check
-      alert('已成功將本次模擬結果加入排行榜！')
-          },
-          error: function() {
-            $('.testing').text('失敗');
-          },
-        });
-      });
-
-
-    // 避免載入錯誤禁止操作設定
-    $(document).ready(function(){
-      document.getElementById("btn_waitOrHold").disabled = true;
-      document.getElementById("btn_waitOrHold").style.background = "gray";
-      document.getElementById("btn_buyOrSell").disabled = true;
-      document.getElementById("btn_buyOrSell").style.background = "gray";
-      //document.getElementById("joinRank").disabled = true;
-      //document.getElementById("joinRank").style.background = "gray";
-      setTimeout(myTimer, 1000);
-      function myTimer() {
-        document.getElementById("btn_waitOrHold").disabled = false;
-        document.getElementById("btn_waitOrHold").style.background = "#FC6";
-        document.getElementById("btn_buyOrSell").disabled = false;
-        document.getElementById("btn_buyOrSell").style.background = "#FC6";
-        //document.getElementById("joinRank").disabled = false;        
-        //document.getElementById("joinRank").style.background = "rgb(230, 230, 230)";
-      }
-    });
-
-    // 禁止快速連續點擊按鈕設定
-    $("input").click(function(){
-      document.getElementById("btn_waitOrHold").disabled = true;
-      document.getElementById("btn_waitOrHold").style.background = "gray";
-      document.getElementById("btn_buyOrSell").disabled = true;
-      document.getElementById("btn_buyOrSell").style.background = "gray";
-      //document.getElementById("joinRank").disabled = true;
-      //document.getElementById("joinRank").style.background = "gray";
-      setTimeout(myTimer, 1000);
-      function myTimer() {
-        document.getElementById("btn_waitOrHold").disabled = false;
-        document.getElementById("btn_waitOrHold").style.background = "#FC6";
-        document.getElementById("btn_buyOrSell").disabled = false;
-        document.getElementById("btn_buyOrSell").style.background = "#FC6";
-        //document.getElementById("joinRank").disabled = false;        
-        //document.getElementById("joinRank").style.background = "rgb(230, 230, 230)";
-      }
-    });
-
-    </script>
-  </div>
-
-  <!-- 交易歷史的表單 -->
-  <div id = 'div_transactionHistory'>
-  <p style="text-align: center;font-size: 36;font-weight: bold;">交易歷史</p>
-  <a>備註：每一筆交易歷史被系統記錄的時間點是在玩家和電腦做出行動之後</a>
-  <div id = 'div_transactionHistory-historyTable'> 
-  </div>  
-
-  <br>
-  <input type="button" class="button1" id='btn_closeTransactionHistory' value="關閉交易歷史">    
-  <p></p>
-  </div>
-
-
-  <script type="text/javascript">
-
-    // 關閉歷史資料的相關處理
-    $('#btn_closeTransactionHistory').click(function(){
-      const myNode = document.getElementById("div_transactionHistory-historyTable");
-      while (myNode.firstChild) {
-        myNode.removeChild(myNode.firstChild);
-      }
-      $("#div_transactionHistory").hide();
-    });
-  </script>
+	<!--繪製股價走勢圖-->
+	<div id="trend" style="width: 50%; height: 400px; "></div>
+	{% block js %}
+	<!--引入 JQuery 與 Highchart 的程式庫-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<!--<script src="http://code.highcharts.com/highcharts.js"></script>-->
+	
+	<script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts/modules/oldie.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+	
+	
+	<script type= "text/javascript">
+	$(document).ready(function() {
+			// plot
+			var title = {
+				text: '{{setup.stock_code}} 股價趨勢'
+			};
+			var subtitle = {
+				text: 'Source: 臺灣證券交易所'
+			};
+		
+			var xAxis = {
+				title: {
+					text: '日期'
+				},
+			categories: {{date | safe}},
+			labels: {
+			align: 'center',
+			formatter: function(){
+				return this.value;
+			},
+			rotation: 0,
+			},
+			tickInterval: 3,
+			crosshair: true,
+			};
+		
+			var yAxis = {
+				title: {
+					text: '收盤價(NTD)'
+				},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}]
+			};
+
+			var tooltip = {
+				valueSuffix: ' NTD'
+			}
+
+			var legend = {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'middle',
+				borderWidth: 0
+			};
+
+			var series =  [
+			{
+				name: '{{stock.code}}',
+				data: pseries,
+			},
+			];
+
+			var jsonCharts = {};
+
+			jsonCharts.title = title;
+			jsonCharts.subtitle = subtitle;
+			jsonCharts.xAxis = xAxis;
+			jsonCharts.yAxis = yAxis;
+			jsonCharts.tooltip = tooltip;
+			jsonCharts.series = series;
+
+		$('#trend').highcharts(jsonCharts);
+	})
+	
+	</script>
+	{% endblock %}
+
+
+	<div id = 'status'>
+
+		<p style="margin-left:25px">現在是第 <a id="day">1</a> 天 
+			(第 <a id="playingDuration">{{setup.playing_duration}}</a> 天結束)</p>
+		<p style="margin-left:25px">交易成本比率： {{transaction_cost_rate | floatformat:4}} %</a></p>
+
+		<table style="width:100%; table-layout:fixed">
+			<tr>
+				<th></th>
+				<th>玩家</th> 
+				<th>電腦</th>
+			</tr>
+			<tr>
+				<th>目前持有的資產</th>
+				<td><a id="asset">現金{{ setup.principal }}元</a></td>
+				<td><a id="asset_robot">現金{{ setup.principal }}元</a></td>
+			</tr>
+			<tr>
+				<th>最後一次交易價格(收盤價)</th>
+				<td><a id="lastTradingPrice">暫無</a></td>
+				<td><a id="lastTradingPrice_robot">暫無</a></td>
+			</tr>
+			<tr>
+				<th>前一次的行動</th>
+				<td><a id="action">暫無</a></td>
+				<td><a id="action_robot">暫無</a></td>
+			</tr>
+			<tr>
+				<th>目前的報酬率</th>
+				<td><a id="return">0.000%</a></td>
+				<td><a id="return_robot">0.000%</a></td>
+			</tr>
+		</table>
+
+		<br>
+		<form id="actionForm" type='post'>
+			{% csrf_token %}
+
+			<input type="button" id="btn_waitOrHold" value="等待">
+			<input type="button" id="btn_buyOrSell" value="買入">
+		<input type = "button" id="joinRank" value="加入排行榜">
+
+		
+			<input id="stockIdField" type="hidden" name="id" value="{{ stock.id }}">
+			<input id="historyIdField" type="hidden" name="historyId" value="{{ history.id }}">
+			<input id="closingPriceField" type="hidden" name="closingPrice" value="{{ stock.closing_price }}">
+		
+		</form>
+
+		<form id="infoForm" method="post" action="">
+				{% csrf_token %}
+				<input type="button" id='btn_openTransactionHistory' value="交易歷史" name='getHistory'>
+				<input type="button" id='setBtn' value="重新開始" onclick="location.href='http://127.0.0.1:8000/stockGame/setup'">
+		</form> 
+
+		<p style="margin-left:25px; font-size:16px"> 
+			說明：圖表中的紅點代表當天玩家買入；粉紅點代表持有；綠點代表賣出；淺綠點代表等待 </p>
+
+	</div>
+	<p>&nbsp;</p> 
+
+	<div id = 'tbl'>
+		<table width=100% border="1" style="table-layout:fixed">
+
+		　<tr>
+			　<th>股票代碼</td>
+			　<th>日期</td>
+			　<th>成交金額(元)</td>
+			</tr>
+		　<tr>
+			　<td id="code">{{stock.code}}</td>
+			　<td id="date">{{stock.date |date:"Y-m-d"}} </td>
+			　<td id="turnover">{{stock.turnover}} </td>
+			</tr>
+
+		　<tr>
+			　<th>開盤價</td>
+			　<th>最高價</td>
+			　<th>最低價</td>
+			</tr>
+			<tr>
+			　<td id="opening_price">{{stock.opening_price}} </td>
+			　<td id="high">{{stock.high}} </td>
+			　<td id="low">{{stock.low}} </td>
+			　
+		　</tr>
+
+		　<tr>
+				<th>收盤價</td>
+			　<th>收盤價MA5</td>
+			　<th>收盤價MA20</td>
+			</tr>
+			<tr>
+				<td id="closing_price">{{stock.closing_price}} </td>
+			　<td id="closing_price_MA5">{{stock.closing_price_MA5 | floatformat:2}} </td>
+			　<td id="closing_price_MA20">{{stock.closing_price_MA20 | floatformat:2}} </td>
+		　</tr>
+
+		　<tr>
+			　<th>成交股數(股)</td>
+			　<th>成交股數MA5</td>
+			　<th>成交股數MA20</td>
+			</tr>
+			<tr>
+			　<td id="volumn">{{stock.volumn}} </td>
+			　<td id="volumn_MA5">{{stock.volumn_MA5 | floatformat:0}} </td>
+			　<td id="volumn_MA20">{{stock.volumn_MA20 | floatformat:0}} </td>
+		　</tr>
+
+		</table>
+	</div>
+
+	<div id = 'decision'>
+
+		<script>
+		 
+		
+		// 保留股價資訊用來畫圖，持續更新
+		var pseries = {{price}};
+		var dseries = {{date|safe}};
+
+		 // 獲取歷史紀錄
+			$('#btn_openTransactionHistory').click(function(){
+				$("#div_transactionHistory").show();
+				$.ajax({
+					url : "/ajax/history/", // the endpoint
+					type : "POST", // http method
+					data: {csrfmiddlewaretoken: "{{ csrf_token }}"}, 
+
+					// handle a successful response
+					success : function(json) {
+						console.log("success"); // another sanity check
+						var myJSON = JSON.stringify(json);
+						$("#historyField").text(myJSON);
+
+		var _table_ = document.createElement('table'),
+				_tr_ = document.createElement('tr'),
+				_th_ = document.createElement('th'),
+				_td_ = document.createElement('td');
+
+
+		// Builds the HTML Table out of myList json data from Ivy restful service.
+		function buildHtmlTable(arr) {
+			 var table = _table_.cloneNode(false),
+					 columns = addAllColumnHeaders(arr, table);
+			 for (var i=0, maxi=arr.length; i < maxi; ++i) {
+					 var tr = _tr_.cloneNode(false);
+					 for (var j=1, maxj=columns.length; j < maxj ; ++j) {
+							var td = _td_.cloneNode(false);
+
+							if (arr[i][columns[j]] == null) {
+								td.appendChild(document.createTextNode('暫無'));
+							} 
+
+							// 挑整報酬率的顯示方式
+							else if (j == 5) {
+								td.appendChild(document.createTextNode((arr[i][columns[j]] * 100).toFixed(3).toString().concat('%')));
+							}
+
+							// 如果數字型態的資料長度過長，則保留至三位
+							else if (typeof(arr[i][columns[j]]) == 'number' && 
+								arr[i][columns[j]].toString().length > 10) {
+								td.appendChild(document.createTextNode(arr[i][columns[j]].toFixed(4)));
+							} 
+
+							else {
+								td.appendChild(document.createTextNode(arr[i][columns[j]]));
+							}
+							tr.appendChild(td);
+					 }
+					 table.appendChild(tr);
+			 }
+			 return table;
+	 }
+	 
+	 // Adds a header row to the table and returns the set of columns.
+	 // Need to do union of keys from all records as some records may not contain
+	 // all records
+	 function addAllColumnHeaders(arr, table)
+	 {
+			 var columnSet = [],
+					 tr = _tr_.cloneNode(false);
+			 for (var i=0, l=arr.length; i < l; i++) {
+					 for (var key in arr[i]) {
+							 if (arr[i].hasOwnProperty(key) && columnSet.indexOf(key)===-1) {
+									 columnSet.push(key);
+							 }
+					 }
+			 }
+
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('第幾天'));
+			 tr.appendChild(th);
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('行動'));
+			 tr.appendChild(th);
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('持有資產種類'));
+			 tr.appendChild(th);
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('最後交易價格'));
+			 tr.appendChild(th);
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('報酬率'));
+			 tr.appendChild(th);
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('持有現金量'));
+			 tr.appendChild(th);
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('持有股數'));
+			 tr.appendChild(th);
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('行動(電腦)'));
+			 tr.appendChild(th);
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('持有資產種類(電腦)'));
+			 tr.appendChild(th);
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('最後交易價格(電腦)'));
+			 tr.appendChild(th);
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('報酬率(電腦)'));
+			 tr.appendChild(th);
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('持有現金量(電腦)'));
+			 tr.appendChild(th);
+			 var th = _th_.cloneNode(false);
+			 th.appendChild(document.createTextNode('持有股數(電腦)'));
+			 tr.appendChild(th);
+			 table.appendChild(tr)
+
+			 return columnSet;
+	 }
+
+	const myNode = document.getElementById("div_transactionHistory-historyTable");
+	while (myNode.firstChild) {
+		myNode.removeChild(myNode.firstChild);
+	}
+	document.getElementById('div_transactionHistory-historyTable').appendChild(buildHtmlTable(json));
+
+
+						},
+						error: function() {
+							$('.testing').text('失敗');
+						},
+					});
+				});
+
+
+			var newClosingPrice = 0;
+			var newDate;
+
+			// 獲取股票資料
+			$('#actionForm').click(function(){
+				$.ajax({
+					url : "/ajax/stockDay/", // the endpoint
+					type : "POST", // http method
+					data : $('#actionForm').serialize(), // data sent with the post request
+
+					// handle a successful response
+					success : function(json) {
+						console.log("success"); // another sanity check
+
+						if ((parseInt($("#day").text())) >= (parseInt($("#playingDuration").text()))) {
+							return;
+						}
+
+						$("#code").text(json[0].fields.code);
+						$("#date").text(json[0].fields.date);
+						$("#volumn").text(json[0].fields.volumn);                    
+						$("#turnover").text(json[0].fields.turnover);
+
+						$("#opening_price").text(json[0].fields.opening_price);
+						$("#high").text(json[0].fields.high);
+						$("#low").text(json[0].fields.low);                    
+						$("#closing_price").text(json[0].fields.closing_price);
+
+						$("#closing_price_MA5").text(json[0].fields.closing_price_MA20.toFixed(2));
+						$("#closing_price_MA20").text(json[0].fields.closing_price_MA5.toFixed(2));
+						$("#volumn_MA5").text(json[0].fields.volumn_MA5);                    
+						$("#volumn_MA20").text(json[0].fields.volumn_MA20);
+
+						$("#closingPriceField").val(json[0].fields.closing_price);
+
+						$('#stockIdField').val(json[0].pk);
+
+						newClosingPrice = json[0].fields.closing_price;
+						newDate = json[0].fields.date.substr(5).replace("-", "/");
+
+					},
+					error: function() {
+						$('.testing').text('失敗');
+					},
+				});
+			});
+								 
+
+			function plot(color) {
+
+				// 更新股價、日期資料序列
+				pseries.shift();
+				pseries.push(newClosingPrice);
+				dseries.shift();
+				dseries.push(newDate);
+
+				// plot
+				var title = {
+					text: '{{setup.stock_code}} 股價趨勢'
+				};
+				var subtitle = {
+					text: 'Source: 臺灣證券交易所'
+				};
+			
+				var xAxis = {
+					title: {
+						text: '日期'
+					},
+				categories: dseries,
+				labels: {
+				align: 'center',
+				formatter: function(){
+					return this.value;
+				},
+				rotation: 0,
+				},
+				tickInterval: 3,
+				crosshair: true,
+				};
+			
+				var yAxis = {
+					title: {
+						text: '收盤價(NTD)'
+					},
+					plotLines: [{
+						value: 0,
+						width: 1,
+						color: '#808080'
+					}]
+				};
+
+				var tooltip = {
+					valueSuffix: ' NTD'
+				}
+
+				var legend = {
+					layout: 'vertical',
+					align: 'right',
+					verticalAlign: 'middle',
+					borderWidth: 0
+				};
+
+				pseries[28] = {y: pseries[28], color: color}
+
+				var series =  [
+				{
+					name: '{{stock.code}}',
+					data: pseries
+				},
+				];
+
+				var jsonCharts = {};
+
+				jsonCharts.title = title;
+				jsonCharts.subtitle = subtitle;
+				jsonCharts.xAxis = xAxis;
+				jsonCharts.yAxis = yAxis;
+				jsonCharts.tooltip = tooltip;
+				jsonCharts.series = series;
+
+				$('#trend').highcharts(jsonCharts);
+
+			}
+
+			// 按下「等待or持有」按鈕之後的後端數據處理
+			$("#btn_waitOrHold").click(function(){
+
+				setTimeout(myTimer, 100); // 防止畫圖資料傳送錯誤的延遲
+				function myTimer() {
+				$.ajax({
+					url : "/ajax/addingHistory_waitOrHold/", // the endpoint
+					type : "POST", // http method
+					data : $('#actionForm').serialize(),
+
+					// handle a successful response
+					success : function(json) {
+						console.log("success"); // another sanity check
+
+						if ((json[0].fields.day + 1) > parseInt($("#playingDuration").text())) {
+							alert('本次投資模擬結束，之後將結算成績！')
+							window.location = "http://127.0.0.1:8000/stockGame/result";
+							return;
+						} else {
+
+							$("#historyIdField").val(json[0].pk);
+							$("#day").text(json[0].fields.day + 1);
+							$("#position").text(json[0].fields.position_after_action);
+
+							$("#return").text((json[0].fields.rate_of_return_after_action * 100).toFixed(3).toString().concat('%'));
+							$("#return_robot").text((json[0].fields.rate_of_return_after_action_robot * 100).toFixed(3).toString().concat('%'));
+
+							if (json[0].fields.last_trading_price_after_action == null){
+								$("#lastTradingPrice").text('暫無');
+							} else {
+								$("#lastTradingPrice").text(json[0].fields.last_trading_price_after_action);
+							}
+							if (json[0].fields.last_trading_price_after_action_robot == null){
+								$("#lastTradingPrice_robot").text('暫無');
+							} else {
+								$("#lastTradingPrice_robot").text(json[0].fields.last_trading_price_after_action_robot);
+							}
+
+							$("#action").text(json[0].fields.action);
+							$("#action_robot").text(json[0].fields.action_robot);
+							
+							$("#cash").text(json[0].fields.cash_held_after_action);
+							$("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
+
+							if (json[0].fields.position_after_action == '現金') {
+								document.getElementById("btn_waitOrHold").value = '等待'
+								document.getElementById("btn_buyOrSell").value = '買入'
+								$("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
+								plot('limegreen')
+							} else { 
+								document.getElementById("btn_waitOrHold").value = '持有'
+								document.getElementById("btn_buyOrSell").value = '賣出'
+								$("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
+								plot('hotpink')
+							}
+							if (json[0].fields.position_after_action_robot == '現金') {
+								$("#asset_robot").text('現金' + json[0].fields.cash_held_after_action_robot.toFixed(4) + '元');
+							} else { 
+								$("#asset_robot").text('股票' + json[0].fields.number_of_shares_held_after_action_robot.toFixed(4) + '股');
+							}
+						}
+
+					},
+						error: function() {
+						$('.testing').text('失敗');
+					},
+				});
+			}});
+
+			// 按下「買入or賣出」按鈕之後的後端數據處理
+			$("#btn_buyOrSell").click(function(){
+
+				setTimeout(myTimer, 100); // 防止畫圖資料傳送錯誤的延遲
+				function myTimer() {
+				$.ajax({
+					url : "/ajax/addingHistory_buyOrSell/", // the endpoint
+					type : "POST", // http method
+					data : $('#actionForm').serialize(),
+
+					// handle a successful response
+					success : function(json) {
+						console.log("success"); // another sanity check            
+
+						if ((json[0].fields.day + 1) > parseInt($("#playingDuration").text())) {
+							alert('本次投資模擬結束，之後將結算成績！')
+							window.location = "http://127.0.0.1:8000/stockGame/result";
+						} else {
+
+							$("#historyIdField").val(json[0].pk);
+							$("#day").text(json[0].fields.day + 1);
+							$("#position").text(json[0].fields.position_after_action);
+
+							$("#return").text((json[0].fields.rate_of_return_after_action * 100).toFixed(3).toString().concat('%'));
+							$("#return_robot").text((json[0].fields.rate_of_return_after_action_robot * 100).toFixed(3).toString().concat('%'));
+
+							if (json[0].fields.last_trading_price_after_action == null){
+								$("#lastTradingPrice").text('暫無');
+							} else {
+								$("#lastTradingPrice").text(json[0].fields.last_trading_price_after_action);
+							}
+							if (json[0].fields.last_trading_price_after_action_robot == null){
+								$("#lastTradingPrice_robot").text('暫無');
+							} else {
+								$("#lastTradingPrice_robot").text(json[0].fields.last_trading_price_after_action_robot);
+							}
+
+							$("#action").text(json[0].fields.action);
+							$("#action_robot").text(json[0].fields.action_robot);
+							
+							$("#cash").text(json[0].fields.cash_held_after_action);
+							$("#stockNum").text(json[0].fields.number_of_shares_held_after_action);
+
+							if (json[0].fields.position_after_action == '現金') {
+								document.getElementById("btn_waitOrHold").value = '等待'
+								document.getElementById("btn_buyOrSell").value = '買入'
+								$("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
+								plot('green')
+
+							} else { 
+								document.getElementById("btn_waitOrHold").value = '持有'
+								document.getElementById("btn_buyOrSell").value = '賣出'
+								$("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
+								plot('red')
+
+							}
+							if (json[0].fields.position_after_action_robot == '現金') {
+								$("#asset_robot").text('現金' + json[0].fields.cash_held_after_action_robot.toFixed(4) + '元');
+							} else { 
+								$("#asset_robot").text('股票' + json[0].fields.number_of_shares_held_after_action_robot.toFixed(4) + '股');
+							}
+
+						}
+
+					},
+						error: function() {
+						$('.testing').text('失敗');
+					},
+				});
+			}});
+		
+		// 按下「加入排行榜」按鈕之後的後端數據處理
+			$("#joinRank").click(function(){
+				$.ajax({
+					url : "ajax/addingRankingHistory/", // the endpoint
+					type : "POST", // http method
+					data : $('#actionForm').serialize(),
+
+					// handle a successful response
+					success : function(json) {
+						console.log("success"); // another sanity check
+			alert('已成功將本次模擬結果加入排行榜！')
+					},
+					error: function() {
+						$('.testing').text('失敗');
+					},
+				});
+			});
+
+
+		// 避免載入錯誤禁止操作設定
+		$(document).ready(function(){
+			document.getElementById("btn_waitOrHold").disabled = true;
+			document.getElementById("btn_waitOrHold").style.background = "gray";
+			document.getElementById("btn_buyOrSell").disabled = true;
+			document.getElementById("btn_buyOrSell").style.background = "gray";
+			//document.getElementById("joinRank").disabled = true;
+			//document.getElementById("joinRank").style.background = "gray";
+			setTimeout(myTimer, 1000);
+			function myTimer() {
+				document.getElementById("btn_waitOrHold").disabled = false;
+				document.getElementById("btn_waitOrHold").style.background = "#FC6";
+				document.getElementById("btn_buyOrSell").disabled = false;
+				document.getElementById("btn_buyOrSell").style.background = "#FC6";
+				//document.getElementById("joinRank").disabled = false;        
+				//document.getElementById("joinRank").style.background = "rgb(230, 230, 230)";
+			}
+		});
+
+		// 禁止快速連續點擊按鈕設定
+		$("input").click(function(){
+			document.getElementById("btn_waitOrHold").disabled = true;
+			document.getElementById("btn_waitOrHold").style.background = "gray";
+			document.getElementById("btn_buyOrSell").disabled = true;
+			document.getElementById("btn_buyOrSell").style.background = "gray";
+			//document.getElementById("joinRank").disabled = true;
+			//document.getElementById("joinRank").style.background = "gray";
+			setTimeout(myTimer, 1000);
+			function myTimer() {
+				document.getElementById("btn_waitOrHold").disabled = false;
+				document.getElementById("btn_waitOrHold").style.background = "#FC6";
+				document.getElementById("btn_buyOrSell").disabled = false;
+				document.getElementById("btn_buyOrSell").style.background = "#FC6";
+				//document.getElementById("joinRank").disabled = false;        
+				//document.getElementById("joinRank").style.background = "rgb(230, 230, 230)";
+			}
+		});
+
+		</script>
+	</div>
+
+	<!-- 交易歷史的表單 -->
+	<div id = 'div_transactionHistory'>
+	<p style="text-align: center;font-size: 36;font-weight: bold;">交易歷史</p>
+	<a>備註：每一筆交易歷史被系統記錄的時間點是在玩家和電腦做出行動之後</a>
+	<div id = 'div_transactionHistory-historyTable'> 
+	</div>  
+
+	<br>
+	<input type="button" class="button1" id='btn_closeTransactionHistory' value="關閉交易歷史">    
+	<p></p>
+	</div>
+
+
+	<script type="text/javascript">
+
+		// 關閉歷史資料的相關處理
+		$('#btn_closeTransactionHistory').click(function(){
+			const myNode = document.getElementById("div_transactionHistory-historyTable");
+			while (myNode.firstChild) {
+				myNode.removeChild(myNode.firstChild);
+			}
+			$("#div_transactionHistory").hide();
+		});
+	</script>
 
 
 {% else %}
 <div id = 'signUpNotificationDiv'>
-  <p>想要使用「個股投資模擬」的功能嗎？</p>
-  <p>那就立刻加入股獲仔吧！</p>
-  <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" value="立即使用" />
+	<p>想要使用「個股投資模擬」的功能嗎？</p>
+	<p>那就立刻加入股獲仔吧！</p>
+	<input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" value="立即使用" />
 </div>
 
 {% endif %}
