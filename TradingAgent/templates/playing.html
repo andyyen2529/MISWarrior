@@ -146,7 +146,7 @@ td {
   {% block js %}
   <!--引入 JQuery 與 Highchart 的程式庫-->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <!--<script src="http://code.highcharts.com/highcharts.js"></script>-->
   
   <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
   <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
@@ -556,7 +556,7 @@ td {
       
         var yAxis = {
           title: {
-            text: 'Closing Price (NTD)'
+            text: '收盤價(NTD)'
           },
           plotLines: [{
             value: 0,
@@ -600,6 +600,9 @@ td {
 
       // 按下「等待or持有」按鈕之後的後端數據處理
       $("#btn_waitOrHold").click(function(){
+
+        setTimeout(myTimer, 100); // 防止畫圖資料傳送錯誤的延遲
+        function myTimer() {
         $.ajax({
           url : "/ajax/addingHistory_waitOrHold/", // the endpoint
           type : "POST", // http method
@@ -662,10 +665,13 @@ td {
             $('.testing').text('失敗');
           },
         });
-      });
+      }});
 
       // 按下「買入or賣出」按鈕之後的後端數據處理
       $("#btn_buyOrSell").click(function(){
+
+        setTimeout(myTimer, 100); // 防止畫圖資料傳送錯誤的延遲
+        function myTimer() {
         $.ajax({
           url : "/ajax/addingHistory_buyOrSell/", // the endpoint
           type : "POST", // http method
@@ -730,7 +736,7 @@ td {
             $('.testing').text('失敗');
           },
         });
-      });
+      }});
     
     // 按下「加入排行榜」按鈕之後的後端數據處理
       $("#joinRank").click(function(){
@@ -749,6 +755,26 @@ td {
           },
         });
       });
+
+
+    // 避免載入錯誤禁止操作設定
+    $(document).ready(function(){
+      document.getElementById("btn_waitOrHold").disabled = true;
+      document.getElementById("btn_waitOrHold").style.background = "gray";
+      document.getElementById("btn_buyOrSell").disabled = true;
+      document.getElementById("btn_buyOrSell").style.background = "gray";
+      //document.getElementById("joinRank").disabled = true;
+      //document.getElementById("joinRank").style.background = "gray";
+      setTimeout(myTimer, 1000);
+      function myTimer() {
+        document.getElementById("btn_waitOrHold").disabled = false;
+        document.getElementById("btn_waitOrHold").style.background = "#FC6";
+        document.getElementById("btn_buyOrSell").disabled = false;
+        document.getElementById("btn_buyOrSell").style.background = "#FC6";
+        //document.getElementById("joinRank").disabled = false;        
+        //document.getElementById("joinRank").style.background = "rgb(230, 230, 230)";
+      }
+    });
 
     // 禁止快速連續點擊按鈕設定
     $("input").click(function(){

@@ -79,7 +79,7 @@ def playing(request):
                 code = StockCode.objects.get(code = request.POST.get('setup.stock_code')),
                 date = request.POST.get('setup.initial_transaction_date')
             )
-            print(stock_firstTradingDay)
+            #print(stock_firstTradingDay)
             setup.save()
 
 
@@ -98,7 +98,7 @@ def playing(request):
         stockData = Stock.objects.filter(
             code = setup.stock_code.code,
             date__lte = stock_firstTradingDay.date
-        ).order_by('-date')[0:31] # lte : <=
+        ).order_by('-date')[0:30] # lte : <=
 
         # get data for plot
         date = []
@@ -159,7 +159,7 @@ def intelligentInvestmentAdvise(request):
         # get selected stock data
         stockData = Stock.objects.filter(
             code = setup.stock_code.code,
-        ).order_by('-date')[0:31]
+        ).order_by('-date')[0:30]
         stock = stockData[0]
 
         # state variable
@@ -167,7 +167,7 @@ def intelligentInvestmentAdvise(request):
             position = 0
         else:
             position = 1
-            
+
         ratio = 1 # 成對交易比率
         state = [ratio, stock.volumn, stock.turnover, stock.opening_price, 
         stock.high, stock.low, stock.closing_price, position]
@@ -232,9 +232,9 @@ def addingHistory_waitOrHold(request):
     state = [ratio, stock.volumn, stock.turnover, stock.opening_price, 
         stock.high, stock.low, stock.closing_price, position]
 
-    print(position, adviseAction(state))
+    #print(position, adviseAction(state))
     action_robot = makeDecision(position, adviseAction(state))
-    print(action_robot)
+    #print(action_robot)
 
 
     if action_robot == '買入':
@@ -315,9 +315,9 @@ def addingHistory_buyOrSell(request):
     state = [ratio, stock.volumn, stock.turnover, stock.opening_price, 
         stock.high, stock.low, stock.closing_price, position]
 
-    print(position, adviseAction(state))
+    #print(position, adviseAction(state))
     action_robot = makeDecision(position, adviseAction(state))
-    print(action_robot)
+    #print(action_robot)
 
     if action_robot == '買入':
         position_after_action_robot = '股票'
