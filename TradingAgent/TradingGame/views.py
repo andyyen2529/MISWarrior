@@ -101,20 +101,15 @@ def playing(request):
         ).order_by('-date')[0:31] # lte : <=
 
         # get data for plot
-        data = {}
-        for v in stockData:
-            data[v.date] = v.closing_price
-		
         date = []
         price = []
-        for key, value in data.items():
-            date.append(key.strftime("%Y-%m-%d"))
-            price.append(value)
+        for v in stockData:
+            date.append(v.date.strftime('%m/%d'))
+            price.append(v.closing_price)
 		# reverse() >> re-order the series (long term to short term)
         date.reverse()
         price.reverse()
 		
-
         return render(request, 'playing.html', {'stock': stock_firstTradingDay, 'setup': setup, 'history': history, 
         'date': date, 'price': price, 'transaction_cost_rate': transaction_cost_rate})
 
@@ -150,51 +145,65 @@ def result(request):
 
 
 def intelligentInvestmentAdvise(request):
-	# Django QuerySet
-	# solution for negative index
-	# today's data (the newest data)
-	
-	form = AdviseSetupForm(request.POST or None)
-	if form.is_valid():
-		setup = form.save(commit=False)
-		setup.user = request.user
-		setup.save()
-		
-		# get selected stock data
-		stockData = Stock.objects.filter(
-			code = setup.stock_code.code,
+    # Django QuerySet
+    # solution for negative index
+    # today's data (the newest data)
+
+    form = AdviseSetupForm(request.POST or None)
+    
+    if form.is_valid():
+        setup = form.save(commit=False)
+        setup.user = request.user
+        setup.save()
+
+        # get selected stock data
+        stockData = Stock.objects.filter(
+            code = setup.stock_code.code,
         ).order_by('-date')[0:31]
-		stock = stockData[0]
-		
-		# state variable
-		if int(request.POST['principal']) != 0:
-			position = 0
-		else:
-			position = 1
-		ratio = 1 # 成對交易比率
-		state = [ratio, stock.volumn, stock.turnover, stock.opening_price, 
-			stock.high, stock.low, stock.closing_price, position]
-		action = adviseAction(state)
-		decision = makeDecision(position, action)
-		
-		# get data for plot
-		data = {}
-		for v in stockData:
-			data[v.date] = v.closing_price
-		
-		date = []
-		price = []
-		for key, value in data.items():
-			date.append(key.strftime("%m/%d"))
-			price.append(value)
-		# reverse() >> re-order the series (long term to short term)
-		date.reverse()
-		price.reverse()
-	
-		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 
-			'date': date, 'price': price, 'decision': decision})
-	
-	return render(request, 'intelligentInvestmentAdvise.html', {'form': form})
+        stock = stockData[0]
+
+        # state variable
+        if int(request.POST['principal']) != 0:
+            position = 0
+        else:
+            position = 1
+            
+        ratio = 1 # 成對交易比率
+        state = [ratio, stock.volumn, stock.turnover, stock.opening_price, 
+        stock.high, stock.low, stock.closing_price, position]
+        action = adviseAction(state)
+        decision = makeDecision(position, action)
+
+        
+        """ 
+        # get data for plot
+        data = {}
+        for v in stockData:
+        data[v.date] = v.closing_price	
+        date = []
+        price = []
+        for key, value in data.items():
+        date.append(key.strftime("%m/%d"))
+        price.append(value)
+        # reverse() >> re-order the series (long term to short term)
+        date.reverse()
+        price.reverse()
+        """
+
+        # get data for plot
+        date = []
+        price = []
+        for v in stockData:
+            date.append(v.date.strftime('%m/%d'))
+            price.append(v.closing_price)
+        # reverse() >> re-order the series (long term to short term)
+        date.reverse()
+        price.reverse()
+
+        return render(request, 'advising.html', {'stock': stock, 'setup': setup, 
+        'date': date, 'price': price, 'decision': decision})
+
+    return render(request, 'intelligentInvestmentAdvise.html', {'form': form})
 
 def stockDay(request):
     stockId = request.POST.get('id')
