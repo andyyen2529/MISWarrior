@@ -240,8 +240,8 @@ td {
 			</tr>
 			<tr>
 				<th>目前持有的資產</th>
-				<td><a id="asset">現金{{ setup.principal }}元</a></td>
-				<td><a id="asset_robot">現金{{ setup.principal }}元</a></td>
+				<td><a id="asset">現金 {{ setup.principal }} 元</a></td>
+				<td><a id="asset_robot">現金 {{ setup.principal }} 元</a></td>
 			</tr>
 			<tr>
 				<th>最後一次交易價格(收盤價)</th>
@@ -648,18 +648,18 @@ td {
 							if (json[0].fields.position_after_action == '現金') {
 								document.getElementById("btn_waitOrHold").value = '等待'
 								document.getElementById("btn_buyOrSell").value = '買入'
-								$("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
+								$("#asset").text('現金 ' + json[0].fields.cash_held_after_action.toFixed(4) + ' 元');
 								plot('limegreen')
 							} else { 
 								document.getElementById("btn_waitOrHold").value = '持有'
 								document.getElementById("btn_buyOrSell").value = '賣出'
-								$("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
+								$("#asset").text('股票 ' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + ' 股');
 								plot('hotpink')
 							}
 							if (json[0].fields.position_after_action_robot == '現金') {
-								$("#asset_robot").text('現金' + json[0].fields.cash_held_after_action_robot.toFixed(4) + '元');
+								$("#asset_robot").text('現金 ' + json[0].fields.cash_held_after_action_robot.toFixed(4) + ' 元');
 							} else { 
-								$("#asset_robot").text('股票' + json[0].fields.number_of_shares_held_after_action_robot.toFixed(4) + '股');
+								$("#asset_robot").text('股票 ' + json[0].fields.number_of_shares_held_after_action_robot.toFixed(4) + ' 股');
 							}
 						}
 
@@ -716,20 +716,20 @@ td {
 							if (json[0].fields.position_after_action == '現金') {
 								document.getElementById("btn_waitOrHold").value = '等待'
 								document.getElementById("btn_buyOrSell").value = '買入'
-								$("#asset").text('現金' + json[0].fields.cash_held_after_action.toFixed(4) + '元');
+								$("#asset").text('現金 ' + json[0].fields.cash_held_after_action.toFixed(4) + ' 元');
 								plot('green')
 
 							} else { 
 								document.getElementById("btn_waitOrHold").value = '持有'
 								document.getElementById("btn_buyOrSell").value = '賣出'
-								$("#asset").text('股票' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + '股');
+								$("#asset").text('股票 ' + json[0].fields.number_of_shares_held_after_action.toFixed(4) + ' 股');
 								plot('red')
 
 							}
 							if (json[0].fields.position_after_action_robot == '現金') {
-								$("#asset_robot").text('現金' + json[0].fields.cash_held_after_action_robot.toFixed(4) + '元');
+								$("#asset_robot").text('現金 ' + json[0].fields.cash_held_after_action_robot.toFixed(4) + ' 元');
 							} else { 
-								$("#asset_robot").text('股票' + json[0].fields.number_of_shares_held_after_action_robot.toFixed(4) + '股');
+								$("#asset_robot").text('股票 ' + json[0].fields.number_of_shares_held_after_action_robot.toFixed(4) + ' 股');
 							}
 
 						}

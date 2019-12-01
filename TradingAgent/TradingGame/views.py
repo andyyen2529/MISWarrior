@@ -140,10 +140,32 @@ def result(request):
 	setup_newest = Setup.objects.filter(user = request.user).order_by('-id')[0]
 	setup_newest.transaction_cost_rate_buy = setup_newest.transaction_cost_rate_buy * 100
 	setup_newest.transaction_cost_rate_sell = setup_newest.transaction_cost_rate_sell * 100
-
+	
 	history_lastDay = History.objects.filter(setup__user = request.user).order_by('-id')[0]
-	history_lastDay.rate_of_return_after_action = history_lastDay.rate_of_return_after_action * 100
-	history_lastDay.rate_of_return_after_action_robot = history_lastDay.rate_of_return_after_action_robot * 100       
+	
+	# 報酬率
+	# get stock id for the last day (for finding the closing price)
+	endDayId = Stock.objects.filter(
+				code = setup_newest.stock_code.code,
+				date = setup_newest.initial_transaction_date,
+				).values_list('pk', flat=True)[0]
+	# closing price of the last day for settlement in result.html
+	tradingPrice = Stock.objects.filter(
+					code = setup_newest.stock_code.code,
+					id = endDayId + setup_newest.playing_duration,
+					)[0].closing_price
+		
+	cash_held = history_lastDay.number_of_shares_held_after_action * tradingPrice * (1 - history_lastDay.setup.transaction_cost_rate_sell)
+	if history_lastDay.position_after_action == '股票':
+		# 折現後現金 / 本金
+		history_lastDay.rate_of_return_after_action = (cash_held - history_lastDay.setup.principal) / history_lastDay.setup.principal
+	
+	cash_held_robot = history_lastDay.number_of_shares_held_after_action_robot * tradingPrice * (1 - history_lastDay.setup.transaction_cost_rate_sell)
+	if history_lastDay.position_after_action_robot == '股票':
+		history_lastDay.rate_of_return_after_action_robot = (cash_held_robot - history_lastDay.setup.principal) / history_lastDay.setup.principal
+	
+	history_lastDay.rate_of_return_after_action *= 100
+	history_lastDay.rate_of_return_after_action_robot *= 100       
 	return render(request, 'result.html', {'history_lastDay': history_lastDay, 'setup_newest': setup_newest})
 
 
@@ -399,7 +421,7 @@ def addingHistory_buyOrSell(request):
 			position_after_action = '股票', 
 			last_trading_price_after_action = tradingPrice,
 			rate_of_return_after_action = 
-				(1 + history.rate_of_return_after_action) * (1 - history.setup.transaction_cost_rate_buy) - 1, 
+				(1 + history.rate_of_return_after_action) / (1 + history.setup.transaction_cost_rate_buy) - 1, 
 			cash_held_after_action = 0,
 			number_of_shares_held_after_action = 
 				history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy)),
