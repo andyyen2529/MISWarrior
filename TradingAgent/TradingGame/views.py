@@ -234,9 +234,7 @@ def addingHistory_waitOrHold(request):
 	stockId = request.POST.get('id')
 	stock = Stock.objects.get(pk = int(stockId)+1)
 
-	tradingPrice = float(request.POST.get('closingPrice'))
-	
-	ratio = 1 # 成對交易的比例
+	tradingPrice = float(request.POST.get('closingPricePrev'))
 
 	if history.position_after_action_robot == '現金':
 		position = 0
@@ -260,7 +258,7 @@ def addingHistory_waitOrHold(request):
 
 	if action_robot == '買入':
 		position_after_action_robot = '股票'
-		last_trading_price_after_action_robot = float(request.POST.get('closingPrice'))
+		last_trading_price_after_action_robot = float(request.POST.get('closingPricePrev'))
 		rate_of_return_after_action_robot = (
 			(1 + history.rate_of_return_after_action_robot) * (1 - history.setup.transaction_cost_rate) - 1
 		) 
@@ -325,9 +323,7 @@ def addingHistory_buyOrSell(request):
 	stockId = request.POST.get('id')
 	stock = Stock.objects.get(pk = int(stockId)+1)
 
-	tradingPrice = float(request.POST.get('closingPrice'))
-	
-	ratio = 1 # 成對交易的比例
+	tradingPrice = float(request.POST.get('closingPricePrev'))
 
 	if history.position_after_action_robot == '現金':
 		position = 0
@@ -353,7 +349,7 @@ def addingHistory_buyOrSell(request):
 
 	if action_robot == '買入':
 		position_after_action_robot = '股票'
-		last_trading_price_after_action_robot = float(request.POST.get('closingPrice'))
+		last_trading_price_after_action_robot = float(request.POST.get('closingPricePrev'))
 		rate_of_return_after_action_robot = (
 			(1 + history.rate_of_return_after_action_robot) * (1 - history.setup.transaction_cost_rate) - 1
 		) 

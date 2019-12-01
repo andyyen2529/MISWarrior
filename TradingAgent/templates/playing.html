@@ -271,6 +271,7 @@ td {
 			<input id="stockIdField" type="hidden" name="id" value="{{ stock.id }}">
 			<input id="historyIdField" type="hidden" name="historyId" value="{{ history.id }}">
 			<input id="closingPriceField" type="hidden" name="closingPrice" value="{{ stock.closing_price }}">
+			<input id="closingPricePrevField" type="hidden" name="closingPricePrev">
 		
 		</form>
 
@@ -380,7 +381,7 @@ td {
 							} 
 
 							// 挑整報酬率的顯示方式
-							else if (j == 5) {
+							else if (j == 5 || j == 11) {
 								td.appendChild(document.createTextNode((arr[i][columns[j]] * 100).toFixed(3).toString().concat('%')));
 							}
 
@@ -507,6 +508,7 @@ td {
 						$("#volumn_MA5").text(json[0].fields.volumn_MA5);                    
 						$("#volumn_MA20").text(json[0].fields.volumn_MA20);
 
+						$("#closingPricePrevField").val(document.getElementById("closingPriceField").value);
 						$("#closingPriceField").val(json[0].fields.closing_price);
 
 						$('#stockIdField').val(json[0].pk);
