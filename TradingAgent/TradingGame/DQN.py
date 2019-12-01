@@ -36,9 +36,12 @@ class Net(nn.Module):
 				return action
 
 def adviseAction(state, playDuration):
-
+	
+	# 將「交易股數」和「交易金額」的單位從「千股」和「千元」改成「股」和「元」，以符合模型輸入的型式
+	state[6:19] = [i * 1000 for i in state[6:19]] 
+	#print(state)
+	
 	if playDuration == 60:
-		
 		# 標準化狀態變數 (用來標準化的平均數和標準差和訓練模型時用的相同(元大台灣50 2018/10/1~2018/12/28的資料))
 		mean_60 = [78.08233333333335,
 							 78.62533333333336,

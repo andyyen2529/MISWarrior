@@ -13,8 +13,7 @@ class HistoryAdmin(ImportExportModelAdmin):
 	list_display = [f.name for f in History._meta.fields]
 
 class SetupAdmin(ImportExportModelAdmin):
-	list_display = ('id', 'stock_code', 'user', 'initial_transaction_date', 'playing_duration',
-		'principal', 'transaction_cost_rate')
+	list_display = [f.name for f in Setup._meta.fields]
 		
 class AdviseSetupAdmin(ImportExportModelAdmin):
 	list_display = ('id', 'stock_code', 'user', 'principal', 'initialStockHold')

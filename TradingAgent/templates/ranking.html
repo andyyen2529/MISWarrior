@@ -15,7 +15,7 @@
 	  font-family: '微軟正黑體';
 	  background-color: #080808;
 	  color:#fff;
-	  font-size: 2rem
+	  font-size: 1.5rem
 	}
 	td {
 	  background-color: #fff;
@@ -48,6 +48,7 @@
 	<div id = 'ranking_div1'>
 		<p style="font-family:微軟正黑體;font-weight:bolder;font-size:280%;text-align: center;">
 			個股投資模擬 - 股神排行榜 Top10</p>
+		<p style="font-family:微軟正黑體;font-weight:bolder;font-size:100%;text-align: center;">說明：按下排行榜右方的「挑戰」按鍵可以用該玩家的交易設定進行模擬投資</p>
 		<table border="5" style="table-layout:fixed">
 
 		  　<tr>
@@ -57,7 +58,8 @@
 			  <th>起始日期</th>
 			  <th>投資天數</th>
 			  <th>本金</th>
-			  <th>交易成本</th>
+			  <th>交易成本比率(買進)</th>
+			  <th>交易成本比率(賣出)</th>
 			　<th>報酬率</th>
 			  <th></th>
 			</tr>
@@ -70,7 +72,8 @@
 					<td>{{ record.setup.initial_transaction_date }}</td>
 					<td>{{ record.setup.playing_duration }}</td>
 					<td>{{ record.setup.principal }}</td>
-					<td>{{ record.setup.transaction_cost_rate | floatformat:4}} %</td>
+					<td>{{ record.setup.transaction_cost_rate_buy | floatformat:4}} %</td>
+					<td>{{ record.setup.transaction_cost_rate_sell | floatformat:4}} %</td>
 			　		<td>{{ record.final_rate_of_return | floatformat:3}} %</td>
 					<td>
 
@@ -81,10 +84,12 @@
 							<input type="hidden" value="{{ record.setup.initial_transaction_date }}" name="setup.initial_transaction_date">
 							<input type="hidden" value="{{ record.setup.playing_duration }}" name="setup.playing_duration">
 							<input type="hidden" value="{{ record.setup.principal }}" name="setup.principal">
-							<input type="hidden" value="{{ record.setup.transaction_cost_rate }}" name="setup.transaction_cost_rate">
-
+							<input type="hidden" value="{{ record.setup.transaction_cost_rate_buy }}" 
+								name="setup.transaction_cost_rate_buy">
+							<input type="hidden" value="{{ record.setup.transaction_cost_rate_sell }}" 
+								name="setup.transaction_cost_rate_sell">
 							<input type="hidden" name = 'setup_fromRanking'>
-						 	<input type="submit" value="按照該玩家的交易設定進行挑戰" name = 'setup'>
+						 	<input type="submit" value="挑戰" name = 'setup'>
 						</form>
 
 					</td>

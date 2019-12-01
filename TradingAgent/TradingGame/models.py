@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 class Stock(models.Model):
 	code = models.CharField(max_length = 30) # 股票代碼
 	date = models.DateField() # 日期
-	volumn = models.IntegerField() # 成交量(股)
-	turnover = models.IntegerField() # 成交值(元)
+	volumn = models.IntegerField() # 成交量(千股)
+	turnover = models.IntegerField() # 成交值(千元)
 	opening_price = models.FloatField() # 開盤價
 	high = models.FloatField() # 最高價
 	low = models.FloatField() # 最低價
@@ -71,7 +71,8 @@ class Setup(models.Model):
 	playing_duration = models.IntegerField(choices = ((60, '60個交易日(三個月)'), (240, '240個交易日(一年)'))) 
 		# 遊玩天數(只計股市交易日)
 	principal = models.IntegerField() # 本金
-	transaction_cost_rate = models.FloatField(choices = ((0.001425, '股票買賣現行手續費率(0.1425%)'), (0, '無'))) # 交易成本比率
+	transaction_cost_rate_buy = models.FloatField(default = 0.001425) # 交易成本比率(買進)
+	transaction_cost_rate_sell = models.FloatField(default = 0.004425) # 交易成本比率(賣出)
 
 	class Meta:
 		db_table = 'setup'

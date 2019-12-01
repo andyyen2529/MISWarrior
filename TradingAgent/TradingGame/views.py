@@ -72,7 +72,8 @@ def playing(request):
 				initial_transaction_date = request.POST.get('setup.initial_transaction_date'),
 				playing_duration = request.POST.get('setup.playing_duration'),
 				principal = request.POST.get('setup.principal'),
-				transaction_cost_rate = float(request.POST.get('setup.transaction_cost_rate'))
+				transaction_cost_rate_buy = float(request.POST.get('setup.transaction_cost_rate_buy')) / 100,
+				transaction_cost_rate_sell = float(request.POST.get('setup.transaction_cost_rate_sell')) / 100
 			)
 
 			stock_firstTradingDay = Stock.objects.get(
@@ -82,9 +83,10 @@ def playing(request):
 			#print(stock_firstTradingDay)
 			setup.save()
 
-
 		# 把交易成本比率乘上100，之後在網頁改用百分比呈現
-		transaction_cost_rate = setup.transaction_cost_rate * 100
+		transaction_cost_rate_buy = setup.transaction_cost_rate_buy * 100
+		transaction_cost_rate_sell = setup.transaction_cost_rate_sell * 100
+		print(setup.transaction_cost_rate_sell)
 
 		# 創建第一筆歷史資料
 		history = History.objects.create(setup = setup, day = 0, action = 0,
@@ -110,8 +112,13 @@ def playing(request):
 		date.reverse()
 		price.reverse()
 		
-		return render(request, 'playing.html', {'stock': stock_firstTradingDay, 'setup': setup, 'history': history, 
-		'date': date, 'price': price, 'transaction_cost_rate': transaction_cost_rate})
+		return render(request, 'playing.html', {
+				'stock': stock_firstTradingDay, 'setup': setup, 'history': history, 
+				'date': date, 'price': price, 
+				'transaction_cost_rate_buy': transaction_cost_rate_buy, 
+				'transaction_cost_rate_sell': transaction_cost_rate_sell
+			}
+		)
 
 	else:
 		return redirect('stockGame/setup') # 如果直接輸入遊玩頁面的網址，由於完成交易設定，系統將重新導向交易設定的頁面
@@ -131,7 +138,8 @@ def history(request):
 
 def result(request):
 	setup_newest = Setup.objects.filter(user = request.user).order_by('-id')[0]
-	setup_newest.transaction_cost_rate = setup_newest.transaction_cost_rate * 100
+	setup_newest.transaction_cost_rate_buy = setup_newest.transaction_cost_rate_buy * 100
+	setup_newest.transaction_cost_rate_sell = setup_newest.transaction_cost_rate_sell * 100
 
 	history_lastDay = History.objects.filter(setup__user = request.user).order_by('-id')[0]
 	history_lastDay.rate_of_return_after_action = history_lastDay.rate_of_return_after_action * 100
@@ -232,7 +240,7 @@ def addingHistory_waitOrHold(request):
 
 	# 電腦模擬投資行動和其相關數據處理
 	stockId = request.POST.get('id')
-	stock = Stock.objects.get(pk = int(stockId)+1)
+	stock = Stock.objects.get(pk = int(stockId)-1)
 
 	tradingPrice = float(request.POST.get('closingPricePrev'))
 
@@ -240,6 +248,8 @@ def addingHistory_waitOrHold(request):
 		position = 0
 	else:
 		position = 1
+
+	print(stock.date)
 
 	state = [
 		stock.closing_price_MA5, stock.closing_price_MA10,	stock.closing_price_MA20, 
@@ -260,22 +270,22 @@ def addingHistory_waitOrHold(request):
 		position_after_action_robot = '股票'
 		last_trading_price_after_action_robot = float(request.POST.get('closingPricePrev'))
 		rate_of_return_after_action_robot = (
-			(1 + history.rate_of_return_after_action_robot) * (1 - history.setup.transaction_cost_rate) - 1
+			(1 + history.rate_of_return_after_action_robot) * (1 - history.setup.transaction_cost_rate_buy) - 1
 		) 
 		cash_held_after_action_robot = 0
 		number_of_shares_held_after_action_robot = (
-			history.cash_held_after_action_robot / (tradingPrice * (1 + history.setup.transaction_cost_rate))
+			history.cash_held_after_action_robot / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy))
 		)
 
 	elif action_robot == '賣出':
 		position_after_action_robot = '現金'
 		last_trading_price_after_action_robot = tradingPrice 
 		rate_of_return_after_action_robot = (
-			(1 + history.rate_of_return_after_action_robot) * (tradingPrice * (1 - history.setup.transaction_cost_rate) 
+			(1 + history.rate_of_return_after_action_robot) * (tradingPrice * (1 - history.setup.transaction_cost_rate_sell) 
 				/ history.last_trading_price_after_action_robot) - 1
 		)
 		cash_held_after_action_robot = (
-			history.number_of_shares_held_after_action_robot * tradingPrice * (1 - history.setup.transaction_cost_rate)
+			history.number_of_shares_held_after_action_robot * tradingPrice * (1 - history.setup.transaction_cost_rate_sell)
 		)
 		number_of_shares_held_after_action_robot = 0
 
@@ -321,7 +331,7 @@ def addingHistory_buyOrSell(request):
 
 	# 電腦模擬投資行動和其相關數據處理
 	stockId = request.POST.get('id')
-	stock = Stock.objects.get(pk = int(stockId)+1)
+	stock = Stock.objects.get(pk = int(stockId)-1)
 
 	tradingPrice = float(request.POST.get('closingPricePrev'))
 
@@ -351,22 +361,22 @@ def addingHistory_buyOrSell(request):
 		position_after_action_robot = '股票'
 		last_trading_price_after_action_robot = float(request.POST.get('closingPricePrev'))
 		rate_of_return_after_action_robot = (
-			(1 + history.rate_of_return_after_action_robot) * (1 - history.setup.transaction_cost_rate) - 1
+			(1 + history.rate_of_return_after_action_robot) * (1 - history.setup.transaction_cost_rate_buy) - 1
 		) 
 		cash_held_after_action_robot = 0
 		number_of_shares_held_after_action_robot = (
-			history.cash_held_after_action_robot / (tradingPrice * (1 + history.setup.transaction_cost_rate))
+			history.cash_held_after_action_robot / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy))
 		)
 
 	elif action_robot == '賣出':
 		position_after_action_robot = '現金'
 		last_trading_price_after_action_robot = tradingPrice 
 		rate_of_return_after_action_robot = (
-			(1 + history.rate_of_return_after_action_robot) * (tradingPrice * (1 - history.setup.transaction_cost_rate) 
+			(1 + history.rate_of_return_after_action_robot) * (tradingPrice * (1 - history.setup.transaction_cost_rate_sell) 
 				/ history.last_trading_price_after_action_robot) - 1
 		)
 		cash_held_after_action_robot = (
-			history.number_of_shares_held_after_action_robot * tradingPrice * (1 - history.setup.transaction_cost_rate)
+			history.number_of_shares_held_after_action_robot * tradingPrice * (1 - history.setup.transaction_cost_rate_sell)
 		)
 		number_of_shares_held_after_action_robot = 0
 
@@ -389,10 +399,10 @@ def addingHistory_buyOrSell(request):
 			position_after_action = '股票', 
 			last_trading_price_after_action = tradingPrice,
 			rate_of_return_after_action = 
-				(1 + history.rate_of_return_after_action) * (1 - history.setup.transaction_cost_rate) - 1, 
+				(1 + history.rate_of_return_after_action) * (1 - history.setup.transaction_cost_rate_buy) - 1, 
 			cash_held_after_action = 0,
 			number_of_shares_held_after_action = 
-				history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate)),
+				history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy)),
 			action_robot = action_robot,
 			position_after_action_robot = position_after_action_robot, 
 			last_trading_price_after_action_robot = last_trading_price_after_action_robot,
@@ -411,11 +421,11 @@ def addingHistory_buyOrSell(request):
 			position_after_action = '現金', 
 			last_trading_price_after_action = tradingPrice,
 			rate_of_return_after_action = (
-				(1 + history.rate_of_return_after_action) * (tradingPrice * (1 - history.setup.transaction_cost_rate)
+				(1 + history.rate_of_return_after_action) * (tradingPrice * (1 - history.setup.transaction_cost_rate_sell)
 					 / history.last_trading_price_after_action) - 1
 			), 
 			cash_held_after_action = 
-				history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate),
+				history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate_sell),
 			number_of_shares_held_after_action = 0,
 			action_robot = action_robot,
 			position_after_action_robot = position_after_action_robot, 
@@ -464,7 +474,8 @@ def ranking(request):
 	ranking_table = RankingHistory.objects.order_by('-final_rate_of_return')[:10]  # 取前10名
 
 	for i in range(0,len(ranking_table)):
-		ranking_table[i].setup.transaction_cost_rate *= 100
+		ranking_table[i].setup.transaction_cost_rate_buy *= 100
+		ranking_table[i].setup.transaction_cost_rate_sell *= 100
 		ranking_table[i].final_rate_of_return *= 100
 
 	return render(request, 'ranking.html',{'ranking_table' : ranking_table})

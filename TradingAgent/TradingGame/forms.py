@@ -14,7 +14,10 @@ class DateInput(forms.DateInput):
 class SetupForm(ModelForm):
     class Meta:
         model = Setup
-        fields= ('stock_code','initial_transaction_date','playing_duration','principal','transaction_cost_rate')
+        fields= (
+            'stock_code','initial_transaction_date','playing_duration','principal',
+            'transaction_cost_rate_buy','transaction_cost_rate_sell'
+        )
         exclude = ('user',)
         # 新增 labels 對應
         labels = {
@@ -22,7 +25,8 @@ class SetupForm(ModelForm):
             'initial_transaction_date': '交易起始日',
             'playing_duration': '遊玩天數',
             'principal': '本金',
-            'transaction_cost_rate': '交易成本比率'
+            'transaction_cost_rate_buy': '交易成本比率(買進)',
+            'transaction_cost_rate_sell': '交易成本比率(賣出)'
         }
 
         widgets = {

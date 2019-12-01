@@ -8,13 +8,12 @@
 
 #transactionSetting-MainDiv {
 	position: absolute;
-	width: 60%;
-	height: 70%;
-	top: 20%;
-	left: 20%;
+	width: 70%;
+	height: 85%;
+	top: 12%;
+	left: 15%;
 	background-color: rgb(255,255,255,0.5);
 }
-
 
 #picture {
 	float:left;
@@ -73,7 +72,6 @@ td {
 	font-size: 18px;
 }
 
-
 </style>
 {% endblock styles %}
 
@@ -83,24 +81,25 @@ td {
 
 <br>
 
-<div id = 'transactionSetting'>
-	<div id = 'transactionSetting-MainDiv'>
-		<p>個股投資模擬 - 交易設定</p>
 
-		<form action="{% url 'playing' %}" method="post">
-			{% csrf_token %}
-			{{ form.as_p }}
-			<input type="submit" value="保存設定並開始投資模擬" name="setup">
-		</form>
+<div id = 'transactionSetting-MainDiv'>
 
+	<p>個股投資模擬 - 交易設定</p>
+	<form action="{% url 'playing' %}" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="保存設定並開始投資模擬" name="setup">
+	</form>
 
-<p>說明：</p>
-<p>(1)目前可以進行模擬投資的股票包含863家在台灣證券交易所上市的普通股和指數股票型基金(ETF)</p>
-<p>(2)2015到2019年10月底期間所有交易日都有股價資料的股票才會列入模擬選單當中，股價資料均未做除權息調整</p>
-<p>(3)股市資料庫最後的更新日期：2019/11/21
-<p>(4)交易起始日可以自由選擇2016~2018年的其中一天</p>
-<p>(5)交易起始日如果不是股市的交易日，系統會自動挑選「未來最近的交易日」作為交易起始日</p>
-	</div>
+	<p>說明：</p>
+	<p>(1)目前可以進行模擬投資的股票包含863家在台灣證券交易所上市的普通股和指數股票型基金(ETF)</p>
+	<p>(2)2015到2019年10月底期間所有交易日都有股價資料的股票才會列入模擬選單當中，股價資料均未做除權息調整</p>
+	<p>(3)股市資料庫最後的更新日期：2019/11/21
+	<p>(4)交易起始日可以自由選擇2016~2018年的其中一天</p>
+	<p>(5)交易起始日如果不是股市的交易日，系統會自動挑選「未來最近的交易日」作為交易起始日</p>
+	<p>(6)交易成本比率的預設值參考現行的交易成本，其中買進要付交易額0.1425%的手續費，
+	賣出要付交易額0.1425%的手續費加上交易額0.3%的交易稅</p>
+
 </div>
 
 {% else %}

@@ -109,7 +109,8 @@ td {
 <p> 交易起始日： {{ setup_newest.initial_transaction_date | date:"Y/m/d" }} </p>
 <p> 遊玩天數： {{ setup_newest.playing_duration }} </p>
 <p> 本金： {{ setup_newest.principal }} </p>
-<p> 交易成本： {{ setup_newest.transaction_cost_rate | floatformat:4}} % </p>
+<p>交易成本比率(買進)： {{ setup_newest.transaction_cost_rate_buy | floatformat:4}} %</a></p>
+<p>交易成本比率(賣出)： {{ setup_newest.transaction_cost_rate_sell | floatformat:4}} %</a></p>
 </div>
 
 <div id = 'div_result-userInfo'>

@@ -5,8 +5,22 @@
     <head>
         <meta charset="utf-8">
         <title>股獲仔 - 智能投資平台</title>
-        <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- 以連結方式引用static資料夾中的css檔案 -->
+        <!--
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"> 以連結方式引用static資料夾中的css檔案 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+		<!-- 可以讓當前網頁的網址變為active腳本 -->
+		<script>
+		    $(function(){
+		        $('a').each(function(){
+		            if ($(this).prop('href') == window.location.href) {
+		                $(this).addClass('active'); $(this).parents('li').addClass('active');
+		            }
+		        });
+		    });
+		</script>
+
         {% block styles %}{% endblock styles %}
         <style>
 			body{
@@ -73,6 +87,59 @@
 			    font-weight: bold;
 			    background-color: rgb(255,255,255,0.5);
 			}
+			/* 主網頁 */
+
+			body {
+				margin: 0px; /* 移除網頁預設的邊框 */
+			}
+
+			/* 菜單列 */
+
+			#menuBar > ul {
+				background-color: rgb(230, 230, 230);
+				list-style: none;   /* 移除項目符號 */
+				margin: 0;
+				padding: 0;
+			}
+
+			#menuBar a {
+				color: inherit; /* 移除超連結顏色 */
+				display: block; /* 讓 <a> 填滿 <li> */
+				font-size: 1.5rem;
+				text-decoration: none;  /* 移除超連結底線 */
+				font-weight: bold;
+				font-family: '微軟正黑體';
+				padding: 15;
+			}
+
+			/* 滑鼠移到 <a> 時變成深底淺色 */
+			#menuBar li:hover {
+				background-color: rgb(115, 115, 115);
+				color: white;
+			}
+
+			.flex-div {
+				display: flex;
+				justify-content: space-around;
+			}
+
+
+			#stockGame a {
+
+			}
+
+			/* 讓當前網頁對應的菜單列選項變色且不能按 */
+			ul.flex-div li.active { 
+				color: white; 
+				background-color: rgb(115, 115, 115); 
+			}
+			ul.flex-div li.active a { 
+				pointer-events: none;
+			}
+			ul.flex-div li ul li:not(.active) a { 
+				pointer-events: all;
+			}
+
         </style>
     </head>
     <body background = "{% static 'images/bg.png' %}">
@@ -84,14 +151,14 @@
                 <li><a href="http://127.0.0.1:8000/developmentTeam/">開發團隊</a></li>
 
 
-                <li><a href="#">個股投資模擬</a>
+                <li id = 'stockGame'><a>個股投資模擬</a>
                 	<ul>
 				    	<li><a href="http://127.0.0.1:8000/stockGame/setup">交易設定</a></li>
 				    	<li><a href="http://127.0.0.1:8000/stockGame/ranking">股神排行榜</a></li>
 				 	</ul>
                 </li>
 
-                <li><a href="http://127.0.0.1:8000/intelligentInvestmentAdvise">智能投資建議</a></li>
+                <li><a href="http://127.0.0.1:8000/intelligentInvestmentAdvise/">智能投資建議</a></li>
                 {% if not user.is_authenticated %}
                     <li><a href="http://127.0.0.1:8000/accounts/login/">註冊/登入</a></li>
                 {% else %}

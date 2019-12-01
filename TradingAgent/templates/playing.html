@@ -229,7 +229,8 @@ td {
 
 		<p style="margin-left:25px">現在是第 <a id="day">1</a> 天 
 			(第 <a id="playingDuration">{{setup.playing_duration}}</a> 天結束)</p>
-		<p style="margin-left:25px">交易成本比率： {{transaction_cost_rate | floatformat:4}} %</a></p>
+		<p style="margin-left:25px">交易成本比率(買進)： {{transaction_cost_rate_buy | floatformat:4}} %</a></p>
+		<p style="margin-left:25px">交易成本比率(賣出)： {{transaction_cost_rate_sell | floatformat:4}} %</a></p>
 
 		<table style="width:100%; table-layout:fixed">
 			<tr>
@@ -293,7 +294,7 @@ td {
 		　<tr>
 			　<th>股票代碼</td>
 			　<th>日期</td>
-			　<th>成交金額(元)</td>
+			　<th>成交金額(千元)</td>
 			</tr>
 		　<tr>
 			　<td id="code">{{stock.code}}</td>
@@ -325,7 +326,7 @@ td {
 		　</tr>
 
 		　<tr>
-			　<th>成交股數(股)</td>
+			　<th>成交股數(千股)</td>
 			　<th>成交股數MA5</td>
 			　<th>成交股數MA20</td>
 			</tr>
