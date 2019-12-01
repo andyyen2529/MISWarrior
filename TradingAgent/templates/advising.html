@@ -163,7 +163,7 @@ td {
   <div id = 'status'>
       <p style="margin-left:25px">{{stock.date}}</p>
 	  <p style="margin-left:25px">股票名稱 : {{stock.code}}</p>
-      <p style="margin-left:25px">您目前持有的資產：<a id="asset">NTD {{ setup.principal }}</a></p>
+      <p style="margin-left:25px">您目前持有的資產：<a id="asset"></a></p>
       <p style="margin-left:25px">建議投資決策 : {{decision}}</p>
 	
 
@@ -175,6 +175,15 @@ td {
   </div>
   <p>&nbsp;</p>
 
+  <script type= "text/javascript">
+  $(document).ready(function() {
+	if({{setup.principal}} != 0){
+		$("#asset").text('NTD ' + {{setup.principal}} + ' 元');
+	}else{
+		$("#asset").text('股票 ' + {{setup.initialStockHold}} + ' 股');
+	}
+  })
+  </script>
   <div id = 'tbl'>
     <table width=100% border="1" style="table-layout:fixed">
 

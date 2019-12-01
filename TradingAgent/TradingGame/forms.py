@@ -39,7 +39,7 @@ class AdviseSetupForm(ModelForm):
 	
     initialStockHold = forms.IntegerField(label = '持有股數', 
 					widget = forms.NumberInput(attrs={'id': 'id_initialStockHold', 'min': '0', 'max': '1000000', 
-					'step': '10000', 'value': '0', 'onkeydown':"return false", 'hidden': ''}))
+					'step': '100', 'value': '100', 'onkeydown':"return false", 'hidden': ''}))
     class Meta:
         model = AdviseSetup
         fields= ('stock_code', 'principal', 'initialStockHold')

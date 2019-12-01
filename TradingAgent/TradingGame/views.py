@@ -155,7 +155,7 @@ def intelligentInvestmentAdvise(request):
 	if form.is_valid():
 		setup = form.save(commit=False)
 		setup.user = request.user
-		setup.save()
+		#setup.save()
 
 		# get selected stock data
 		stockData = Stock.objects.filter(
