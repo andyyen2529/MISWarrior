@@ -84,6 +84,9 @@ td {
   <script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
   
   <script type= "text/javascript">
+  var pseries = {{price}};
+  
+  
   $(document).ready(function() {
     var title = {
       text: '{{setup.stock_code}} 股價趨勢'
@@ -130,15 +133,12 @@ td {
       borderWidth: 0
     };
 	
+	pseries[pseries.length - 1] = {y: pseries[pseries.length - 1], color: '#FF0000'}
     var series =  [
     {
       name: '{{setup.stock_code}}',
-      data: {{price}},
-	  colorByPoint: true,
-	  colors: ['#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
-	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', 
-	  '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff',
-	  '#ff0000']
+      data: pseries,
+	  
     },
     
     ];

@@ -236,7 +236,7 @@ td {
 			<tr>
 				<th></th>
 				<th>玩家</th> 
-				<th>電腦</th>
+				<th>股獲仔(◣_◢)</th>
 			</tr>
 			<tr>
 				<th>目前持有的資產</th>
@@ -283,7 +283,7 @@ td {
 		</form> 
 
 		<p style="margin-left:25px; font-size:16px"> 
-			說明：圖表中的紅點代表當天玩家買入；粉紅點代表持有；綠點代表賣出；淺綠點代表等待 </p>
+			說明：<br>圖中的紅點代表當天玩家買入；粉紅點代表持有；綠點代表賣出；淺綠點代表等待 </p>
 
 	</div>
 	<p>&nbsp;</p> 
@@ -418,7 +418,7 @@ td {
 			 }
 
 			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('第幾天'));
+			 th.appendChild(document.createTextNode('天數'));
 			 tr.appendChild(th);
 			 var th = _th_.cloneNode(false);
 			 th.appendChild(document.createTextNode('行動'));
@@ -439,22 +439,22 @@ td {
 			 th.appendChild(document.createTextNode('持有股數'));
 			 tr.appendChild(th);
 			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('行動(電腦)'));
+			 th.appendChild(document.createTextNode('行動\n(股獲仔)'));
 			 tr.appendChild(th);
 			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('持有資產種類(電腦)'));
+			 th.appendChild(document.createTextNode('持有資產種類\n(股獲仔)'));
 			 tr.appendChild(th);
 			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('最後交易價格(電腦)'));
+			 th.appendChild(document.createTextNode('最後交易價格\n(股獲仔)'));
 			 tr.appendChild(th);
 			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('報酬率(電腦)'));
+			 th.appendChild(document.createTextNode('報酬率\n(股獲仔)'));
 			 tr.appendChild(th);
 			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('持有現金量(電腦)'));
+			 th.appendChild(document.createTextNode('持有現金量\n(股獲仔)'));
 			 tr.appendChild(th);
 			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('持有股數(電腦)'));
+			 th.appendChild(document.createTextNode('持有股數\n(股獲仔)'));
 			 tr.appendChild(th);
 			 table.appendChild(tr)
 
@@ -579,7 +579,7 @@ td {
 					borderWidth: 0
 				};
 
-				pseries[28] = {y: pseries[28], color: color}
+				pseries[pseries.length - 2] = {y: pseries[pseries.length - 2], color: color}
 
 				var series =  [
 				{

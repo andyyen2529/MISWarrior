@@ -106,7 +106,7 @@ def playing(request):
 		stockData = Stock.objects.filter(
 			code = setup.stock_code.code,
 			date__lte = stock_firstTradingDay.date
-		).order_by('-date')[0:30] # lte : <=
+		).order_by('-date')[0:31] # lte : <=
 
 		# get data for plot
 		date = []
@@ -206,10 +206,12 @@ def addingHistory_waitOrHold(request):
 	else:
 		if action_robot == '等待':
 			position_after_action_robot = '現金'
-			# rate_of_return_after_action_robot = history.rate_of_return_after_action_robot
+			rate_of_return_after_action_robot = history.rate_of_return_after_action_robot
 
 		elif action_robot == '持有':
 			position_after_action_robot = '股票'
+			# 繼續持有股票的報酬率隨時下股價而有所變動
+			rate_of_return_after_action_robot = history.number_of_shares_held_after_action_robot * tradingPrice / history.setup.principal - 1
 			"""
 			if int(history.day) + 1 == history.setup.playing_duration:
 				# 雖然最後一天電腦選擇持有股票，但是已到達結算成績的時間點，需要將持有的股票依結束日之收盤價換算現值計算投資報酬率
@@ -223,7 +225,7 @@ def addingHistory_waitOrHold(request):
 			"""
 
 		last_trading_price_after_action_robot = history.last_trading_price_after_action_robot
-		rate_of_return_after_action_robot = history.rate_of_return_after_action_robot 
+		#rate_of_return_after_action_robot = history.rate_of_return_after_action_robot 
 		cash_held_after_action_robot = history.cash_held_after_action_robot
 		number_of_shares_held_after_action_robot = history.number_of_shares_held_after_action_robot
 
@@ -242,23 +244,43 @@ def addingHistory_waitOrHold(request):
 	rate_of_return_after_action = history.rate_of_return_after_action
 
 	# 新增歷史紀錄
-	history_new = History.objects.create(
-		setup = history.setup,
-		day = int(history.day) + 1,
-		action = action,
-		position_after_action = history.position_after_action, 
-		last_trading_price_after_action = history.last_trading_price_after_action,
-		rate_of_return_after_action = rate_of_return_after_action,
-		cash_held_after_action = history.cash_held_after_action,
-		number_of_shares_held_after_action = history.number_of_shares_held_after_action,
-		action_robot = action_robot,
-		position_after_action_robot = position_after_action_robot, 
-		last_trading_price_after_action_robot = last_trading_price_after_action_robot,
-		rate_of_return_after_action_robot = rate_of_return_after_action_robot, 
-		cash_held_after_action_robot = cash_held_after_action_robot,
-		number_of_shares_held_after_action_robot = number_of_shares_held_after_action_robot
-	)
-
+	if history.position_after_action == '現金':
+		history_new = History.objects.create(
+			setup = history.setup,
+			day = int(history.day) + 1,
+			action = action,
+			position_after_action = history.position_after_action, 
+			last_trading_price_after_action = history.last_trading_price_after_action,
+			rate_of_return_after_action = rate_of_return_after_action,
+			cash_held_after_action = history.cash_held_after_action,
+			number_of_shares_held_after_action = history.number_of_shares_held_after_action,
+			action_robot = action_robot,
+			position_after_action_robot = position_after_action_robot, 
+			last_trading_price_after_action_robot = last_trading_price_after_action_robot,
+			rate_of_return_after_action_robot = rate_of_return_after_action_robot, 
+			cash_held_after_action_robot = cash_held_after_action_robot,
+			number_of_shares_held_after_action_robot = number_of_shares_held_after_action_robot
+		)
+	# 繼續持有股票的報酬率隨時下股價而有所變動
+	elif history.position_after_action == '股票':
+		history_new = History.objects.create(
+			setup = history.setup,
+			day = int(history.day) + 1,
+			action = action,
+			position_after_action = history.position_after_action, 
+			last_trading_price_after_action = history.last_trading_price_after_action,
+			# 折現後現金 / 本金 - 1
+			rate_of_return_after_action = history.number_of_shares_held_after_action * tradingPrice / history.setup.principal - 1,
+			cash_held_after_action = history.cash_held_after_action,
+			number_of_shares_held_after_action = history.number_of_shares_held_after_action,
+			action_robot = action_robot,
+			position_after_action_robot = position_after_action_robot, 
+			last_trading_price_after_action_robot = last_trading_price_after_action_robot,
+			rate_of_return_after_action_robot = rate_of_return_after_action_robot, 
+			cash_held_after_action_robot = cash_held_after_action_robot,
+			number_of_shares_held_after_action_robot = number_of_shares_held_after_action_robot
+		)
+		
 	history = History.objects.filter(pk = history_new.id)
 	history_list = serializers.serialize('json', history)
 
@@ -332,10 +354,12 @@ def addingHistory_buyOrSell(request):
 	else:
 		if action_robot == '等待':
 			position_after_action_robot = '現金'
-			# rate_of_return_after_action_robot = history.rate_of_return_after_action_robot
+			rate_of_return_after_action_robot = history.rate_of_return_after_action_robot
 
 		elif action_robot == '持有':
 			position_after_action_robot = '股票'
+			# 繼續持有股票的報酬率隨時下股價而有所變動
+			rate_of_return_after_action_robot = history.number_of_shares_held_after_action_robot * tradingPrice / history.setup.principal - 1
 			"""
 			if int(history.day) + 1 == history.setup.playing_duration:
 				# 雖然最後一天電腦選擇持有股票，但是已到達結算成績的時間點，需要將持有的股票依結束日之收盤價換算現值計算投資報酬率
@@ -349,7 +373,7 @@ def addingHistory_buyOrSell(request):
 			"""
 
 		last_trading_price_after_action_robot = history.last_trading_price_after_action_robot
-		rate_of_return_after_action_robot = history.rate_of_return_after_action_robot 
+		#rate_of_return_after_action_robot = history.rate_of_return_after_action_robot 
 		cash_held_after_action_robot = history.cash_held_after_action_robot
 		number_of_shares_held_after_action_robot = history.number_of_shares_held_after_action_robot
 
@@ -474,7 +498,7 @@ def intelligentInvestmentAdvise(request):
 		# get selected stock data
 		stockData = Stock.objects.filter(
 			code = setup.stock_code.code,
-		).order_by('-date')[0:30]
+		).order_by('-date')[0:31]
 		stock = stockData[0]
 
 		# state variable
