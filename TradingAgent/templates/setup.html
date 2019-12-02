@@ -7,12 +7,17 @@
 <style>
 
 #transactionSetting-MainDiv {
-	position: absolute;
-	width: 70%;
-	height: 85%;
-	top: 12%;
-	left: 15%;
+	width: 440px;
+	min-width: 440px;
+	height: 460px;
+	min-height: 460px;
 	background-color: rgb(255,255,255,0.5);
+	margin: 0 auto;
+	padding-left: 120px;
+	padding-right: 120px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	margin-top: 30px; 
 }
 
 #picture {
@@ -71,7 +76,18 @@ td {
 	font-family: Times New Roman;
 	font-size: 18px;
 }
-
+#div_explain {
+	background-color: rgba(0,0,0,0.9);
+	position: absolute;
+	width: 60%;
+	left: 20%;
+	top: 15%;
+	height: 70%;
+	display: none;
+	float:left;
+	color: white;
+	/*overflow: scroll;*/
+}
 </style>
 {% endblock styles %}
 
@@ -83,24 +99,46 @@ td {
 
 
 <div id = 'transactionSetting-MainDiv'>
+	<p style="font-size: 2rem; font-weight: bold; text-align: center;">個股投資模擬 - 交易設定</p>
 
-	<p>個股投資模擬 - 交易設定</p>
 	<form action="{% url 'playing' %}" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<input type="submit" value="保存設定並開始投資模擬" name="setup">
+		<div style="text-align:center;">
+			<input style="margin: 20px" type="submit" value="保存設定並開始投資模擬" name="setup">
+		</div>
 	</form>
-
-	<p>說明：</p>
-	<p>(1)目前可以進行模擬投資的股票包含863家在台灣證券交易所上市的普通股和指數股票型基金(ETF)</p>
-	<p>(2)2015到2019年10月底期間所有交易日都有股價資料的股票才會列入模擬選單當中，股價資料均未做除權息調整</p>
-	<p>(3)股市資料庫最後的更新日期：2019/11/21
-	<p>(4)交易起始日可以自由選擇2016~2018年的其中一天</p>
-	<p>(5)交易起始日如果不是股市的交易日，系統會自動挑選「未來最近的交易日」作為交易起始日</p>
-	<p>(6)交易成本比率的預設值參考現行的交易成本，其中買進要付交易額0.1425%的手續費，
-	賣出要付交易額0.1425%的手續費加上交易額0.3%的交易稅</p>
-
+	
+	<input style="float: right;" type="button" id='btn_openExplainDiv' value="說明">
 </div>
+
+
+<div id = 'div_explain'>
+	<p style="font-size: 2rem; font-weight: bold; text-align: center;">說明</p>
+	<ul>
+		<li>目前可以進行模擬投資的股票包含863家在台灣證券交易所上市的普通股和指數股票型基金(ETF)</li>
+		<li>2015到2019年10月底期間所有交易日都有股價資料的股票才會列入模擬選單當中，股價資料均未做除權息調整</li>
+		<li>股市資料庫最後的更新日期：2019/11/21</li>
+		<li>交易起始日可以自由選擇2016~2018年的其中一天</li>
+		<li>交易起始日如果不是股市的交易日，系統會自動挑選「未來最近的交易日」作為交易起始日</li>
+		<li>交易成本比率的預設值參考現行的交易成本，其中買進要付交易額0.1425%的手續費，<br> 
+		賣出要付交易額0.1425%的手續費加上交易額0.3%的交易稅</li>
+		<li>最後一天系統會強制玩家和電腦做出「使最後的部位為現金」的行動，方便最終的成績結算<br>
+		(如果玩家或電腦之前持有現金，最後一天強制等待；持有股票，最後一天強制賣出)</li>
+	</ul>
+	<div style="text-align:center;">
+		<input type="button" id='btn_closeExplainDiv' value="關閉">
+	</div>
+</div>
+
+<script type="text/javascript">
+$('#btn_openExplainDiv').click(function(){
+	$("#div_explain").show();
+});
+$('#btn_closeExplainDiv').click(function(){
+	$("#div_explain").hide();
+});
+</script>
 
 {% else %}
 <div id = 'signUpNotificationDiv'>
