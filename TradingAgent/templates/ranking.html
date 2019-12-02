@@ -77,7 +77,7 @@
 			　		<td>{{ record.final_rate_of_return | floatformat:3}} %</td>
 					<td>
 
-						<form action="{% url 'playing' %}" method="post">
+						<form id = "challenge" action="{% url 'playing' %}" method="post">
 							{% csrf_token %}
 							<input type="hidden" value="{{ record.setup.user }}" name="setup.user">
 							<input type="hidden" value="{{ record.setup.stock_code }}" name="setup.stock_code">
@@ -89,7 +89,17 @@
 							<input type="hidden" value="{{ record.setup.transaction_cost_rate_sell }}" 
 								name="setup.transaction_cost_rate_sell">
 							<input type="hidden" name = 'setup_fromRanking'>
-						 	<input type="submit" value="挑戰" name = 'setup'>
+						 	<input type="submit" value="挑戰" name = 'setup' onclick="confirmation()">
+							
+							<script type="text/javascript">
+							function confirmation() {
+							  var txt;
+							  var r = confirm("確定要挑戰 !\nAre you ready ?");
+							  if (r == false) {
+								document.getElementById("challenge").action = "{% url 'ranking' %}";
+							  }
+							}
+							</script>
 						</form>
 
 					</td>

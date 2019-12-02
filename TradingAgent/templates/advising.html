@@ -189,33 +189,52 @@ td {
   <div id = 'tbl'>
     <table width=100% border="1" style="table-layout:fixed">
 
-    　<tr>
-      　<th>股票代碼</td>
-      　<th>日期</td>
-      　<th>成交股數</td>
-      　<th>成交金額</td>
-      </tr>
-    　<tr>
-      　<td id="code">{{stock.code}}</td>
-      　<td id="date">{{stock.date |date:"Y-m-d"}} </td>
-      　<td id="volumn">{{stock.volumn}} </td>
-      　<td id="turnover">{{stock.turnover}} </td>
-      </tr>
+		　<tr>
+			　<th>股票代碼</td>
+			　<th>日期</td>
+			　<th>成交金額(千元)</td>
+			</tr>
+		　<tr>
+			　<td id="code">{{stock.code}}</td>
+			　<td id="date">{{stock.date |date:"Y-m-d"}} </td>
+			　<td id="turnover">{{stock.turnover}} </td>
+			</tr>
 
-    　<tr>
-      　<th>開盤價</td>
-      　<th>最高價</td>
-      　<th>最低價</td>
-      　<th>收盤價</td>
-      </tr>
-      <tr>
-      　<td id="opening_price">{{stock.opening_price}} </td>
-      　<td id="high">{{stock.high}} </td>
-      　<td id="low">{{stock.low}} </td>
-      　<td id="closing_price">{{stock.closing_price}} </td>
-    　</tr>
+		　<tr>
+			　<th>開盤價</td>
+			　<th>最高價</td>
+			　<th>最低價</td>
+			</tr>
+			<tr>
+			　<td id="opening_price">{{stock.opening_price}} </td>
+			　<td id="high">{{stock.high}} </td>
+			　<td id="low">{{stock.low}} </td>
+			　
+		　</tr>
 
-    </table>
+		　<tr>
+				<th>收盤價</td>
+			　<th>收盤價MA5</td>
+			　<th>收盤價MA20</td>
+			</tr>
+			<tr>
+				<td id="closing_price">{{stock.closing_price}} </td>
+			　<td id="closing_price_MA5">{{stock.closing_price_MA5 | floatformat:2}} </td>
+			　<td id="closing_price_MA20">{{stock.closing_price_MA20 | floatformat:2}} </td>
+		　</tr>
+
+		　<tr>
+			　<th>成交股數(千股)</td>
+			　<th>成交股數MA5</td>
+			　<th>成交股數MA20</td>
+			</tr>
+			<tr>
+			　<td id="volumn">{{stock.volumn}} </td>
+			　<td id="volumn_MA5">{{stock.volumn_MA5 | floatformat:0}} </td>
+			　<td id="volumn_MA20">{{stock.volumn_MA20 | floatformat:0}} </td>
+		　</tr>
+
+	</table>
   </div>
 
 {% else %}
