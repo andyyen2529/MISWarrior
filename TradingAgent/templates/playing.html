@@ -795,8 +795,7 @@ td {
 				document.getElementById("btn_buyOrSell").style.background = "#FC6";
 				//document.getElementById("joinRank").disabled = false;        
 				//document.getElementById("joinRank").style.background = "rgb(230, 230, 230)";
-
-
+				
 				// 確保投資人最終資產部位為現金的按鍵限制設定(如果投資人之前持有現金，最後一天強制等待；持有股票，最後一天強制賣出)
 				if ((parseInt($("#day").text())) == parseInt($("#playingDuration").text())) {
 					if ($("#asset").text().substring(0,2) == "現金") {
@@ -808,7 +807,10 @@ td {
 					}
 				}
 
+				
+
 			}
+			
 		});
 
 		</script>

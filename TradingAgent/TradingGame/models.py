@@ -68,7 +68,7 @@ class Setup(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE) # 用戶編號(外來鍵)
 	stock_code = models.ForeignKey(StockCode, on_delete = models.CASCADE) # 股票代碼
 	initial_transaction_date = models.DateField() # 起始交易日
-	playing_duration = models.IntegerField(choices = ((60, '60個交易日(三個月)'), (240, '240個交易日(一年)'))) 
+	playing_duration = models.IntegerField(choices = ((60, '60個交易日(三個月)'), (240, '240個交易日(一年)'), (5, '5個交易日(一週，測試用)'))) 
 		# 遊玩天數(只計股市交易日)
 	principal = models.IntegerField() # 本金
 	transaction_cost_rate_buy = models.FloatField(default = 0.001425) # 交易成本比率(買進)
