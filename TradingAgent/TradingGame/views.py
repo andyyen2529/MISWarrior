@@ -183,24 +183,21 @@ def addingHistory_waitOrHold(request):
 	if action_robot == '買入':
 		position_after_action_robot = '股票'
 		last_trading_price_after_action_robot = float(request.POST.get('closingPricePrev'))
-		rate_of_return_after_action_robot = (
-			(1 + history.rate_of_return_after_action_robot) / (1 + history.setup.transaction_cost_rate_buy) - 1
-		) 
 		cash_held_after_action_robot = 0
 		number_of_shares_held_after_action_robot = (
 			history.cash_held_after_action_robot / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy))
 		)
+		rate_of_return_after_action_robot = (
+			number_of_shares_held_after_action_robot * tradingPrice / history.setup.principal - 1
+		) 
 
 	elif action_robot == '賣出':
 		position_after_action_robot = '現金'
 		last_trading_price_after_action_robot = tradingPrice 
-		rate_of_return_after_action_robot = (
-			(1 + history.rate_of_return_after_action_robot) * (tradingPrice * (1 - history.setup.transaction_cost_rate_sell) 
-				/ history.last_trading_price_after_action_robot) - 1
-		)
 		cash_held_after_action_robot = (
 			history.number_of_shares_held_after_action_robot * tradingPrice * (1 - history.setup.transaction_cost_rate_sell)
 		)
+		rate_of_return_after_action_robot = cash_held_after_action_robot / history.setup.principal - 1
 		number_of_shares_held_after_action_robot = 0
 
 	else:
@@ -331,24 +328,21 @@ def addingHistory_buyOrSell(request):
 	if action_robot == '買入':
 		position_after_action_robot = '股票'
 		last_trading_price_after_action_robot = float(request.POST.get('closingPricePrev'))
-		rate_of_return_after_action_robot = (
-			(1 + history.rate_of_return_after_action_robot) / (1 + history.setup.transaction_cost_rate_buy) - 1
-		) 
 		cash_held_after_action_robot = 0
 		number_of_shares_held_after_action_robot = (
 			history.cash_held_after_action_robot / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy))
 		)
+		rate_of_return_after_action_robot = (
+			number_of_shares_held_after_action_robot * tradingPrice / history.setup.principal - 1
+		) 
 
 	elif action_robot == '賣出':
 		position_after_action_robot = '現金'
 		last_trading_price_after_action_robot = tradingPrice 
-		rate_of_return_after_action_robot = (
-			(1 + history.rate_of_return_after_action_robot) * (tradingPrice * (1 - history.setup.transaction_cost_rate_sell) 
-				/ history.last_trading_price_after_action_robot) - 1
-		)
 		cash_held_after_action_robot = (
 			history.number_of_shares_held_after_action_robot * tradingPrice * (1 - history.setup.transaction_cost_rate_sell)
 		)
+		rate_of_return_after_action_robot = cash_held_after_action_robot / history.setup.principal - 1
 		number_of_shares_held_after_action_robot = 0
 
 	else:
@@ -384,12 +378,10 @@ def addingHistory_buyOrSell(request):
 			day = int(history.day) + 1, 
 			action = '買入',
 			position_after_action = '股票', 
-			last_trading_price_after_action = tradingPrice,
-			rate_of_return_after_action = 
-				(1 + history.rate_of_return_after_action) / (1 + history.setup.transaction_cost_rate_buy) - 1, 
+			last_trading_price_after_action = tradingPrice, 
 			cash_held_after_action = 0,
-			number_of_shares_held_after_action = 
-				history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy)),
+			number_of_shares_held_after_action = history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy)),
+			rate_of_return_after_action = (history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy))) * tradingPrice / history.setup.principal - 1,
 			action_robot = action_robot,
 			position_after_action_robot = position_after_action_robot, 
 			last_trading_price_after_action_robot = last_trading_price_after_action_robot,
@@ -407,12 +399,10 @@ def addingHistory_buyOrSell(request):
 			action = '賣出',
 			position_after_action = '現金', 
 			last_trading_price_after_action = tradingPrice,
-			rate_of_return_after_action = (
-				(1 + history.rate_of_return_after_action) * (tradingPrice * (1 - history.setup.transaction_cost_rate_sell)
-					 / history.last_trading_price_after_action) - 1
-			), 
 			cash_held_after_action = 
 				history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate_sell),
+			rate_of_return_after_action = 
+				(history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate_sell)) / history.setup.principal - 1, 
 			number_of_shares_held_after_action = 0,
 			action_robot = action_robot,
 			position_after_action_robot = position_after_action_robot, 
