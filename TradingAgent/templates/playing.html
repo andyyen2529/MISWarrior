@@ -341,139 +341,7 @@ td {
 
 	<div id = 'decision'>
 
-		<script>
-		 
-		
-		// 保留股價資訊用來畫圖，持續更新
-		var pseries = {{price}};
-		var dseries = {{date|safe}};
-
-		 // 獲取歷史紀錄
-			$('#btn_openTransactionHistory').click(function(){
-				$("#div_transactionHistory").show();
-				$.ajax({
-					url : "/ajax/history/", // the endpoint
-					type : "POST", // http method
-					data: {csrfmiddlewaretoken: "{{ csrf_token }}"}, 
-
-					// handle a successful response
-					success : function(json) {
-						console.log("success"); // another sanity check
-						var myJSON = JSON.stringify(json);
-						$("#historyField").text(myJSON);
-
-		var _table_ = document.createElement('table'),
-				_tr_ = document.createElement('tr'),
-				_th_ = document.createElement('th'),
-				_td_ = document.createElement('td');
-
-
-		// Builds the HTML Table out of myList json data from Ivy restful service.
-		function buildHtmlTable(arr) {
-			 var table = _table_.cloneNode(false),
-					 columns = addAllColumnHeaders(arr, table);
-			 for (var i=0, maxi=arr.length; i < maxi; ++i) {
-					 var tr = _tr_.cloneNode(false);
-					 for (var j=1, maxj=columns.length; j < maxj ; ++j) {
-							var td = _td_.cloneNode(false);
-
-							if (arr[i][columns[j]] == null) {
-								td.appendChild(document.createTextNode('暫無'));
-							} 
-
-							// 挑整報酬率的顯示方式
-							else if (j == 5 || j == 11) {
-								td.appendChild(document.createTextNode((arr[i][columns[j]] * 100).toFixed(3).toString().concat('%')));
-							}
-
-							// 如果數字型態的資料長度過長，則保留至三位
-							else if (typeof(arr[i][columns[j]]) == 'number' && 
-								arr[i][columns[j]].toString().length > 10) {
-								td.appendChild(document.createTextNode(arr[i][columns[j]].toFixed(4)));
-							} 
-
-							else {
-								td.appendChild(document.createTextNode(arr[i][columns[j]]));
-							}
-							tr.appendChild(td);
-					 }
-					 table.appendChild(tr);
-			 }
-			 return table;
-	 }
-	 
-	 // Adds a header row to the table and returns the set of columns.
-	 // Need to do union of keys from all records as some records may not contain
-	 // all records
-	 function addAllColumnHeaders(arr, table)
-	 {
-			 var columnSet = [],
-					 tr = _tr_.cloneNode(false);
-			 for (var i=0, l=arr.length; i < l; i++) {
-					 for (var key in arr[i]) {
-							 if (arr[i].hasOwnProperty(key) && columnSet.indexOf(key)===-1) {
-									 columnSet.push(key);
-							 }
-					 }
-			 }
-
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('天數'));
-			 tr.appendChild(th);
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('行動'));
-			 tr.appendChild(th);
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('持有資產種類'));
-			 tr.appendChild(th);
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('最後交易價格'));
-			 tr.appendChild(th);
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('報酬率'));
-			 tr.appendChild(th);
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('持有現金量'));
-			 tr.appendChild(th);
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('持有股數'));
-			 tr.appendChild(th);
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('行動\n(股獲仔)'));
-			 tr.appendChild(th);
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('持有資產種類\n(股獲仔)'));
-			 tr.appendChild(th);
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('最後交易價格\n(股獲仔)'));
-			 tr.appendChild(th);
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('報酬率\n(股獲仔)'));
-			 tr.appendChild(th);
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('持有現金量\n(股獲仔)'));
-			 tr.appendChild(th);
-			 var th = _th_.cloneNode(false);
-			 th.appendChild(document.createTextNode('持有股數\n(股獲仔)'));
-			 tr.appendChild(th);
-			 table.appendChild(tr)
-
-			 return columnSet;
-	 }
-
-	const myNode = document.getElementById("div_transactionHistory-historyTable");
-	while (myNode.firstChild) {
-		myNode.removeChild(myNode.firstChild);
-	}
-	document.getElementById('div_transactionHistory-historyTable').appendChild(buildHtmlTable(json));
-
-
-						},
-						error: function() {
-							$('.testing').text('失敗');
-						},
-					});
-				});
+		<script type="text/javascript">
 
 
 			var newClosingPrice = 0;
@@ -524,6 +392,9 @@ td {
 				});
 			});
 								 
+			// 保留股價資訊用來畫圖，持續更新
+			var pseries = {{price}};
+			var dseries = {{date|safe}};
 
 			function plot(color) {
 
@@ -827,20 +698,6 @@ td {
 	<input type="button" class="button1" id='btn_closeTransactionHistory' value="關閉交易歷史">    
 	<p></p>
 	</div>
-
-
-	<script type="text/javascript">
-
-		// 關閉歷史資料的相關處理
-		$('#btn_closeTransactionHistory').click(function(){
-			const myNode = document.getElementById("div_transactionHistory-historyTable");
-			while (myNode.firstChild) {
-				myNode.removeChild(myNode.firstChild);
-			}
-			$("#div_transactionHistory").hide();
-		});
-	</script>
-
 
 {% else %}
 <div id = 'signUpNotificationDiv'>

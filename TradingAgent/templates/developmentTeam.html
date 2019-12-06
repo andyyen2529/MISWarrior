@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block styles %}
+{% load static %}
 <style type="text/css">
 th {
   font-family: '微軟正黑體';
@@ -19,45 +20,141 @@ table{
 	border-style:inset;
 	border-collapse:collapse;
 }
+.team-section{
+  background: rgba(241,241,241,0.8);
+  text-align: center;
+  width: 80%;
+  margin: 0px auto;
+}
+.inner-width{
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px;
+  color: #333;
+  overflow: hidden;
+}
+.team-section h1{
+  font-size: 48px;
+  text-transform: uppercase;
+  display: inline-block;
+  border-bottom: 4px solid;
+  padding-bottom: 10px;
+}
+.pe{
+  float: left;
+  width: calc(100% / 3);
+  overflow: hidden;
+  padding: 40px 0;
+  transition: 0.4s;
+}
+.pe:hover{
+  background: rgb(200,200,200);
+  transform: scale(1.1);
+}
+.pe img{
+  width: 200px;
+  height: 200px;
+}
+.p-name{
+  margin: 16px 0;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: bold;
+}
+.p-des{
+  color: #333;
+  font-size: 18px;
+}
+.p-sm{
+  margin-top: 12px;
+}
+.p-sm a{
+  margin: 0 4px;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  transition: 0.4s;
+}
+.p-sm a:hover{
+  transform: scale(1.3);
+}
+.p-sm a i{
+  color: #333;
+  line-height: 30px;
+}
+@media screen and (max-width:600px) {
+  .pe{
+    width: 100%;
+  }
+}
 </style>
 {% endblock styles %}
 {% block content %}
 
-<p style="font-family:微軟正黑體;font-weight:bold;font-size:300%;text-align: center;">開發團隊</p>
 
-  <table width=50% border="5">
 
-  　<tr>
-    　<th>名稱</th>
-    　<th>職位</th>
-    </tr>
+ 
+  <div class="team-section">
+    <div class="inner-width">
+      <h1>開發團隊</h1>
+      <div class="pers">
+ 
+ 
+        <div class="pe">
+          <img src="{% static 'images/顏煥勳.png' %}" alt="">
+          <div class="p-name">顏煥勳</div>
+          <div class="p-des">隊長、模型訓練、系統開發、投影片製作</div>
+          <div class="p-sm">
+          </div>
+        </div>
+ 
+        <div class="pe">
+          <img src="{% static 'images/林聖典.png' %}" alt="">
+          <div class="p-name">林聖典</div>
+          <div class="p-des">模型訓練、系統開發、投影片製作</div>
+          <div class="p-sm">
+          </div>
+        </div>
+ 
+        <div class="pe">
+          <img src="{% static 'images/陳宇鑫.png' %}", alt="">
+          <div class="p-name">陳宇鑫</div>
+          <div class="p-des">模型訓練、系統開發、海報設計</div>
+          <div class="p-sm">
+          </div>
+        </div>
 
-	<tr>
-	　<td id="code">顏煥勳</td>
-	　<td id="date">隊長、程式設計、系統設計、網站開發</td>
-	</tr>
-	　<tr>
-	　<td id="code">林聖典</td>
-	　<td id="date">程式設計、系統設計、網站開發</td>
-	</tr>
-	　<tr>
-	　<td id="code">陳宇鑫</td>
-	　<td id="date">程式設計、系統設計、網站開發</td>
-	</tr>
-	　<tr>
-	　<td id="code">林于軒</td>
-	　<td id="date">程式設計、網站開發</td>
-	</tr>
-	　<tr>
-	　<td id="code">彭琮鈺</td>
-	　<td id="date">程式設計、系統設計、網站開發</td>
-	</tr>
-	　<tr>
-	　<td id="code">吳庭儀</td>
-	　<td id="date">網站開發</td>
-	</tr>
-  </table>
-<p style="text-align: center;">備註：按學號排序</p>
+        <div class="pe">
+          <img src="{% static 'images/林于軒.png' %}", alt="">
+          <div class="p-name">林于軒</div>
+          <div class="p-des">20P文案、網站背景設計</div>
+          <div class="p-sm">
+          </div>
+        </div>
+
+        <div class="pe">
+          <img src="{% static 'images/彭琮鈺.png' %}", alt="">
+          <div class="p-name">彭琮鈺</div>
+          <div class="p-des">模型訓練、系統開發、海報設計</div>
+          <div class="p-sm">
+          </div>
+        </div>
+
+        <div class="pe">
+          <img src="{% static 'images/吳庭儀.png' %}", alt="">
+          <div class="p-name">吳庭儀</div>
+          <div class="p-des">宣傳片拍攝</div>
+          <div class="p-sm">
+          </div>
+        </div>
+    </div>
+
+	&emsp;
+    <p style="text-align: center;">備註：按學號由左至右，由上至下排序</p>
+  </div>
+
+<!--
 <p style="text-align: center;">我們是第17組</p>
 <p style="text-align: center;">專案上台順序：第3組</p>
+-->
 {% endblock %}
