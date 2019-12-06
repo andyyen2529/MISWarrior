@@ -380,9 +380,8 @@ def addingHistory_buyOrSell(request):
 			position_after_action = '股票', 
 			last_trading_price_after_action = tradingPrice, 
 			cash_held_after_action = 0,
-			number_of_shares_held_after_action = 
-				history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy)),
-			rate_of_return_after_action = number_of_shares_held_after_action * tradingPrice / history.setup.principal - 1,
+			number_of_shares_held_after_action = history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy)),
+			rate_of_return_after_action = (history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy))) * tradingPrice / history.setup.principal - 1,
 			action_robot = action_robot,
 			position_after_action_robot = position_after_action_robot, 
 			last_trading_price_after_action_robot = last_trading_price_after_action_robot,
@@ -402,7 +401,8 @@ def addingHistory_buyOrSell(request):
 			last_trading_price_after_action = tradingPrice,
 			cash_held_after_action = 
 				history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate_sell),
-			rate_of_return_after_action = cash_held_after_action / history.setup.principal - 1, 
+			rate_of_return_after_action = 
+				(history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate_sell)) / history.setup.principal - 1, 
 			number_of_shares_held_after_action = 0,
 			action_robot = action_robot,
 			position_after_action_robot = position_after_action_robot, 
