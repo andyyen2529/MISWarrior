@@ -7,13 +7,14 @@
 	    position: relative;
 	    margin:0px auto; /* 讓該div置中 */
 	    width: 80%;
-	    top: 10vh;
-	    height: 60vh;
+	    height: 70vh;
+	    top: 10%;
+	    overflow: hidden;
 	}
 	#home-Div1-innerDiv1 {
 		position: absolute;
 		width: 50%;
-		height: 100%;
+		height: 80%;
 		background-image: url("{% static 'images/stockWinner_01.png' %}");
 		background-size: 60% 80%;
 		background-repeat: no-repeat;
@@ -24,34 +25,141 @@
 		width: 50%;
 		height: 100%;
 		left: 50%;
-		background-color: rgba(255,255,255,0.4);
 		font-weight: bold;
 		font-size: 3rem;
 		text-align: center; 
+	}
+	.our-service {
+		background-color: rgb(255,255,255);
+		text-align: center;
+		margin: 0px auto;
+		max-width: 100%;
+		padding: 40px;
+		color: #333;
+		overflow: hidden;
+	}
+	.our-service h1{
+		font-size: 24px;
+		text-transform: uppercase;
+		display: inline-block;
+		border-bottom: 4px solid;
+		padding-bottom: 10px;
+	}
+	.our-service .block{
+	  float: left;
+	  width: calc(80% / 3);
+	  overflow: hidden;
+	  padding: calc(20%/6);
+	  transition: 0.4s;
+	  text-align: left;
+	}
+	.core-technology {
+		background-color: rgb(0,0,0,0.5);
+		text-align: center;
+		margin: 0px auto;
+		max-width: 100%;
+		padding: 40px;
+		color: white;
+		overflow: hidden;
+	}
+	.core-technology h1{
+		font-size: 24px;
+		text-transform: uppercase;
+		display: inline-block;
+		border-bottom: 4px solid;
+		padding-bottom: 10px;
+	}
+	.core-technology .block{
+	  float: left;
+	  width: calc(80% / 2);
+	  overflow: hidden;
+	  padding: calc(20%/4);
+	  transition: 0.4s;
+	  text-align: left;
 	}
 </style>
 {% endblock styles %}
 
 {% block content %}
 
-	<div id = 'home-Div1'>
+<div id = 'home-Div1'>
 
-	  	<div id = 'home-Div1-innerDiv1'></div>
+  	<div id = 'home-Div1-innerDiv1'></div>
 
-	  	<div id = 'home-Div1-innerDiv2'>
-	  		<p>歡迎來到</p>
-	  		<p>股獲仔 - 智能投資平台</p>
-			 <form id="infoForm" method="post" action="">
-                {% if not user.is_authenticated %}
-                	<input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" 
-                	value="立即使用" />
-                {% endif %}
-                <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/aboutMe/';" 
-                	value="了解更多" />
-			 </form>
-	  	</div>
+  	<div id = 'home-Div1-innerDiv2'>
+  		<p>歡迎來到</p>
+  		<p>股獲仔 - 智能投資平台</p>
+		 <form id="infoForm" method="post" action="">
+            {% if not user.is_authenticated %}
+            	<input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" 
+            	value="立即使用" />
+            {% endif %}
+            <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/developmentTeam/';" 
+            	value="聯絡我們" />
+		 </form>
+  	</div>
 
+</div>
+
+<div class="core-technology">
+	<h1>關於股獲仔</h1>
+	<p>股獲仔以剛接觸股票市場的新鮮人為主要客群，透過DDQN(Double Deep Q Network)將人工智慧應用在股市的交易上，為使用者提供個股投資模擬和智能投資建議。</p>
+	<p>目前股獲仔是以個股的交易為主，短期目標是打敗Buy&Hold的投資策略，中長期目標則是希望能媲美專業的股票技術分析師。</p>
+
+	<div class="embed-responsive embed-responsive-16by9">
+		<iframe width="773" height="434" src="https://www.youtube.com/embed/iDxIqQIykxA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</div>
+	
+</div>
+
+<div class="our-service">
+	<h1>我們提供的服務</h1>
+	<div>
+		<div class="block">
+			<i class="fas fa-gamepad" style="font-size:60px;color:lightblue;"></i>
+			<h4>個股投資模擬</h4>
+			<p>使用者交易設定之後，進行操作，並且能和股獲仔的模擬結果互相比較。而模擬結束之後，玩家能將模擬的結果加入「股神排行榜」中，
+			和其他用戶一起競爭。</p>
+		</div>
+		<div class="block">
+			<i class="fas fa-robot" style="font-size:60px;color:lightgreen;"></i>
+			<h4>智能投資建議</h4>
+			<p>使用者可以選擇目標投資的個股，每個交易日股市開盤之前，股獲仔會給予用戶針對該股的投資行動，
+			用戶只需照著股獲仔的建議去投資，並讓投資人有一定的獲利程度。</p>
+		</div>
+		<div class="block">
+			<i class="fas fa-tools" style="font-size:60px;color:gray;"></i>
+			<h4>更多開發中的功能</h4>
+			<p>敬請期待！</p>
+		</div>
+	</div>
+</div>
+
+
+<div class="core-technology">
+	<h1>核心技術</h1>
+	<p>我們使用強化學習打造投資機器人，相較於以往的由投資顧問僅限上班時間提供的交易建議，我們的投資機器人沒有使用時間限制，且模擬投資過數千數萬次股票交易，經驗更加豐富。又相較於一般的機器學習方法，使用強化學習，不再只是「預測」，而是真正的「提出交易決策」給使用者參考。</p>
+	<div>
+		<div class="block">
+			<i class="fas fa-network-wired" style="font-size:60px;"></i>
+			<h4>DQN - 深度強化學習網路</h4>
+			<p>股獲仔透過DQN的架構，在訓練的環境中不斷的嘗試，並逐漸發展出一套能夠獲利的投資策略，給予投資人優質的投資建議。</p>
+		</div>
+		<div class="block">
+			<i class="fas fa-filter" style="font-size:60px;color:pink;"></i>
+			<h4>菁英篩選機制</h4>
+			<p>透過該機制，確保模型能夠在未來也能有一定的預測準確度。</p>
+		</div>
+	</div>
+</div>
+
+<div class="our-service">
+	<h1>宣傳海報</h1>
+	<br>
+	<div class="pe">
+		<img src="{% static 'images/宣傳海報.png' %}", alt="", width="450px", height="636px">
+	</div>
+</div>
 
 {% endblock %}
 

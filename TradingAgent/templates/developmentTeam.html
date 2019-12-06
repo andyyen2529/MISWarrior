@@ -55,6 +55,21 @@ table{
   width: 200px;
   height: 200px;
 }
+.pe2{
+  float: left;
+  width: 100%;
+  overflow: hidden;
+  padding: 40px 0;
+  transition: 0.4s;
+}
+.pe2:hover{
+  background: rgb(200,200,200);
+  transform: scale(1.1);
+}
+.pe2 img{
+  width: 580px;
+  height: 435px;
+}
 .p-name{
   margin: 16px 0;
   text-transform: uppercase;
@@ -64,6 +79,16 @@ table{
 .p-des{
   color: #333;
   font-size: 18px;
+}
+.p2-name{
+  margin: 16px 0;
+  text-transform: uppercase;
+  font-size: 36px;
+  font-weight: bold;
+}
+.p2-des{
+  color: #333;
+  font-size: 24px;
 }
 .p-sm{
   margin-top: 12px;
@@ -81,6 +106,7 @@ table{
 .p-sm a i{
   color: #333;
   line-height: 30px;
+  font-size: 30px;
 }
 @media screen and (max-width:600px) {
   .pe{
@@ -99,12 +125,20 @@ table{
       <h1>開發團隊</h1>
       <div class="pers">
  
+        <div class="pe2">
+          <img src="{% static 'images/莊皓鈞.png' %}" alt="">
+          <div class="p2-name">莊皓鈞</div>
+          <div class="p2-des">指導教授</div>
+          <div class="p-sm">
+          </div>
+        </div>
  
         <div class="pe">
           <img src="{% static 'images/顏煥勳.png' %}" alt="">
           <div class="p-name">顏煥勳</div>
-          <div class="p-des">隊長、模型訓練、系統開發、投影片製作</div>
+          <div class="p-des">隊長、模型訓練、系統開發、投影片製作</div> 
           <div class="p-sm">
+            <a href="https://www.facebook.com/andy.yen.902"><i class="fab fa-facebook-square"></i></a>
           </div>
         </div>
  
@@ -113,6 +147,7 @@ table{
           <div class="p-name">林聖典</div>
           <div class="p-des">模型訓練、系統開發、投影片製作</div>
           <div class="p-sm">
+            <a href="https://www.facebook.com/profile.php?id=100004503949411"><i class="fab fa-facebook-square"></i></a>
           </div>
         </div>
  
@@ -121,6 +156,9 @@ table{
           <div class="p-name">陳宇鑫</div>
           <div class="p-des">模型訓練、系統開發、海報設計</div>
           <div class="p-sm">
+            <a href="https://www.facebook.com/profile.php?id=100002933237558"><i class="fab fa-facebook-square"></i></a>
+            <a href="mailto:kevin123uuu000@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.youtube.com/channel/UCXwfINMK9d5BZK_yXLbfBKQ"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
 
@@ -129,6 +167,7 @@ table{
           <div class="p-name">林于軒</div>
           <div class="p-des">20P文案、網站背景設計</div>
           <div class="p-sm">
+            <a href="https://www.facebook.com/profile.php?id=100000442050416"><i class="fab fa-facebook-square"></i></a>
           </div>
         </div>
 
@@ -137,6 +176,7 @@ table{
           <div class="p-name">彭琮鈺</div>
           <div class="p-des">模型訓練、系統開發、海報設計</div>
           <div class="p-sm">
+            <a href="https://www.facebook.com/tsungyu.peng"><i class="fab fa-facebook-square"></i></a>
           </div>
         </div>
 
@@ -145,12 +185,21 @@ table{
           <div class="p-name">吳庭儀</div>
           <div class="p-des">宣傳片拍攝</div>
           <div class="p-sm">
+            <a href="https://www.facebook.com/profile.php?id=100002331340775"><i class="fab fa-facebook-square"></i></a>
           </div>
         </div>
     </div>
 
-	&emsp;
+	  &emsp;
     <p style="text-align: center;">備註：按學號由左至右，由上至下排序</p>
+    <br>
+    <img src="{% static 'images/政大.png' %}", alt="", height="200px", width="200px">
+    &nbsp;
+    &nbsp;
+    <img src="{% static 'images/政大商學院.gif' %}", alt="", height="200px", width="200px">
+    &nbsp;
+    &nbsp;
+    <img src="{% static 'images/政大資管系.png' %}", alt="", height="200px", width="200px">
   </div>
 
 <!--

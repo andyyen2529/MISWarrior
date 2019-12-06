@@ -10,6 +10,7 @@
         <link rel="shortcut icon" href="{% static 'images/stockWinner_02.png' %}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 		<!-- 可以讓當前網頁的網址變為active腳本 -->
 		<script>
@@ -101,6 +102,9 @@
 				list-style: none;   /* 移除項目符號 */
 				margin: 0;
 				padding: 0;
+				position: fixed; /* Set the navbar to fixed position */
+				width: 100%;
+				z-index:9999;
 			}
 
 			#menuBar a {
@@ -125,8 +129,8 @@
 			}
 
 
-			#stockGame a {
-
+			#menubarAdj {
+				height: 8%;
 			}
 
 			/* 讓當前網頁對應的菜單列選項變色且不能按 */
@@ -145,11 +149,14 @@
     </head>
     <body background = "{% static 'images/bg_V2.png' %}">
 
+	<header>
         <div id = 'menuBar'>
             <ul class="flex-div">
             	<img src = "{% static 'images/stockWinner_02.png' %}" width="50px" height="60px">
                 <li><a href="http://127.0.0.1:8000/">首頁</a></li> 
+                <!--
                 <li><a href="http://127.0.0.1:8000/aboutMe/">關於股獲仔</a></li>
+            	-->
                 <li><a href="http://127.0.0.1:8000/developmentTeam/">開發團隊</a></li>
 
 
@@ -169,15 +176,12 @@
                 {% endif %}
             </ul>
         </div>
+    </header>
+
+    <div id='menubarAdj'></div>
 
    		{% block content %}
     	{% endblock %}
-
-<!-- 		<footer>
-			<p>Copyright© 2019 StockWinner All Right Reserved</p>
-			<p>服務條款 | 隱私權政策</p>
-		</footer> -->
-
 
 		<!-- 「交易歷史」的相關腳本 -->
 		<script>
