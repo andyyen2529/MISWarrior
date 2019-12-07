@@ -86,13 +86,11 @@ def playing(request):
 				code = StockCode.objects.get(code = request.POST.get('setup.stock_code')),
 				date = request.POST.get('setup.initial_transaction_date')
 			)
-			#print(stock_firstTradingDay)
 			setup.save()
 
 		# 把交易成本比率乘上100，之後在網頁改用百分比呈現
 		transaction_cost_rate_buy = setup.transaction_cost_rate_buy * 100
 		transaction_cost_rate_sell = setup.transaction_cost_rate_sell * 100
-		print(setup.transaction_cost_rate_sell)
 
 		# 創建第一筆歷史資料
 		history = History.objects.create(setup = setup, day = 0, action = 0,
@@ -149,12 +147,14 @@ def addingHistory_waitOrHold(request):
 
 	tradingPrice = float(request.POST.get('closingPricePrev'))
 
+	# 如果已經到了最後一個交易日，要改成以下的程式碼取才會取到正確的交易價格，使持有的報酬率能夠變動(資料傳輸程式設計的問題)
+	if int(history.day) + 1 == history.setup.playing_duration:
+		tradingPrice = float(request.POST.get('closingPrice'))
+
 	if history.position_after_action_robot == '現金':
 		position = 0
 	else:
 		position = 1
-
-	print(stock.date)
 
 	state = [
 		stock.closing_price_MA5, stock.closing_price_MA10,	stock.closing_price_MA20, 
@@ -172,13 +172,11 @@ def addingHistory_waitOrHold(request):
 	action_robot = makeDecision(position, adviseAction(state, history.setup.playing_duration))
 
 	# 確保電腦最終資產部位為現金(如果電腦之前持有現金，最後一天強制等待；持有股票，最後一天強制賣出)
-	#print(int(history.day) + 1)
-	#print(history.position_after_action_robot)
-	if int(history.day) + 1 == history.setup.playing_duration:
-		if history.position_after_action_robot == '現金':
-			action_robot == '等待'
-		else:
-			action_robot == '賣出'
+	# if int(history.day) + 1 == history.setup.playing_duration:
+	# 	if history.position_after_action_robot == '現金':
+	# 		action_robot = '等待'
+	# 	else:
+	# 		action_robot = '賣出'
 
 	if action_robot == '買入':
 		position_after_action_robot = '股票'
@@ -231,7 +229,6 @@ def addingHistory_waitOrHold(request):
 	if int(history.day) + 1 == history.setup.playing_duration and history.position_after_action == '股票':
 		# 雖然最後一天玩家選擇持有股票，但是已到達結算成績的時間點，需要將持有的股票依結束日之收盤價換算現值計算投資報酬率
 		tradingPrice = float(request.POST.get('closingPrice')) # 因為程式碼設計的問題，最後一天要這樣改取才會取到正確的交易價格
-		#print(tradingPrice)
 		rate_of_return_after_action = (1 + history.rate_of_return_after_action) * (
 			tradingPrice / history.last_trading_price_after_action) - 1 # 由於沒有實際的賣出動作，故沒有納入交易成本
 	else:
@@ -296,6 +293,10 @@ def addingHistory_buyOrSell(request):
 
 	tradingPrice = float(request.POST.get('closingPricePrev'))
 
+	# 如果已經到了最後一個交易日，要改成以下的程式碼取才會取到正確的交易價格，使持有的報酬率能夠變動(資料傳輸程式設計的問題)
+	if int(history.day) + 1 == history.setup.playing_duration:
+		tradingPrice = float(request.POST.get('closingPrice'))
+
 	if history.position_after_action_robot == '現金':
 		position = 0
 	else:
@@ -317,13 +318,11 @@ def addingHistory_buyOrSell(request):
 	action_robot = makeDecision(position, adviseAction(state, history.setup.playing_duration))
 
 	# 確保電腦最終資產部位為現金(如果電腦之前持有現金，最後一天強制等待；持有股票，最後一天強制賣出)
-	#print(int(history.day) + 1)
-	#print(history.position_after_action_robot)
-	if int(history.day) + 1 == history.setup.playing_duration:
-		if history.position_after_action_robot == '現金':
-			action_robot == '等待'
-		else:
-			action_robot == '賣出'
+	# if int(history.day) + 1 == history.setup.playing_duration:
+	# 	if history.position_after_action_robot == '現金':
+	# 		action_robot = '等待'
+	# 	else:
+	# 		action_robot = '賣出'
 
 	if action_robot == '買入':
 		position_after_action_robot = '股票'
