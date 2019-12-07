@@ -3,31 +3,50 @@
 
 {% block styles %}
 <style type="text/css">
-	#home-Div1 {
-	    position: relative;
-	    margin:0px auto; /* 讓該div置中 */
-	    width: 80%;
-	    height: 70vh;
-	    top: 10%;
-	    overflow: hidden;
-	}
 	#home-Div1-innerDiv1 {
-		position: absolute;
+		position: relative;
 		width: 50%;
-		height: 80%;
+		left: 20%;
+		float: left;
+		/*
 		background-image: url("{% static 'images/stockWinner_01.png' %}");
 		background-size: 60% 80%;
+		*/
 		background-repeat: no-repeat;
 		background-position: center;
 	}
 	#home-Div1-innerDiv2 {
-		position: absolute;
-		width: 50%;
-		height: 100%;
-		left: 50%;
+		position: relative;
+		width: 45%;
+		right: 5%;
 		font-weight: bold;
 		font-size: 3rem;
 		text-align: center; 
+		float: left;
+	}
+	.welcome {
+		text-align: center;
+		margin: 0px auto;
+		max-width: 100%;
+		padding: 40px;
+		color: #333;
+		overflow: hidden;
+	}
+	.welcome h1{
+		font-size: 24px;
+		text-transform: uppercase;
+		display: inline-block;
+		border-bottom: 4px solid;
+		padding-bottom: 10px;
+	}
+	.welcome .block{
+	  float: left;
+	  width: calc(90% / 2);
+	  overflow: hidden;
+	  padding: calc(5%/4);
+	  text-align: center;
+	  font-size: 3rem;
+	  font-weight: bold;
 	}
 	.our-service {
 		background-color: rgb(255,255,255);
@@ -77,34 +96,43 @@
 	  transition: 0.4s;
 	  text-align: left;
 	}
+	footer {
+		background-color: dimgray;
+		width: 100%;
+		color: white;
+		display: flex;
+		justify-content: space-around;
+		text-align: center;
+	}
 </style>
 {% endblock styles %}
 
 {% block content %}
 
-<div id = 'home-Div1'>
-
-  	<div id = 'home-Div1-innerDiv1'></div>
-
-  	<div id = 'home-Div1-innerDiv2'>
-  		<p>歡迎來到</p>
-  		<p>股獲仔 - 智能投資平台</p>
-		 <form id="infoForm" method="post" action="">
-            {% if not user.is_authenticated %}
-            	<input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" 
-            	value="立即使用" />
-            {% endif %}
-            <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/developmentTeam/';" 
-            	value="聯絡我們" />
-		 </form>
-  	</div>
-
+<div class="welcome">
+	<div>
+		<div class="block">
+			<img src = "{% static 'images/stockWinner_01.png' %}" width="353" height="371">
+		</div>
+		<div class="block" style="border:5px #333 solid;">
+	  		<p>歡迎來到</p>
+	  		<p>股獲仔 - 智能投資平台</p>
+			 <form id="infoForm" method="post" action="">
+	            {% if not user.is_authenticated %}
+	            	<input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/accounts/login/';" 
+	            	value="立即使用" />
+	            	&nbsp;
+	            {% endif %}
+	            <input type="button" id="input-style1" onclick="location.href='http://127.0.0.1:8000/developmentTeam/';" 
+	            	value="聯絡我們" />
+			 </form>
+		</div>
+	</div>
 </div>
 
 <div class="core-technology">
 	<h1>關於股獲仔</h1>
-	<p>股獲仔以剛接觸股票市場的新鮮人為主要客群，透過DDQN(Double Deep Q Network)將人工智慧應用在股市的交易上，為使用者提供個股投資模擬和智能投資建議。</p>
-	<p>目前股獲仔是以個股的交易為主，短期目標是打敗Buy&Hold的投資策略，中長期目標則是希望能媲美專業的股票技術分析師。</p>
+	<p>股獲仔以剛接觸股票市場的新鮮人為主要客群，透過DDQN(Double Deep Q Network)將人工智慧應用在股市的交易上，為使用者提供個股投資模擬和智能投資建議。目前股獲仔是以個股的交易為主，短期目標是打敗Buy&Hold的投資策略，中長期目標則是希望能媲美專業的股票技術分析師。</p>
 
 	<div class="embed-responsive embed-responsive-16by9">
 		<iframe width="773" height="434" src="https://www.youtube.com/embed/iDxIqQIykxA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -118,19 +146,17 @@
 		<div class="block">
 			<i class="fas fa-gamepad" style="font-size:60px;color:lightblue;"></i>
 			<h4>個股投資模擬</h4>
-			<p>使用者交易設定之後，進行操作，並且能和股獲仔的模擬結果互相比較。而模擬結束之後，玩家能將模擬的結果加入「股神排行榜」中，
-			和其他用戶一起競爭。</p>
+			<p>使用者首先需要進行交易設定(包含投資標的、交易起始日、交易天數、本金和交易成本)，之後就能對目標投資的個股進行操盤。在每一個交易日中，玩家可以根據近30天該股的走勢圖(玩家過去的決策會同時顯示在走勢圖中)和當前的狀態變數選擇自己認為有利的投資策略，並隨時能調閱交易的歷史紀錄。投資模擬結束之後，玩家能將模擬的結果加入「股神排行榜」，和其他的用戶一同競爭。</p>
+		</div>
+		<div class="block">
+			<i class="fas fa-chess-knight" style="font-size:60px;color:gray;"></i>
+			<h4>玩家 VS. AI</h4>
+			<p>在進行「個股投資模擬」的時候，玩家會同時看到股獲仔的交易決策和當前的資產部位，使玩家可以和股獲仔比拚投資績效。如果玩家屢屢被股獲仔打敗，那麼我們將推薦您使用「智能投資建議」的服務。</p>
 		</div>
 		<div class="block">
 			<i class="fas fa-robot" style="font-size:60px;color:lightgreen;"></i>
 			<h4>智能投資建議</h4>
-			<p>使用者可以選擇目標投資的個股，每個交易日股市開盤之前，股獲仔會給予用戶針對該股的投資行動，
-			用戶只需照著股獲仔的建議去投資，並讓投資人有一定的獲利程度。</p>
-		</div>
-		<div class="block">
-			<i class="fas fa-tools" style="font-size:60px;color:gray;"></i>
-			<h4>更多開發中的功能</h4>
-			<p>敬請期待！</p>
+			<p>使用者在一開始選擇目標投資的個股和即將進場投資的資產，之後在每一個交易日的股市開盤之前，股獲仔會給予用戶針對該股的投資行動，用戶只需照著股獲仔的建議對投資標的進行操作，就能在長期享有穩定高於「買入持有策略」的報酬率。</p>
 		</div>
 	</div>
 </div>
@@ -138,22 +164,35 @@
 
 <div class="core-technology">
 	<h1>核心技術</h1>
-	<p>我們使用強化學習打造投資機器人，相較於以往的由投資顧問僅限上班時間提供的交易建議，我們的投資機器人沒有使用時間限制，且模擬投資過數千數萬次股票交易，經驗更加豐富。又相較於一般的機器學習方法，使用強化學習，不再只是「預測」，而是真正的「提出交易決策」給使用者參考。</p>
+	<p>我們使用「深度強化學習」的技術來打造投資機器人，相較於以往的由投資顧問僅限上班時間提供的交易建議，我們的投資機器人沒有使用時間限制，且模擬投資過數千數萬次股票交易，經驗更加豐富。又相較於一般的機器學習方法，使用強化學習，不再只是「預測」，而是真正的「提出交易決策」給使用者參考。</p>
 	<div>
 		<div class="block">
 			<i class="fas fa-network-wired" style="font-size:60px;"></i>
-			<h4>DQN - 深度強化學習網路</h4>
-			<p>股獲仔透過DQN的架構，在訓練的環境中不斷的嘗試，並逐漸發展出一套能夠獲利的投資策略，給予投資人優質的投資建議。</p>
+			<h4>DQN(Deep Q Network) - 深度強化學習網路</h4>
+			<p>DQN是一種結合「深度學習」和「強化學習」的神經網路架構，它和一般機器學習的不同之處在於——深度強化學習是透過「實驗」而非模擬來學習。簡單來說就是給定一個「環境」，在訓練的過程中，「代理人」(即模型本身)會根據現有的「狀態」不斷地做出行動，而每一次做出行動之後，環境將給予代理人「獎勵」(或是懲罰)，代理人就能根據之前行動結果所累積下來的經驗，逐漸修正自身的行為，最後發展出一套能讓目標獎勵最大化的決策策略。</p>
+
+			<p>套用到股市的問題上，「環境」就是我們現實中的股市；「狀態」是我們整理後的價量指標；「代理人」是我們的神經網路；「行動」則是是資產的出入；「獎勵」則是我們設計的獎勵公式，獎勵公式對代理人的績效至關重要，因此我們將代理人獲得的獎勵與累積報酬率掛勾，開發出符合投資需求的代理人。而我們的獎勵公式最終目標是最大化一段時間的累積報酬率。</p>
+
+			<p>在強化學習的架構之下，訓練出來的模型不再只是預測未來股價，而是能夠直接做出最佳決策的強AI。</p>
 		</div>
+
 		<div class="block">
 			<i class="fas fa-filter" style="font-size:60px;color:pink;"></i>
 			<h4>菁英篩選機制</h4>
-			<p>透過該機制，確保模型能夠在未來也能有一定的預測準確度。</p>
+			<p>由於我們訓練的資料仍只是過去的一部份，不但無法涵蓋過去的所有波動，更不可能知道未來的變動，這代表即便我們用歷史資料做過回測了，但過去的優良績效仍舊無法保證未來的獲利。因此，我們採用該機制找出影響神經網路決策的因素和決定報酬率的關鍵，確保我們的模型在未來也會有一定的預測能力。</p>
+			<p>我們大致可以將龐大的資料集解構成以下五點要素：<br>
+				1.	神經網路架構<br>
+				2.	神經網路決策軌跡<br>
+				3.	市場狀態軌跡<br>
+				4.	agent對未來獎勵總值的價值評估<br>
+				5.	合成特徵<br>
+			根據菁英篩選機制的設計，解構神經網路決策因素，使我們能夠找出最容易賺錢的數個神經網路，作為提供服務的主引擎。</p>
 		</div>
+
 	</div>
 </div>
 
-<div class="our-service">
+<div class="our-service" style="background-color: rgb(255,255,255,0.5)">
 	<h1>宣傳海報</h1>
 	<br>
 	<div class="pe">
@@ -161,5 +200,8 @@
 	</div>
 </div>
 
+<footer>
+	<p>Copyright @ 2019 StockWinner | All Rights Reserved</p>
+</footer>
 {% endblock %}
 

@@ -37,18 +37,6 @@
 			input{
 				font-family: 微軟正黑體;
 			}
-			footer {
-				position: fixed;
-				bottom: 0;
-				left: 0;
-				height: 50px;
-				background-color: dimgray;
-				width: 100%;
-				color: white;
-				display: flex;
-				justify-content: space-around;
-				text-align: center;
-			}
 			ul.flex-div li ul {
 				display: none;
 			} 
@@ -64,18 +52,20 @@
 			} 
 			#input-style1{
 			    border:0;
-			      background-color:#003C9D;
-			      color:#fff;
-			      border-radius:10px;
-			      cursor:pointer;
-			      height: 60px;
-			      width: 200px;
-			      font-size: 1.5rem;
+				background-color:#003C9D;
+				color:#fff;
+				border-radius:10px;
+				cursor:pointer;
+				height: 60px;
+				width: 200px;
+				font-size: 1.5rem;
+			    -webkit-transition-duration: 0.4s; /* Safari */
+			    transition-duration: 0.4s;
 			}
 			#input-style1[type=button]:hover{
 			  color:#003C9D;
 			  background-color:#fff;
-			  border:5px #003C9D solid;
+			  /*border:5px #003C9D solid;*/
 			}
 			#signUpNotificationDiv {
 			    position: relative;
