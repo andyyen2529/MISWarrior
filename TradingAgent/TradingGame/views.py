@@ -524,8 +524,10 @@ def intelligentInvestmentAdvise(request):
 		date.reverse()
 		price.reverse()
 
+		today = datetime.date.today()
+
 		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 
-		'date': date, 'price': price, 'decision': decision})
+		'date': date, 'price': price, 'decision': decision, 'today': today})
 
 	return render(request, 'intelligentInvestmentAdvise.html', {'form': form})
 

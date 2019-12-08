@@ -38,11 +38,11 @@ class SetupForm(ModelForm):
 
 class AdviseSetupForm(ModelForm):
     principal = forms.IntegerField(label = '本金', 
-					widget = forms.NumberInput(attrs={'id': 'id_principle', 'min': '0', 'max': '1000000', 
+					widget = forms.NumberInput(attrs={'id': 'id_principle', 'min': '10000', 'max': '1000000', 
 					'step': '10000', 'value': '100000', 'onkeydown':"return false"}))
 	
     initialStockHold = forms.IntegerField(label = '持有股數', 
-					widget = forms.NumberInput(attrs={'id': 'id_initialStockHold', 'min': '0', 'max': '1000000', 
+					widget = forms.NumberInput(attrs={'id': 'id_initialStockHold', 'min': '100', 'max': '1000000', 
 					'step': '100', 'value': '100', 'onkeydown':"return false", 'hidden': ''}))
     class Meta:
         model = AdviseSetup
