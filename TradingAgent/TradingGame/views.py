@@ -11,20 +11,20 @@ from django import forms
 import datetime
 
 from TradingGame.forms import SetupForm, AdviseSetupForm
-from django.shortcuts import render_to_response
+#from django.shortcuts import render_to_response
 from .DQN import adviseAction, makeDecision
 
 import json
 
 class SignUpForm(UserCreationForm):
-	username = forms.Field(widget=forms.TextInput(attrs={'placeholder': '用戶名'})) 
-	email = forms.Field(widget=forms.EmailInput(attrs={'placeholder':'電子郵件'})) 
-	password1 = forms.Field(widget=forms.PasswordInput(attrs={'placeholder':'密碼'})) 
-	password2 = forms.Field(widget=forms.PasswordInput(attrs={'placeholder':'密碼確認'})) 
+	username = forms.Field(widget=forms.TextInput(attrs={'placeholder': '用戶名'}))
+	email = forms.Field(widget=forms.EmailInput(attrs={'placeholder':'電子郵件'}))
+	password1 = forms.Field(widget=forms.PasswordInput(attrs={'placeholder':'密碼'}))
+	password2 = forms.Field(widget=forms.PasswordInput(attrs={'placeholder':'密碼確認'}))
 
-	class Meta: 
-		model = User  
-		fields = ('username','email','password1','password2') 
+	class Meta:
+		model = User
+		fields = ('username','email','password1','password2')
 
 ### 首頁 ###
 def home(request):
@@ -50,7 +50,7 @@ def playing(request):
 	if 'setup' in request.POST:
 
 		# 遊玩之前先把該玩家之前的交易歷史紀錄清除 (這裡示範如何取foreign key object中屬性的方法)
-		History.objects.filter(setup__user = request.user).delete() 
+		History.objects.filter(setup__user = request.user).delete()
 
 		# 根據「交易設定介面」的交易設定建立交易設定的資料
 		if 'setup_fromRanking' not in request.POST:
@@ -71,7 +71,7 @@ def playing(request):
 			setup.save()
 
 		# 根據「股神排行榜」的交易設定建立交易設定的資料
-		else: 
+		else:
 			setup = Setup.objects.create(
 				user = request.user,
 				stock_code = StockCode.objects.get(code = request.POST.get('setup.stock_code')),
@@ -94,7 +94,7 @@ def playing(request):
 
 		# 創建第一筆歷史資料
 		history = History.objects.create(setup = setup, day = 0, action = 0,
-			position_after_action = '現金', rate_of_return_after_action = 0, 
+			position_after_action = '現金', rate_of_return_after_action = 0,
 			cash_held_after_action = setup.principal, number_of_shares_held_after_action = 0,
 			position_after_action_robot = '現金', rate_of_return_after_action_robot = 0,
 			cash_held_after_action_robot = setup.principal, number_of_shares_held_after_action_robot = 0)
@@ -115,11 +115,11 @@ def playing(request):
 		# reverse() >> re-order the series (long term to short term)
 		date.reverse()
 		price.reverse()
-		
+
 		return render(request, 'playing.html', {
-				'stock': stock_firstTradingDay, 'setup': setup, 'history': history, 
-				'date': date, 'price': price, 
-				'transaction_cost_rate_buy': transaction_cost_rate_buy, 
+				'stock': stock_firstTradingDay, 'setup': setup, 'history': history,
+				'date': date, 'price': price,
+				'transaction_cost_rate_buy': transaction_cost_rate_buy,
 				'transaction_cost_rate_sell': transaction_cost_rate_sell
 			}
 		)
@@ -157,14 +157,14 @@ def addingHistory_waitOrHold(request):
 		position = 1
 
 	state = [
-		stock.closing_price_MA5, stock.closing_price_MA10,	stock.closing_price_MA20, 
-		stock.closing_price_MA60, stock.closing_price_MA120, stock.closing_price_MA240, 
-		stock.volumn_MA5, stock.volumn_MA10, stock.volumn_MA20, 
-		stock.volumn_MA60, stock.volumn_MA120, stock.volumn_MA240, 
-		stock.turnover_MA5, stock.turnover_MA10, stock.turnover_MA20, 
+		stock.closing_price_MA5, stock.closing_price_MA10,	stock.closing_price_MA20,
+		stock.closing_price_MA60, stock.closing_price_MA120, stock.closing_price_MA240,
+		stock.volumn_MA5, stock.volumn_MA10, stock.volumn_MA20,
+		stock.volumn_MA60, stock.volumn_MA120, stock.volumn_MA240,
+		stock.turnover_MA5, stock.turnover_MA10, stock.turnover_MA20,
 		stock.turnover_MA60, stock.turnover_MA120, stock.turnover_MA240,
 		stock.volumn, stock.opening_price, stock.high, stock.low, stock.closing_price, stock.spread,
-		stock.month_01, stock.month_02, stock.month_03, stock.month_04, stock.month_05, stock.month_06, 
+		stock.month_01, stock.month_02, stock.month_03, stock.month_04, stock.month_05, stock.month_06,
 		stock.month_07, stock.month_08, stock.month_09, stock.month_10, stock.month_11, stock.month_12,
 		position
 	] # 一共37個狀態變數
@@ -187,11 +187,11 @@ def addingHistory_waitOrHold(request):
 		)
 		rate_of_return_after_action_robot = (
 			number_of_shares_held_after_action_robot * tradingPrice / history.setup.principal - 1
-		) 
+		)
 
 	elif action_robot == '賣出':
 		position_after_action_robot = '現金'
-		last_trading_price_after_action_robot = tradingPrice 
+		last_trading_price_after_action_robot = tradingPrice
 		cash_held_after_action_robot = (
 			history.number_of_shares_held_after_action_robot * tradingPrice * (1 - history.setup.transaction_cost_rate_sell)
 		)
@@ -210,17 +210,17 @@ def addingHistory_waitOrHold(request):
 			"""
 			if int(history.day) + 1 == history.setup.playing_duration:
 				# 雖然最後一天電腦選擇持有股票，但是已到達結算成績的時間點，需要將持有的股票依結束日之收盤價換算現值計算投資報酬率
-				tradingPrice = float(request.POST.get('closingPrice')) 
+				tradingPrice = float(request.POST.get('closingPrice'))
 					# 因為程式碼設計的問題，最後一天要這樣改取才會取到正確的交易價格
 				rate_of_return_after_action_robot = (1 + history.rate_of_return_after_action_robot) * (
-					tradingPrice / history.last_trading_price_after_action_robot) - 1 
+					tradingPrice / history.last_trading_price_after_action_robot) - 1
 						# 由於沒有實際的賣出動作，故沒有納入交易成本
 			else:
 				rate_of_return_after_action_robot = history.rate_of_return_after_action_robot
 			"""
 
 		last_trading_price_after_action_robot = history.last_trading_price_after_action_robot
-		#rate_of_return_after_action_robot = history.rate_of_return_after_action_robot 
+		#rate_of_return_after_action_robot = history.rate_of_return_after_action_robot
 		cash_held_after_action_robot = history.cash_held_after_action_robot
 		number_of_shares_held_after_action_robot = history.number_of_shares_held_after_action_robot
 
@@ -243,15 +243,15 @@ def addingHistory_waitOrHold(request):
 			setup = history.setup,
 			day = int(history.day) + 1,
 			action = action,
-			position_after_action = history.position_after_action, 
+			position_after_action = history.position_after_action,
 			last_trading_price_after_action = history.last_trading_price_after_action,
 			rate_of_return_after_action = rate_of_return_after_action,
 			cash_held_after_action = history.cash_held_after_action,
 			number_of_shares_held_after_action = history.number_of_shares_held_after_action,
 			action_robot = action_robot,
-			position_after_action_robot = position_after_action_robot, 
+			position_after_action_robot = position_after_action_robot,
 			last_trading_price_after_action_robot = last_trading_price_after_action_robot,
-			rate_of_return_after_action_robot = rate_of_return_after_action_robot, 
+			rate_of_return_after_action_robot = rate_of_return_after_action_robot,
 			cash_held_after_action_robot = cash_held_after_action_robot,
 			number_of_shares_held_after_action_robot = number_of_shares_held_after_action_robot
 		)
@@ -261,20 +261,20 @@ def addingHistory_waitOrHold(request):
 			setup = history.setup,
 			day = int(history.day) + 1,
 			action = action,
-			position_after_action = history.position_after_action, 
+			position_after_action = history.position_after_action,
 			last_trading_price_after_action = history.last_trading_price_after_action,
 			# 折現後現金 / 本金 - 1
 			rate_of_return_after_action = history.number_of_shares_held_after_action * tradingPrice / history.setup.principal - 1,
 			cash_held_after_action = history.cash_held_after_action,
 			number_of_shares_held_after_action = history.number_of_shares_held_after_action,
 			action_robot = action_robot,
-			position_after_action_robot = position_after_action_robot, 
+			position_after_action_robot = position_after_action_robot,
 			last_trading_price_after_action_robot = last_trading_price_after_action_robot,
-			rate_of_return_after_action_robot = rate_of_return_after_action_robot, 
+			rate_of_return_after_action_robot = rate_of_return_after_action_robot,
 			cash_held_after_action_robot = cash_held_after_action_robot,
 			number_of_shares_held_after_action_robot = number_of_shares_held_after_action_robot
 		)
-		
+
 	history = History.objects.filter(pk = history_new.id)
 	history_list = serializers.serialize('json', history)
 
@@ -303,14 +303,14 @@ def addingHistory_buyOrSell(request):
 		position = 1
 
 	state = [
-		stock.closing_price_MA5, stock.closing_price_MA10,	stock.closing_price_MA20, 
-		stock.closing_price_MA60, stock.closing_price_MA120, stock.closing_price_MA240, 
-		stock.volumn_MA5, stock.volumn_MA10, stock.volumn_MA20, 
-		stock.volumn_MA60, stock.volumn_MA120, stock.volumn_MA240, 
-		stock.turnover_MA5, stock.turnover_MA10, stock.turnover_MA20, 
+		stock.closing_price_MA5, stock.closing_price_MA10,	stock.closing_price_MA20,
+		stock.closing_price_MA60, stock.closing_price_MA120, stock.closing_price_MA240,
+		stock.volumn_MA5, stock.volumn_MA10, stock.volumn_MA20,
+		stock.volumn_MA60, stock.volumn_MA120, stock.volumn_MA240,
+		stock.turnover_MA5, stock.turnover_MA10, stock.turnover_MA20,
 		stock.turnover_MA60, stock.turnover_MA120, stock.turnover_MA240,
 		stock.volumn, stock.opening_price, stock.high, stock.low, stock.closing_price, stock.spread,
-		stock.month_01, stock.month_02, stock.month_03, stock.month_04, stock.month_05, stock.month_06, 
+		stock.month_01, stock.month_02, stock.month_03, stock.month_04, stock.month_05, stock.month_06,
 		stock.month_07, stock.month_08, stock.month_09, stock.month_10, stock.month_11, stock.month_12,
 		position
 	] # 一共37個狀態變數
@@ -333,11 +333,11 @@ def addingHistory_buyOrSell(request):
 		)
 		rate_of_return_after_action_robot = (
 			number_of_shares_held_after_action_robot * tradingPrice / history.setup.principal - 1
-		) 
+		)
 
 	elif action_robot == '賣出':
 		position_after_action_robot = '現金'
-		last_trading_price_after_action_robot = tradingPrice 
+		last_trading_price_after_action_robot = tradingPrice
 		cash_held_after_action_robot = (
 			history.number_of_shares_held_after_action_robot * tradingPrice * (1 - history.setup.transaction_cost_rate_sell)
 		)
@@ -356,17 +356,17 @@ def addingHistory_buyOrSell(request):
 			"""
 			if int(history.day) + 1 == history.setup.playing_duration:
 				# 雖然最後一天電腦選擇持有股票，但是已到達結算成績的時間點，需要將持有的股票依結束日之收盤價換算現值計算投資報酬率
-				tradingPrice = float(request.POST.get('closingPrice')) 
+				tradingPrice = float(request.POST.get('closingPrice'))
 					# 因為程式碼設計的問題，最後一天要這樣改取才會取到正確的交易價格
 				rate_of_return_after_action_robot = (1 + history.rate_of_return_after_action_robot) * (
-					tradingPrice / history.last_trading_price_after_action_robot) - 1 
+					tradingPrice / history.last_trading_price_after_action_robot) - 1
 						# 由於沒有實際的賣出動作，故沒有納入交易成本
 			else:
 				rate_of_return_after_action_robot = history.rate_of_return_after_action_robot
 			"""
 
 		last_trading_price_after_action_robot = history.last_trading_price_after_action_robot
-		#rate_of_return_after_action_robot = history.rate_of_return_after_action_robot 
+		#rate_of_return_after_action_robot = history.rate_of_return_after_action_robot
 		cash_held_after_action_robot = history.cash_held_after_action_robot
 		number_of_shares_held_after_action_robot = history.number_of_shares_held_after_action_robot
 
@@ -374,17 +374,17 @@ def addingHistory_buyOrSell(request):
 	if history.position_after_action == '現金':
 		history_new = History.objects.create(
 			setup = history.setup,
-			day = int(history.day) + 1, 
+			day = int(history.day) + 1,
 			action = '買入',
-			position_after_action = '股票', 
-			last_trading_price_after_action = tradingPrice, 
+			position_after_action = '股票',
+			last_trading_price_after_action = tradingPrice,
 			cash_held_after_action = 0,
 			number_of_shares_held_after_action = history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy)),
 			rate_of_return_after_action = (history.cash_held_after_action / (tradingPrice * (1 + history.setup.transaction_cost_rate_buy))) * tradingPrice / history.setup.principal - 1,
 			action_robot = action_robot,
-			position_after_action_robot = position_after_action_robot, 
+			position_after_action_robot = position_after_action_robot,
 			last_trading_price_after_action_robot = last_trading_price_after_action_robot,
-			rate_of_return_after_action_robot = rate_of_return_after_action_robot, 
+			rate_of_return_after_action_robot = rate_of_return_after_action_robot,
 			cash_held_after_action_robot = cash_held_after_action_robot,
 			number_of_shares_held_after_action_robot = number_of_shares_held_after_action_robot
 		)
@@ -394,19 +394,19 @@ def addingHistory_buyOrSell(request):
 	else:
 		history_new = History.objects.create(
 			setup = history.setup,
-			day = int(history.day) + 1, 
+			day = int(history.day) + 1,
 			action = '賣出',
-			position_after_action = '現金', 
+			position_after_action = '現金',
 			last_trading_price_after_action = tradingPrice,
-			cash_held_after_action = 
+			cash_held_after_action =
 				history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate_sell),
-			rate_of_return_after_action = 
-				(history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate_sell)) / history.setup.principal - 1, 
+			rate_of_return_after_action =
+				(history.number_of_shares_held_after_action * tradingPrice * (1 - history.setup.transaction_cost_rate_sell)) / history.setup.principal - 1,
 			number_of_shares_held_after_action = 0,
 			action_robot = action_robot,
-			position_after_action_robot = position_after_action_robot, 
+			position_after_action_robot = position_after_action_robot,
 			last_trading_price_after_action_robot = last_trading_price_after_action_robot,
-			rate_of_return_after_action_robot = rate_of_return_after_action_robot, 
+			rate_of_return_after_action_robot = rate_of_return_after_action_robot,
 			cash_held_after_action_robot = cash_held_after_action_robot,
 			number_of_shares_held_after_action_robot = number_of_shares_held_after_action_robot
 		)
@@ -420,7 +420,7 @@ def history(request):
 	historys = History.objects.filter(setup__user = request.user) # 只取該用戶的交易歷史紀錄
 	historys = historys[1:]
 	history_list = serializers.serialize('python', historys)
-	
+
 	# now extract the inner `fields` dicts
 	actual_data = [d['fields'] for d in history_list]
 
@@ -433,17 +433,17 @@ def history(request):
 def result(request):
 	if (not(Setup.objects.filter(user = request.user))):
 		# 如果該玩家尚未遊玩過至少一輪的「個股投資模擬」就直接輸入結算頁面的網址，系統將重新導向交易設定的頁面
-		return redirect('stockGame/setup') 
+		return redirect('stockGame/setup')
 	else:
 		setup_newest = Setup.objects.filter(user = request.user).order_by('-id')[0]
 		setup_newest.transaction_cost_rate_buy = setup_newest.transaction_cost_rate_buy * 100
 		setup_newest.transaction_cost_rate_sell = setup_newest.transaction_cost_rate_sell * 100
-		
+
 		history_lastDay = History.objects.filter(setup__user = request.user).order_by('-id')[0]
 		history_lastDay.rate_of_return_after_action *= 100
-		history_lastDay.rate_of_return_after_action_robot *= 100  
+		history_lastDay.rate_of_return_after_action_robot *= 100
 
-		return render(request, 'result.html', {'history_lastDay': history_lastDay, 'setup_newest': setup_newest})   
+		return render(request, 'result.html', {'history_lastDay': history_lastDay, 'setup_newest': setup_newest})
 
 # 股神排行榜
 def ranking(request):
@@ -461,7 +461,7 @@ def addingRankingHistory(request):
 	# 取得目前的交易歷史
 	history_id = request.POST.get('historyId')
 	history = History.objects.get(pk = history_id)
-	
+
 	ranking_history_new = RankingHistory.objects.create(
 		setup = history.setup,
 		final_rate_of_return = history.rate_of_return_after_action
@@ -478,7 +478,7 @@ def intelligentInvestmentAdvise(request):
 	# today's data (the newest data)
 
 	form = AdviseSetupForm(request.POST or None)
-	
+
 	if form.is_valid():
 		setup = form.save(commit=False)
 		setup.user = request.user
@@ -499,14 +499,14 @@ def intelligentInvestmentAdvise(request):
 		ratio = 1 # 成對交易比率
 
 		state = [
-			stock.closing_price_MA5, stock.closing_price_MA10,	stock.closing_price_MA20, 
-			stock.closing_price_MA60, stock.closing_price_MA120, stock.closing_price_MA240, 
-			stock.volumn_MA5, stock.volumn_MA10, stock.volumn_MA20, 
-			stock.volumn_MA60, stock.volumn_MA120, stock.volumn_MA240, 
-			stock.turnover_MA5, stock.turnover_MA10, stock.turnover_MA20, 
+			stock.closing_price_MA5, stock.closing_price_MA10,	stock.closing_price_MA20,
+			stock.closing_price_MA60, stock.closing_price_MA120, stock.closing_price_MA240,
+			stock.volumn_MA5, stock.volumn_MA10, stock.volumn_MA20,
+			stock.volumn_MA60, stock.volumn_MA120, stock.volumn_MA240,
+			stock.turnover_MA5, stock.turnover_MA10, stock.turnover_MA20,
 			stock.turnover_MA60, stock.turnover_MA120, stock.turnover_MA240,
 			stock.volumn, stock.opening_price, stock.high, stock.low, stock.closing_price, stock.spread,
-			stock.month_01, stock.month_02, stock.month_03, stock.month_04, stock.month_05, stock.month_06, 
+			stock.month_01, stock.month_02, stock.month_03, stock.month_04, stock.month_05, stock.month_06,
 			stock.month_07, stock.month_08, stock.month_09, stock.month_10, stock.month_11, stock.month_12,
 			position
 		] # 一共37個狀態變數
@@ -526,7 +526,7 @@ def intelligentInvestmentAdvise(request):
 
 		today = datetime.date.today()
 
-		return render(request, 'advising.html', {'stock': stock, 'setup': setup, 
+		return render(request, 'advising.html', {'stock': stock, 'setup': setup,
 		'date': date, 'price': price, 'decision': decision, 'today': today})
 
 	return render(request, 'intelligentInvestmentAdvise.html', {'form': form})
