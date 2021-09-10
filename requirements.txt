@@ -12,7 +12,7 @@ openpyxl==3.0.5
 Pillow==8.1.1
 pytz==2020.4
 PyYAML==5.3.1
-sqlparse==0.4.1
+sqlparse==0.4.2
 tablib==3.0.0
 typing-extensions==3.7.4.3
 xlrd==2.0.1
